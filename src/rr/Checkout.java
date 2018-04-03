@@ -1,0 +1,320 @@
+package rr;
+
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+/**
+ * Servlet implementation class Checkout
+ */
+@WebServlet("/Checkout")
+public class Checkout extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public Checkout() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		System.out.println(request.getParameter("hiddenStartDate"));
+		System.out.println(request.getParameter("hiddenEndDate"));
+		
+		String startDateStr = request.getParameter("hiddenStartDate");
+		String endDateStr = request.getParameter("hiddenEndDate");
+		
+		SimpleDateFormat formatter4=new SimpleDateFormat("E MMM dd yyyy"); 
+		
+		//use these for error checks
+		boolean invalidDate = false;
+		int errorCode = 0;
+		
+		//reformat dates sent from JSP
+		Date startDate = null;
+		Date endDate = null;
+		try {
+			startDate = formatter4.parse(startDateStr);
+			endDate = formatter4.parse(endDateStr);
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		//check to see if strange dates somehow made it through
+		if(startDate.after(endDate)) {
+			invalidDate = true;
+			errorCode = 1;
+		}
+		
+		
+		//connect to DB 
+		DBManager db = new DBManager();
+		Connection con = db.getConnection();
+		if(con == null){
+			System.out.println("failed");
+		}
+		else{
+			System.out.println("success ");
+		}
+		
+		//get the dates that are currently in people's carts (temp_dates) and see if there is overlap
+		ArrayList<Date> tempDates = new ArrayList<Date>();
+		PreparedStatement tps;
+		
+		try {
+			tps = con.prepareStatement("select * from temp_dates");
+			ResultSet trs = tps.executeQuery();
+			while(trs.next()) {
+				Date tdbstartDate = trs.getDate("startDate");
+				Date tdbendDate = trs.getDate("endDate");
+				if(tdbstartDate != null) {
+					tempDates.add(tdbstartDate);
+				}
+				if(tdbendDate != null) {
+					tempDates.add(tdbendDate);
+				}
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		ArrayList<Date> fullTempDates = new ArrayList<Date>();
+		
+		//check for collision
+		if(tempDates != null) {
+			//get all dates between tempstart and tempend and add to fullTEMPDATES
+			for(int i = 0; i < tempDates.size(); i+=2) {
+				Date tempStart = tempDates.get(i);
+				Date tempEnd = tempDates.get(i+1);
+				java.util.Calendar addCal = java.util.Calendar.getInstance();
+				addCal.setTime(tempEnd);
+				addCal.add(java.util.Calendar.DATE, 1);  // number of days to add
+				Date realEnd = addCal.getTime();  // dt is now the new date
+				
+				
+				Calendar calendar = new GregorianCalendar();
+				calendar.setTime(tempStart);
+
+				while (calendar.getTime().before(realEnd))
+				{
+				    Date result = calendar.getTime();
+				    fullTempDates.add(result);
+				    calendar.add(Calendar.DATE, 1);
+				}
+				
+			}
+			//get all dates between startdate and enddate
+			 List<Date> dates = new ArrayList<Date>();
+			    Calendar calendar = new GregorianCalendar();
+			    calendar.setTime(startDate);
+			    java.util.Calendar addCalT = java.util.Calendar.getInstance();
+				addCalT.setTime(endDate);
+				addCalT.add(java.util.Calendar.DATE, 1);  // number of days to add
+				Date realEnd = addCalT.getTime();  // dt is now the new date
+
+			    while (calendar.getTime().before(realEnd))
+			    {
+			        Date result = calendar.getTime();
+			        dates.add(result);
+			        calendar.add(Calendar.DATE, 1);
+			    }
+			
+			
+			
+			//compare all days sent from JSP to all days in tempDates
+			for(int i = 0; i < dates.size(); i++) {
+				for(int j = 0; j < tempDates.size(); j++) {
+					if(dates.get(i).equals(tempDates.get(j))) {
+						invalidDate = true;
+						errorCode = 3;
+					}
+				}
+			}
+			    
+		}
+		
+		//if no collision, add dates to temp_dates
+		if(!invalidDate) {
+			try {
+				PreparedStatement td = con.prepareStatement("insert into temp_dates(startDate, endDate)" + "values (?,?)");
+				java.sql.Date startDatesql = new java.sql.Date(startDate.getTime());
+				java.sql.Date endDatesql = new java.sql.Date(endDate.getTime());
+				
+				td.setDate(1, startDatesql);
+				td.setDate(2, endDatesql);
+				td.execute();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		
+		//give error code 2 if dates somehow already exist in dates DB table
+				ArrayList<Date> alreadyDates = new ArrayList<Date>();
+				PreparedStatement dps;
+				try {
+					dps = con.prepareStatement("select * from dates");
+					ResultSet drs = dps.executeQuery();
+					while(drs.next()) {
+						Date dbstartDate = drs.getDate("startDate");
+						Date dbendDate = drs.getDate("endDate");
+						//get all dates in between
+						List<Date> currentDates = new ArrayList<Date>();
+					    Calendar calendar = new GregorianCalendar();
+					    calendar.setTime(dbstartDate);
+
+					    while (calendar.getTime().before(dbendDate))
+					    {
+					        Date result = calendar.getTime();
+					        alreadyDates.add(result);
+					        calendar.add(Calendar.DATE, 1);
+					    }
+						
+					}
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+		
+		//get all dates between start and end
+		 List<Date> currentDates = new ArrayList<Date>();
+		    Calendar calendar = new GregorianCalendar();
+		    calendar.setTime(startDate);
+		    java.util.Calendar addCalTh = java.util.Calendar.getInstance();
+			addCalTh.setTime(endDate);
+			addCalTh.add(java.util.Calendar.DATE, 1);  // number of days to add
+			Date realEnd = addCalTh.getTime();  // dt is now the new date
+			int dayCounter = 0;
+
+		    while (calendar.getTime().before(realEnd))
+		    {
+		    	dayCounter++;
+		        Date result = calendar.getTime();
+		        currentDates.add(result);
+		        calendar.add(Calendar.DATE, 1);
+		    }
+		    
+		 //check the list
+		    for(int i = 0;i < currentDates.size(); i++) {
+		    	System.out.println("DATE LIST: " + currentDates.get(i));
+		    }
+		    
+		//check for collision in existing bookings
+		   for(int i = 0; i < currentDates.size(); i++) {
+			   for(int j = 0; j < alreadyDates.size(); j++) {
+				   if(currentDates.get(i).equals(alreadyDates.get(j))) {
+					   invalidDate = true;
+					   errorCode = 2;
+				   }
+			   }
+		   }
+		    
+		    
+		    
+		//initialize map of prices and dates
+		HashMap<Date, Integer> priceAndDate = new HashMap<>();
+		
+		
+		
+		//get price from DB
+		PreparedStatement ps;
+		try {
+			ps = con.prepareStatement("select * from pricing");
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				Date date = rs.getDate("date");
+				Integer price = rs.getInt("price");
+				priceAndDate.put(date, price);
+			}
+			//System.out.println("ArrayList to send back: " + list);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		//compare currentDates list with prices from DB to calculate a total
+		int price = 0;
+	    for(int i = 0;i < currentDates.size(); i++) {
+	    	if(priceAndDate.containsKey(currentDates.get(i))) {
+	    		price += priceAndDate.get(currentDates.get(i));
+	    	}
+	    }
+	    
+	    int deposit = price/2;
+	    int cleaning = 100;
+	    
+	    int totalPrice = price + deposit + cleaning;
+	    
+	    System.out.println("FINAL PRICE: " + price);
+	    
+	    int pricePerDay = price/dayCounter;
+	    
+	    if(invalidDate == false) {
+	    	HttpSession sessionCheck = request.getSession(false);
+			if(sessionCheck != null) {
+				sessionCheck.invalidate();
+			}
+			//create a session to keep track of checkout process and invalidate if browser close or back button
+	    	HttpSession session = request.getSession();  
+	    	session.setAttribute("startDate", startDateStr);
+	    	session.setAttribute("endDate", endDateStr);
+	    	session.setMaxInactiveInterval(60);
+		    request.setAttribute("startDate", startDate);
+			request.setAttribute("endDate", endDate);
+			request.setAttribute("price", price);
+			request.setAttribute("pricePerDay", pricePerDay);
+			request.setAttribute("dayCounter", dayCounter);
+			request.setAttribute("deposit", deposit);
+			request.setAttribute("cleaning", cleaning);
+			request.setAttribute("totalPrice", totalPrice);
+			request.getRequestDispatcher("checkout.jsp").forward(request, response);
+			
+	    }
+	    else {
+	    	//handle invalid dates
+	    	request.setAttribute("errorCode", errorCode);
+	    	request.getRequestDispatcher("error.jsp").forward(request, response);
+	    }
+	
+	}
+
+}
