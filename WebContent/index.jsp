@@ -258,40 +258,12 @@ body, html {
   <h1 class="ani" style="float:right; padding-right: 100px;"><em>Enjoy the view...</em></h1>
    -->
   <br><br>
-  <hr><h2 style="text-align:center;">Featured Images</h2>  
-  <div id="myCarousel" class="carousel slide ani" data-ride="carousel">
-    <!-- Indicators -->
-    <ol class="carousel-indicators">
-      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-      <li data-target="#myCarousel" data-slide-to="1"></li>
-      <li data-target="#myCarousel" data-slide-to="2"></li>
-    </ol>
-
-    <!-- Wrapper for slides -->
-    <div class="carousel-inner">
-      <div class="item active">
-        <img src="exteriorback.jpg" alt="Los Angeles" style="width:100%;">
-      </div>
-
-      <div class="item">
-        <img src="exteriorfront.jpg" alt="Chicago" style="width:100%;">
-      </div>
-    
-      <div class="item">
-        <img src="exteriorbackcrop.jpg" alt="New york" style="width:100%;">
-      </div>
-    </div>
-
-    <!-- Left and right controls -->
-    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-      <span class="glyphicon glyphicon-chevron-left"></span>
-      <span class="sr-only">Previous</span>
-    </a>
-    <a class="right carousel-control" href="#myCarousel" data-slide="next">
-      <span class="glyphicon glyphicon-chevron-right"></span>
-      <span class="sr-only">Next</span>
-    </a>
-  </div>
+  <video width="100%" height="auto" controls>
+  <source src="movie.mp4" type="video/mp4">
+  <source src="movie.ogg" type="video/ogg">
+Your browser does not support the video tag.
+</video> 
+  
 <br>
 <h2>About Ranch on the Rocks </h2><p>
 Designed with the mountain views in mind, the architecture blurs the line between outside and inside. A lot of love and craftsmanship went 
@@ -938,26 +910,26 @@ function toggleFunction() {
 	var priceList = '${list}';
 	//console.log("js list: " + priceList);
 	if(priceList == null){
-		console.log("NULLLL");
+		//console.log("NULLLL");
 	}
 	
 	//getdatelist sent from server
 	var dateList = '${dates}';
-	console.log("js datelist: " + dateList);
+	//console.log("js datelist: " + dateList);
 
 	//format pricelist sent from server
 	var arrayFromServer = JSON.parse(priceList);
-	console.log(arrayFromServer);
+	//console.log(arrayFromServer);
 	
 	//format datelist sent from server
 	var datesFromServer = JSON.parse(dateList);
-	console.log(datesFromServer);
+	//console.log(datesFromServer);
 	
 	
 	//add pricelist sent from server to local priceArr
 	for(var i = 0; i < arrayFromServer.length; i += 2){
 		var date = new Date((arrayFromServer[i] + "T000:00:00").replace(/-/g, '\/').replace(/T.+/, ''));
-		console.log("date # " + i + ": " + date);
+		//console.log("date # " + i + ": " + date);
 		var price = arrayFromServer[i + 1];
 		var thisDay = new DayPrice(date, price);
 		priceArr.push(thisDay);
