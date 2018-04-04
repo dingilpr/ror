@@ -16,6 +16,15 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="codebase/dhtmlxcalendar.css" 
     type="text/css"> 
+<!-- Global Site Tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=GA_TRACKING_ID"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-114725707-1');
+</script>
 <script src="codebase/dhtmlxcalendar.js" 
     type="text/javascript"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -45,13 +54,13 @@ body, html {
 
 /* Second image (Portfolio) */
 .bgimg-2 {
-    background-image: url("exteriorback.jpg");
+    background-image: url("shutterstock_150541637.jpg");
     min-height: 350px;
 }
 
 /* Third image (Contact) */
 .bgimg-3 {
-    background-image: url("exteriorfront.jpg");
+    background-image: url("shutterstock_381849190.jpg");
     min-height: 350px;
 }
 
@@ -132,6 +141,12 @@ body, html {
     -webkit-transform: scale(1.5); /* Safari 3-8 */
     transform: scale(1.5); 
 }
+
+.zoomS:hover {
+    -ms-transform: scale(1.03); /* IE 9 */
+    -webkit-transform: scale(1.03); /* Safari 3-8 */
+    transform: scale(1.03); 
+}
 </style>
 <body>
 
@@ -179,7 +194,7 @@ body, html {
   
    <div class="w3-display-bottommiddle" style="white-space:nowrap; padding-bottom: 70px; text-decoration: none;">
     
-    <h1 class="w3-xxlarge w3-text-white" id="bknow"><span class="w3-padding w3-red w3-opacity-min"><b>BOOK NOW</b></span></h1>
+    <a href="#"><h1 class="w3-xxlarge w3-text-white" id="bknow"><span class="w3-padding w3-red w3-opacity-min"><b>BOOK NOW</b></span></h1></a>
     
   </div>
 </div>
@@ -213,23 +228,26 @@ body, html {
    </div>
 	  
    <div style="border: 1px solid #eee; margin-top: 10px; margin-bottom: 30px; text-align: center; font-size: 80%; box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1.5px 5px 0 rgba(0, 0, 0, 0.19);"><h3 class="w3-hide-small"><b>NEWSLETTER</b></h3><hr class="w3-hide-small">
-	 		<div id="myCarouseltwo" class="carousel slide" data-ride="carousel">
+	 		<div id="myCarouselthree" class="carousel slide" data-ride="carousel">
 		    <!-- Indicators -->
 		    <ol class="carousel-indicators">
-		      <li data-target="#myCarouseltwo" data-slide-to="0" class="active"></li>
+		      <li data-target="#myCarouselthree" data-slide-to="0" class="active"></li>
 		      
 		    </ol>
 		
 		    <!-- Wrapper for slides -->
 		    <div class="carousel-inner">
 		      <div class="item active">
-		        <img src="redrockstwo.jpg" alt="Los Angeles" style="width:100%;">
+		        <img src="bookyourfavoriteconcert.png" alt="Los Angeles" style="width:100%;">
 		      </div>
 		
+		      <div class="item">
+		        <img src="New-5.jpg" alt="Los Angeles" style="width:100%;">
+		      </div>
 		      
 		    </div>
 		
-		    <!-- Left and right controls -->
+		    <!-- Left and right controls 
 		    <a class="left carousel-control" href="#myCarouseltwo" data-slide="prev">
 		      <span class="glyphicon glyphicon-chevron-left"></span>
 		      <span class="sr-only">Previous</span>
@@ -238,6 +256,7 @@ body, html {
 		      <span class="glyphicon glyphicon-chevron-right"></span>
 		      <span class="sr-only">Next</span>
 		    </a>
+		    -->
 		  </div>
 		  
 		  <a href="#"><button class="w3-center w3-button w3-large w3-large w3-white" style="width: 100%;" onclick="document.getElementById('id01').style.display='block'">Sign up!</button></a>
@@ -245,12 +264,12 @@ body, html {
 </div>
   <h2 style="display: inline-block;width: 60%; font-family: Futura, "Trebuchet MS", Arial, sans-serif;">Welcome to Ranch on the Rocks. </h2><br><br>
   
-  <p style="padding-left: 10px; font-size: 110%; width: 60%; display: inline-block;"> Ranch on the Rocks is a renovated luxury three 
+  <p style="padding-left: 10px; font-size: 125%; width: 60%; display: inline-block;"> Ranch on the Rocks is a renovated luxury three 
   acre ranch that boasts spectacular views of Red Rocks and the surrounding mountains. 
   The property, which has recently been expanded to 3,800 square feet has retained its pueblo charm, offering warmth, comfort and a true sense of home.</p>
   
   
-	 
+ 
 	  
   
   </div>
@@ -258,10 +277,10 @@ body, html {
   <h1 class="ani" style="float:right; padding-right: 100px;"><em>Enjoy the view...</em></h1>
    -->
   <br><br>
-  <video width="100%" height="auto" controls>
-  <source src="movie.mp4" type="video/mp4">
-  <source src="movie.ogg" type="video/ogg">
-Your browser does not support the video tag.
+  <video width="100%" height="auto" controls controlsList="nodownload">
+  <source src="ROR.Promo1.mp4" type="video/mp4">
+  
+
 </video> 
   
 <br>
@@ -284,28 +303,28 @@ The ranch is also home to alpacas and goats who offer playful energy and are hap
   <div class="w3-row w3-center w3-padding-16 ani" style="background: linear-gradient(white);">
   <div class="w3-quarter w3-section">
     <div id="masterbed" class="w3-display-container" style="float: left;">
-    	<img id="mstr" src="kingicon.png" class="" style="height: 150px;">
+    	<img id="mstr" src="kingicon.png" class="zoomS" style="height: 150px; transition: transform .2s;">
     	<!-- <div class="w3-display-middle w3-large"><i id="mstricon" class="fa fa-hotel fa-2x" aria-hidden="true"></i></div>  -->
     	<p id="mstrp" style="text-align: center">Master Bedroom</p>
     </div>
   </div>
   <div class="w3-quarter w3-section" style="margin-right: 50px;">
     <div id="secondbed" class="w3-display-container" style="float: left;">
-    	<img id="scnd" src="kingandtwinicon.png" class="" style="height: 150px;">
+    	<img id="scnd" src="kingandtwinicon.png" class="zoomS" style="height: 150px; transition: transform .2s;">
     	<!-- <div class="w3-display-middle w3-large"><i id="scndicon" class="fa fa-hotel fa-2x" aria-hidden="true"></i></div>  -->
     	<p id="scndp" style="text-align: center">Second Bedroom</p>
     </div>
   </div>
   <div class="w3-quarter w3-section" style="margin-right: -30px;">
     <div id="thirdbed" class="w3-display-container">
-    	<img id="thrd" src="queenicon.png" class="" style="height: 150px;">
+    	<img id="thrd" src="queenicon.png" class="zoomS" style="height: 150px; transition: transform .2s;">
     	<!-- <div class="w3-display-middle w3-large"><i id="thrdicon" class="fa fa-hotel fa-2x" aria-hidden="true"></i></div>  -->
     	<p id="thrdp" style="text-align: center">Third Bedroom</p>
     </div>
   </div>
   <div class="w3-quarter w3-section" style="margin-left: -40px;">
     <div id="fourthbed" class="w3-display-container">
-    	<img id="frth" src="twinicon.png" class="" style="height: 150px;">
+    	<img id="frth" src="twinicon.png" class="zoomS" style="height: 150px; transition: transform .2s;">
     	<!-- <div class="w3-display-middle w3-large"><i id="frthicon" class="fa fa-cutlery fa-2x" aria-hidden="true"></i></div>  -->
     	<p id="frthp" style="text-align: center">Extra Bed</p>
     </div>
