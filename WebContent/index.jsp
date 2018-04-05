@@ -16,6 +16,25 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" href="codebase/dhtmlxcalendar.css" 
     type="text/css"> 
+<!-- Facebook Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window,document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+ fbq('init', '900972550076057'); 
+fbq('track', 'PageView');
+</script>
+<noscript>
+ <img height="1" width="1" 
+src="https://www.facebook.com/tr?id=900972550076057&ev=PageView
+&noscript=1"/>
+</noscript>
+<!-- End Facebook Pixel Code -->
 <!-- Global Site Tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=GA_TRACKING_ID"></script>
 <script>
@@ -96,6 +115,44 @@ body, html {
     position: relative; height: 250px; margin-left: 20%;
     }
     
+}
+
+@media only screen and (max-width: 600px) {
+    /* For tablets: */
+   #masterbed{
+   float: none;
+   }
+   
+   #secondbed{
+   float: none;
+   }
+    
+   #frthcont{
+   margin-left: 0px;
+   } 
+   
+   .airbnb-embed-frame{
+   width: 300px;
+   }
+}
+
+@media only screen and (min-width: 601px) {
+    /* For tablets: */
+   #masterbed{
+   float: left;
+   }
+   
+   #secondbed{
+   float: left;
+   }
+    
+   #frthcont{
+   margin-left: -40px;
+   } 
+   
+   .airbnb-embed-frame{
+   width: 450px;
+   }
 }
 
 .dhtmlxcalendar_material div.dhtmlxcalendar_dates_cont ul.dhtmlxcalendar_line li.dhtmlxcalendar_cell_month_weekend {
@@ -302,14 +359,14 @@ The ranch is also home to alpacas and goats who offer playful energy and are hap
   
   <div class="w3-row w3-center w3-padding-16 ani" style="background: linear-gradient(white);">
   <div class="w3-quarter w3-section">
-    <div id="masterbed" class="w3-display-container" style="float: left;">
+    <div id="masterbed" class="w3-display-container">
     	<img id="mstr" src="kingicon.png" class="zoomS" style="height: 150px; transition: transform .2s;">
     	<!-- <div class="w3-display-middle w3-large"><i id="mstricon" class="fa fa-hotel fa-2x" aria-hidden="true"></i></div>  -->
     	<p id="mstrp" style="text-align: center">Master Bedroom</p>
     </div>
   </div>
   <div class="w3-quarter w3-section" style="margin-right: 50px;">
-    <div id="secondbed" class="w3-display-container" style="float: left;">
+    <div id="secondbed" class="w3-display-container">
     	<img id="scnd" src="kingandtwinicon.png" class="zoomS" style="height: 150px; transition: transform .2s;">
     	<!-- <div class="w3-display-middle w3-large"><i id="scndicon" class="fa fa-hotel fa-2x" aria-hidden="true"></i></div>  -->
     	<p id="scndp" style="text-align: center">Second Bedroom</p>
@@ -322,7 +379,7 @@ The ranch is also home to alpacas and goats who offer playful energy and are hap
     	<p id="thrdp" style="text-align: center">Third Bedroom</p>
     </div>
   </div>
-  <div class="w3-quarter w3-section" style="margin-left: -40px;">
+  <div class="w3-quarter w3-section" id="frthcont">
     <div id="fourthbed" class="w3-display-container">
     	<img id="frth" src="twinicon.png" class="zoomS" style="height: 150px; transition: transform .2s;">
     	<!-- <div class="w3-display-middle w3-large"><i id="frthicon" class="fa fa-cutlery fa-2x" aria-hidden="true"></i></div>  -->
@@ -637,7 +694,7 @@ The ranch is also home to alpacas and goats who offer playful energy and are hap
  <div class="w3-content w3-container">
  
  <h1 class="w3-center w3-large w3-text-white" style="text-align: center;" id="bknow"><span class="w3-padding w3-red w3-opacity-min"><b>BOOK NOW!</b></span></h1>
-  <div class="airbnb-embed-frame" data-id="21715641" data-view="home" style="width:450px;height:500px;margin:auto"><a href="https://www.airbnb.com/rooms/21715641?s=51"><span>View On Airbnb</span></a><a href="https://www.airbnb.com/rooms/21715641?s=51" rel="nofollow">Ranch On The Rocks Estate - Red Rocks Amphitheatre</a><script async="" src="https://www.airbnb.com/embeddable/airbnb_jssdk"></script></div>
+  <div class="airbnb-embed-frame" data-id="21715641" data-view="home" style="height:500px;margin:auto"><a href="https://www.airbnb.com/rooms/21715641?s=51"><span>View On Airbnb</span></a><a href="https://www.airbnb.com/rooms/21715641?s=51" rel="nofollow">Ranch On The Rocks Estate - Red Rocks Amphitheatre</a><script async="" src="https://www.airbnb.com/embeddable/airbnb_jssdk"></script></div>
 
   </div>
   
