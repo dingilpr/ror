@@ -227,7 +227,7 @@ body, html {
         <h2 style="text-align:center">Join our newsletter!</h2>
         <form class="w3-container" action ="AddEmail" method="post">
 			<label>Email: </label>
-			<input class="w3-input" type="text" id="email" name="email"><br>
+			<input class="w3-input" type="email" id="email" name="email"><br>
 			<input type="submit" value="Register!" class="w3-button w3-center w3-blue-grey" style="text-align:center">
 		</form>
 		<br>

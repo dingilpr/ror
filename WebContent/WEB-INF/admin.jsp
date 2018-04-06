@@ -56,6 +56,11 @@ th, td {
  	<input type="submit" value="EXPORT BOOKING CALENDAR" class="w3-button w3-round w3-blue">
  </form>
  </div>
+ <form action="ImportCal" method="post" enctype="multipart/form-data">
+    <input type="text" name="description" />
+    <input type="file" name="file" />
+    <input type="submit" />
+</form>
  </div>
  
  <hr>
@@ -124,7 +129,9 @@ var cancelsFromServer = JSON.parse(cancelDates);
 var cancelledDates = '${cancelledDates}';
 var cancelledFromServer = JSON.parse(cancelledDates);
 
-document.getElementById("maillist").innerHTML=jsemails;
+for(var i = 0; i < jsemails.length; i++){
+	document.getElementById("maillist").innerHTML += (jsemails[i] + "<br>");
+}
 
 function showCancels(){
 	var myTable = "<table align=\"center\">";
