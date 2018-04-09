@@ -4,6 +4,11 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Paths;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -55,6 +60,7 @@ public class ImportCal extends HttpServlet {
 		    
 		    CalendarBuilder builder = new CalendarBuilder();
 		    Calendar calendar = null;
+		    List<Date> importedDates = new ArrayList<Date>();
 		    try {
 				calendar = builder.build(fileContent);
 			} catch (ParserException e) {
@@ -62,10 +68,27 @@ public class ImportCal extends HttpServlet {
 				e.printStackTrace();
 			}
 		    
+		    SimpleDateFormat parser = new SimpleDateFormat("yyyyMMdd");
+		    
 		    if (calendar != null) {
 	           ComponentList<CalendarComponent> comps = calendar.getComponents();
 	           //get all components, turn into dates somehow, add to db
+	           for(int i = 0; i < comps.size(); i++) {
+	        	    String dstring = comps.get(i).getProperty("DTSTART").toString();
+	        	    //get last 8 characters, this is the date string 
+	        	    String trimmed = dstring.substring(dstring.length() - 10);
+	        	    Date imported = new Date();
+					try {
+						imported = parser.parse(trimmed);
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+	        	    importedDates.add(imported);
+	           }
 	        }
+		    
+		        
 		    		
 	}
 	
