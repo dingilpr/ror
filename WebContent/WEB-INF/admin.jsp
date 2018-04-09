@@ -90,8 +90,8 @@ th, td {
  </form>
  
  <form name="undo" id="undo" action="UndoCancel" method="post">
- <input type="hidden" name="confirmationId" id="confirmationId">
- <input type="hidden" name="email" id="email">
+ <input type="hidden" name="confirmationIdUndo" id="confirmationIdUndo">
+ <input type="hidden" name="emailUndo" id="emailUndo">
  </form>
  
 
@@ -109,8 +109,8 @@ function insertData(email, confId){
 }
 
 function undoData(email, confId){
-	document.getElementById("confirmationId").value = confId;
-	document.getElementById("email").value = email;
+	document.getElementById("confirmationIdUndo").value = confId;
+	document.getElementById("emailUndo").value = email;
 	document.getElementById("undo").submit();
 }
 
@@ -136,8 +136,8 @@ for(var i = 0; i < jsemails.length; i++){
 function showCancels(){
 	var myTable = "<table align=\"center\">";
 	for(var i = 0; i < cancelledFromServer.length; i+=7){
-		 email = cancelsFromServer[i+5];
-		 confId = cancelsFromServer[i+6];
+		 email = cancelledFromServer[i+5];
+		 confId = cancelledFromServer[i+6];
 		myTable += ("<tr>" + "<td>" + cancelledFromServer[i] + "</td>"
 			    + "<td>" + cancelledFromServer[i + 1] +  "</td>"
 			    + "<td>" + cancelledFromServer[i + 2] + "</td>"

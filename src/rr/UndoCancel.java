@@ -41,9 +41,14 @@ public class UndoCancel extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//read vars
-		String confirmationId = request.getParameter("confirmationId");
-		String email = request.getParameter("email");
+		String confirmationId = request.getParameter("confirmationIdUndo");
+		String email = request.getParameter("emailUndo");
 		
+		System.out.println("conf: " + confirmationId + " email: " + email);
+		
+		if(confirmationId == null || email == null) {
+			System.out.println("NULL VARS SENT");
+		}
 		//connect to DB
 		DBManager db = new DBManager();
 		Connection con = db.getConnection();
@@ -65,6 +70,7 @@ public class UndoCancel extends HttpServlet {
 				System.out.println("null");
 			}
 			while(rs.next()) {
+				System.out.println("IN RESULT SET");
 				Date startDate = rs.getDate("startDate");
 				Date endDate = rs.getDate("endDate");
 				String firstName = rs.getString("firstName");
