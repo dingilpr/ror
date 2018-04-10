@@ -4,6 +4,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Paths;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -88,7 +91,62 @@ public class ImportCal extends HttpServlet {
 	           }
 	        }
 		    
-		        
+		  //connect to DB
+			DBManager db = new DBManager();
+			Connection con = db.getConnection();
+			if(con == null){
+				System.out.println("failed");
+			}
+			else{
+				System.out.println("success ");
+			}
+			
+			boolean streak = false;
+			Date startDate = new Date();
+			Date endDate = new Date();
+			
+			//send imported dates to DB
+			for(int i = 0; i < importedDates.size(); i++) {
+				if(i == 0 || streak == false) {
+					startDate = importedDates.get(i);
+				}
+				//get next consecutive date
+				java.util.Calendar c = java.util.Calendar.getInstance();
+				c.setTime(importedDates.get(i));
+				c.add(java.util.Calendar.DATE, 1);
+				Date tomorrow = c.getTime();
+				
+				//see if next consecutive date is next date in list
+				if(i < importedDates.size() - 1) {
+					if(tomorrow.getTime() == importedDates.get(i+1).getTime()) {
+						streak = true;
+					}
+					else {
+						streak = false;
+						endDate = importedDates.get(i);
+						PreparedStatement psd;
+						
+						try {
+							psd = con.prepareStatement("insert into dates(startDate, endDate, firstName, lastName, email, phone, confirmationId)" + "values (?,?,?,?,?,?,?)");
+							java.sql.Date startDatesql = new java.sql.Date(startDate.getTime());
+							java.sql.Date endDatesql = new java.sql.Date(endDate.getTime());
+							psd.setDate(1, startDatesql);
+							psd.setDate(2, endDatesql);
+							psd.setString(3, "imported");
+							psd.setString(4, "imported");
+							psd.setString(5, "imported");
+							psd.setString(6, "imported");
+							psd.setString(7, "imported");
+							psd.execute();
+							
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}	
+					}
+				}
+			}
+			
 		    		
 	}
 	
