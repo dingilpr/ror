@@ -145,6 +145,29 @@ public class ImportCal extends HttpServlet {
 						}	
 					}
 				}
+				else {
+					//end of list
+					streak = false;
+					endDate = importedDates.get(i);
+					PreparedStatement psd;
+					try {
+						psd = con.prepareStatement("insert into dates(startDate, endDate, firstName, lastName, email, phone, confirmationId)" + "values (?,?,?,?,?,?,?)");
+						java.sql.Date startDatesql = new java.sql.Date(startDate.getTime());
+						java.sql.Date endDatesql = new java.sql.Date(endDate.getTime());
+						psd.setDate(1, startDatesql);
+						psd.setDate(2, endDatesql);
+						psd.setString(3, "imported");
+						psd.setString(4, "imported");
+						psd.setString(5, "imported");
+						psd.setString(6, "imported");
+						psd.setString(7, "imported");
+						psd.execute();
+						
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}	
+				}
 			}
 			
 		    		

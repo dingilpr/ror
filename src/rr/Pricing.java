@@ -30,6 +30,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import net.fortuna.ical4j.data.CalendarOutputter;
 import net.fortuna.ical4j.model.*;
@@ -203,7 +204,12 @@ PreparedStatement rps;
 		request.setAttribute("dates", dates);
 		request.setAttribute("cancelDates", cancelDates);
 		request.setAttribute("cancelledDates", cancelledDates);
-		request.getRequestDispatcher("/WEB-INF/admin.jsp").forward(request, response);
+		HttpSession session = request.getSession(false);
+		String correctu = "admin";
+		
+		if(session.getAttribute("uname").equals(correctu)) {
+			request.getRequestDispatcher("/WEB-INF/admin.jsp").forward(request, response);
+		}
 		
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
