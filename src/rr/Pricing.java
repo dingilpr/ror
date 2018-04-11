@@ -207,7 +207,7 @@ PreparedStatement rps;
 		HttpSession session = request.getSession(false);
 		String correctu = "admin";
 		
-		if(session.getAttribute("uname").equals(correctu)) {
+		if(session.getAttribute("username").equals(correctu)) {
 			request.getRequestDispatcher("/WEB-INF/admin.jsp").forward(request, response);
 		}
 		

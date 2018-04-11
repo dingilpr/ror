@@ -33,7 +33,7 @@ public class EmailJob {
                 .withIdentity("trigger1", "group1")
                 .startAt(runTime)
                 .withSchedule(simpleSchedule()
-                        .withIntervalInHours(24)
+                        .withIntervalInHours(1)
                         .repeatForever())
                 .build();
 

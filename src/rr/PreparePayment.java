@@ -47,7 +47,7 @@ public class PreparePayment extends HttpServlet {
 		String email = request.getParameter("email");
 		String price = request.getParameter("hiddenPrice");
 		
-		//just forward it all my friend
+		//forward it all
 		request.setAttribute("startDate", startDateStr);
 		request.setAttribute("endDate", endDateStr);
 		request.setAttribute("firstName", firstName);

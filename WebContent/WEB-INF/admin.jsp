@@ -67,6 +67,10 @@ th, td {
     <input type="submit" />
 </form>
 </div>
+<br>
+<div class="w3-content w3-container w3-center">
+<h1 style="text-align: center">Hold dates</h1>
+</div>
  
  
  <hr>

@@ -36,7 +36,7 @@ public class QuartzJob implements Job{
 		if(con == null){
 			System.out.println("failed");
 		}
-		else{
+		else{ 
 			System.out.println("success ");
 		}
 		
@@ -46,7 +46,9 @@ public class QuartzJob implements Job{
 		//query DB for checkins 7 days from now
 		try {
 			PreparedStatement ps = con.prepareStatement("SELECT email FROM dates WHERE startDate=?");
+			ps.setDate(1, startDatesql);
 			ResultSet rs = ps.executeQuery();
+			
 			
 			while(rs.next()) {
 				emails.add(rs.getString("email"));

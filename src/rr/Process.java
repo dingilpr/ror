@@ -171,62 +171,86 @@ public class Process extends HttpServlet {
 		String confirmationId = UUID.randomUUID().toString().replaceAll("-", "");
 
 	
+		boolean chargeWorked = true;
 		try {
-			//fix
+			//fixed?
 			Charge charge = Charge.create(params);
 		} catch (AuthenticationException | InvalidRequestException | APIConnectionException | CardException
 				| APIException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			chargeWorked = false;
 		}
 		
-		//actually book dates
-		PreparedStatement psd;
-		try {
-			psd = con.prepareStatement("insert into dates(startDate, endDate, firstName, lastName, email, phone, confirmationId)" + "values (?,?,?,?,?,?,?)");
-			java.sql.Date startDatesql = new java.sql.Date(startDate.getTime());
-			java.sql.Date endDatesql = new java.sql.Date(endDate.getTime());
-			psd.setDate(1, startDatesql);
-			psd.setDate(2, endDatesql);
-			psd.setString(3, firstName);
-			psd.setString(4, lastName);
-			psd.setString(5, email);
-			psd.setString(6, phone);
-			psd.setString(7, confirmationId);
-			psd.execute();
+		if(chargeWorked) {
+			//actually book dates
+			PreparedStatement psd;
+			try {
+				psd = con.prepareStatement("insert into dates(startDate, endDate, firstName, lastName, email, phone, confirmationId)" + "values (?,?,?,?,?,?,?)");
+				java.sql.Date startDatesql = new java.sql.Date(startDate.getTime());
+				java.sql.Date endDatesql = new java.sql.Date(endDate.getTime());
+				psd.setDate(1, startDatesql);
+				psd.setDate(2, endDatesql);
+				psd.setString(3, firstName);
+				psd.setString(4, lastName);
+				psd.setString(5, email);
+				psd.setString(6, phone);
+				psd.setString(7, confirmationId);
+				psd.execute();
+				
+				//email confirmation 
+				Mailer mailer = new Mailer();
+				mailer.sendMail("smtp.gmail.com", "587", "pdingilian@sartopartners.com", "pdingilian@sartopartners.com", "Sarto Partners", "pdingilian@sartopartners.com", "Cancellation Request",
+						"You have booked Ranch on the Rocks! Your trip confirmation ID is: " + confirmationId + ".");
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
-			//email confirmation 
-			Mailer mailer = new Mailer();
-			mailer.sendMail("smtp.gmail.com", "587", "pdingilian@sartopartners.com", "pdingilian@sartopartners.com", "Sarto Partners", "pdingilian@sartopartners.com", "Cancellation Request",
-					"You have booked Ranch on the Rocks! Your trip confirmation ID is: " + confirmationId + ".");
+			//remove from temp_dates
+			PreparedStatement tsd;
+			try {
+				tsd = con.prepareStatement("delete from temp_dates where startDate = ? and endDate = ?");
+				java.sql.Date startDatesql = new java.sql.Date(startDate.getTime());
+				java.sql.Date endDatesql = new java.sql.Date(endDate.getTime());
+				tsd.setDate(1, startDatesql);
+				tsd.setDate(2, endDatesql);
+				tsd.execute();
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			//invalidate session
+			HttpSession session = request.getSession();  
+			session.invalidate();
 			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			request.setAttribute("price", price/100);
+			request.setAttribute("startDate", startDate);
+			request.setAttribute("endDate", endDate);
+			request.getRequestDispatcher("success.jsp").forward(request, response);
 		}
-		
-		//remove from temp_dates
-		PreparedStatement tsd;
-		try {
-			tsd = con.prepareStatement("delete from temp_dates where startDate = ? and endDate = ?");
-			java.sql.Date startDatesql = new java.sql.Date(startDate.getTime());
-			java.sql.Date endDatesql = new java.sql.Date(endDate.getTime());
-			tsd.setDate(1, startDatesql);
-			tsd.setDate(2, endDatesql);
-			tsd.execute();
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		else if(!chargeWorked) {
+			//remove from temp dates
+			PreparedStatement tsd;
+			try {
+				tsd = con.prepareStatement("delete from temp_dates where startDate = ? and endDate = ?");
+				java.sql.Date startDatesql = new java.sql.Date(startDate.getTime());
+				java.sql.Date endDatesql = new java.sql.Date(endDate.getTime());
+				tsd.setDate(1, startDatesql);
+				tsd.setDate(2, endDatesql);
+				tsd.execute();
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			//forward to error
+			int errorCode = 1;
+			request.setAttribute("errorCode", errorCode);
+	    	request.getRequestDispatcher("error.jsp").forward(request, response);
 		}
-		//invalidate session
-		HttpSession session = request.getSession();  
-		session.invalidate();
-		
-		request.setAttribute("price", price/100);
-		request.setAttribute("startDate", startDate);
-		request.setAttribute("endDate", endDate);
-		request.getRequestDispatcher("success.jsp").forward(request, response);
 		
 	}
 	
