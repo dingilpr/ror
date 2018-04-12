@@ -68,8 +68,10 @@ th, td {
 </form>
 </div>
 <br>
+<hr>
 <div class="w3-content w3-container w3-center">
 <h1 style="text-align: center">Hold dates</h1>
+
 </div>
  
  

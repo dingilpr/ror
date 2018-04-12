@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <title>Ranch on the Rocks, a Red Rocks luxury rental home</title>
+<meta name="description" content="This Red Rocks ranch is a beautiful vacation house for rent in Colorado.
+ Learn more about your Colorado adventure now!">
 <meta charset="UTF-8">
   <meta http-equiv="cache-control" content="no-cache, must-revalidate, post-check=0, pre-check=0" />
   <meta http-equiv="cache-control" content="max-age=0" />
@@ -236,10 +238,10 @@ body, html {
   </div>
   <!-- Navbar on small screens -->
   <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium">
-    <a href="#about" class="w3-bar-item w3-button" onclick="toggleFunction()">ABOUT</a>
-    <a href="#portfolio" class="w3-bar-item w3-button" onclick="toggleFunction()">PORTFOLIO</a>
-    <a href="#contact" class="w3-bar-item w3-button" onclick="toggleFunction()">CONTACT</a>
-    <a href="#" class="w3-bar-item w3-button">SEARCH</a>
+    <a href="#about" class="w3-bar-item w3-button" onclick="toggleFunction()">BOOK</a>
+    <a href="#portfolio" class="w3-bar-item w3-button" onclick="toggleFunction()">EXPLORE</a>
+    <a href="#contact" class="w3-bar-item w3-button" onclick="toggleFunction()">DETAILS</a>
+    
   </div>
 </div>
 
