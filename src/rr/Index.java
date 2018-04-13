@@ -131,7 +131,7 @@ public class Index extends HttpServlet {
 		            // computer a time that is on the next round minute
 		            Date runTime = evenMinuteDate(new Date());
 
-
+		            
 		            // define the job and tie it to our HelloJob class
 		            JobDetail job = newJob(QuartzJob.class)
 		                .withIdentity("job1", "group1")
