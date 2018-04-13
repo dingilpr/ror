@@ -19,6 +19,7 @@ public class QuartzJob implements Job{
 
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
+		System.out.println("in execute QUARTZ");
 		//see if anyone is checking in 7 days from now
 		//get date 7 days in the future
 		SimpleDateFormat formatter4=new SimpleDateFormat("E MMM dd HH:mm:ssz yyyy");
