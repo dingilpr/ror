@@ -46,6 +46,12 @@ public class PreparePayment extends HttpServlet {
 		String pNumber = request.getParameter("phone");
 		String email = request.getParameter("email");
 		String price = request.getParameter("hiddenPrice");
+		if(!request.getParameter("promo").isEmpty()) {
+			String promo = request.getParameter("promo");
+			request.setAttribute("promo", promo);
+		}
+		
+		
 		
 		//forward it all
 		request.setAttribute("startDate", startDateStr);
@@ -55,6 +61,7 @@ public class PreparePayment extends HttpServlet {
 		request.setAttribute("pNumber", pNumber);
 		request.setAttribute("email", email);
 		request.setAttribute("price", price);
+		
 		request.getRequestDispatcher("payment.jsp").forward(request, response);
 		
 		

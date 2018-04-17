@@ -94,7 +94,10 @@ Guests are required to show a photo ID and credit card upon check-in. Please not
 
 
 <label>Enter Email: </label>
-<input type="text" class="w3-input" name="email" id="email" required><br>
+<input type="email" class="w3-input" name="email" id="email" required><br>
+
+<label>Enter Promo Code: (Optional) </label>
+<input type="text" class="w3-input" name="promo" id="promo"><br>
   
  
   

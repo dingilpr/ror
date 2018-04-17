@@ -70,13 +70,17 @@ public class Process extends HttpServlet {
 		//this is insecure - I have to calculate on server :(
 		//int price = Integer.parseInt(request.getParameter("hiddenPrice"));
 		//price *= 100;
+		boolean promot = false;
 		String startDateStr = request.getParameter("hiddenStartDate");
 		String endDateStr = request.getParameter("hiddenEndDate");
 		String firstName = request.getParameter("hiddenFirstName");
 		String lastName = request.getParameter("hiddenLastName");
 		String phone = request.getParameter("hiddenpNumber");
 		String email = request.getParameter("hiddenEmail");
-		
+		if(!request.getParameter("promo").isEmpty()) {
+			String promo = request.getParameter("promo");
+			promot = true;
+		}
 		
 		SimpleDateFormat formatter4=new SimpleDateFormat("E MMM dd HH:mm:ssz yyyy");
 		
@@ -150,6 +154,10 @@ public class Process extends HttpServlet {
 				    }
 		
 		price *= 100;
+		if(promot == true) {
+			//apply promo
+		}
+		
 		
 		
 		// Set your secret key: remember to change this to your live secret key in production

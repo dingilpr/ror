@@ -142,7 +142,7 @@ public class Index extends HttpServlet {
 		                .withIdentity("trigger1", "group1")
 		                .startAt(runTime)
 		                .withSchedule(simpleSchedule()
-		                        .withIntervalInHours(1)
+		                        .withIntervalInMinutes(5)
 		                        .repeatForever())
 		                .build();
 
