@@ -71,6 +71,7 @@ public class ImportCal extends HttpServlet {
 				e.printStackTrace();
 			}
 		    
+		    
 		    SimpleDateFormat parser = new SimpleDateFormat("yyyyMMdd");
 		    
 		    if (calendar != null) {

@@ -14,6 +14,7 @@
     type="text/javascript"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 <style>
 body,h1,h2,h3,h4,h5,h6 {font-family: "Poppins", sans-serif;}
 body, html {
@@ -70,8 +71,14 @@ th, td {
 <br>
 <hr>
 <div class="w3-content w3-container w3-center">
-<h1 style="text-align: center">Hold dates</h1>
+<h1 style="text-align: center">Hold dates</h1><hr>
+<div id="calendarHereThree" style="position:relative;height:350px;margin-left: 22%"></div>
 
+	<form name="sendToHold" action="HoldDates" method="post" style="padding-top: 25px;">
+		<input type="hidden" name="hiddenStartDate" id="hiddenStartDate"/>
+		<input type="hidden" name="hiddenEndDate" id="hiddenEndDate"/>
+		<input type="submit"  id="next" class="w3-button w3-round-large w3-green" onclick="insertDates()" value="Hold">
+	</form>
 </div>
  
  
@@ -195,6 +202,8 @@ myCalendar = new dhtmlXCalendarObject("calendarHere");
 myCalendar.hideTime();
 myCalendar.show();
 
+
+
 //show price on hover
 myCalendar.attachEvent("onMouseOver", function(date, ev){
     for(var i = 0; i < priceArr.length; i++){
@@ -204,6 +213,29 @@ myCalendar.attachEvent("onMouseOver", function(date, ev){
     }
     
 });
+var startDate;
+var endDate;
+
+var myDoubleCalendar;
+
+myDoubleCalendar = new dhtmlXDoubleCalendar("calendarHereThree");
+myDoubleCalendar.setDateFormat("%Y-%m-%d");
+myDoubleCalendar.setDates("2012-08-07","2012-08-23");
+myDoubleCalendar.show();
+
+myDoubleCalendar.leftCalendar.attachEvent("onClick", function(date){
+	startDate = date;
+});
+
+myDoubleCalendar.rightCalendar.attachEvent("onClick", function(date){
+	endDate = date;
+});
+
+function insertDates(){
+	document.getElementById("hiddenStartDate").value = startDate;
+	document.getElementById("hiddenEndDate").value = endDate;
+}
+
 
 //get input for price when a day is clicked and push to priceArr
 myCalendar.attachEvent("onClick", function(date){
