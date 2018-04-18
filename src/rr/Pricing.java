@@ -65,6 +65,7 @@ public class Pricing extends HttpServlet {
 		JSONArray dates=new JSONArray();
 		JSONArray cancelDates=new JSONArray();
 		JSONArray cancelledDates=new JSONArray();
+		JSONArray heldDates=new JSONArray();
 		
 	    //connect to DB
 		DBManager db = new DBManager();
@@ -198,14 +199,43 @@ PreparedStatement rps;
 			e.printStackTrace();
 		}
 		
+		PreparedStatement hps;
+		try {
+			hps = con.prepareStatement("select * from temp_dates");
+			ResultSet hrs = hps.executeQuery();
+			while(hrs.next()) {
+				
+				Date startDate = hrs.getDate("startDate");
+				Date endDate = hrs.getDate("endDate");
+				
+				DateFormat ddf = new SimpleDateFormat("yyyy-MM-dd");
+				String stringStart = ddf.format(startDate);
+				String stringEnd = ddf.format(endDate);
+				
+				heldDates.add(stringStart);
+				heldDates.add(stringEnd);
+				
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 		request.setAttribute("list", list);
 		request.setAttribute("emails", emails);
 		request.setAttribute("dates", dates);
 		request.setAttribute("cancelDates", cancelDates);
 		request.setAttribute("cancelledDates", cancelledDates);
+		request.setAttribute("heldDates", heldDates);
 		HttpSession session = request.getSession(false);
 		String correctu = "admin";
+		
+		if(session.getAttribute("username").equals(null)) {
+			request.getRequestDispatcher("login.jsp").forward(request, response);
+		}
 		
 		if(session.getAttribute("username").equals(correctu)) {
 			request.getRequestDispatcher("/WEB-INF/admin.jsp").forward(request, response);

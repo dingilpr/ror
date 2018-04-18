@@ -74,14 +74,21 @@ th, td {
 <h1 style="text-align: center">Hold dates</h1><hr>
 <div id="calendarHereThree" style="position:relative;height:350px;margin-left: 22%"></div>
 
-	<form name="sendToHold" action="HoldDates" method="post" style="padding-top: 25px;">
+	<form name="sendToHold" action="HoldDates" method="post">
 		<input type="hidden" name="hiddenStartDate" id="hiddenStartDate"/>
 		<input type="hidden" name="hiddenEndDate" id="hiddenEndDate"/>
 		<input type="submit"  id="next" class="w3-button w3-round-large w3-green" onclick="insertDates()" value="Hold">
 	</form>
+	
+	<div style="padding-top: 10px;" id="heldDates"></div>
 </div>
  
- 
+ <hr>
+ <h1 style="text-align: center">Promo Codes</h1><hr>
+ <form name="promoCodeEntry" action="" method="post">
+ 	Code: <input type="text" name="promoCode"/>
+ 	Percent discount: <input type="text" name="percentOff"/> %
+ </form>
  <hr>
  <h1 style="text-align: center">Email List</h1><hr>
  <p  style= "text-align: center"id="maillist"></p>
@@ -113,6 +120,11 @@ th, td {
  <input type="hidden" name="emailUndo" id="emailUndo">
  </form>
  
+  <form name="unhold" id="unhold" action="UndoHold" method="post">
+ <input type="hidden" name="startUnhold" id="startUnhold">
+ <input type="hidden" name="endUnhold" id="endUnhold">
+ </form>
+ 
 
 <script>
 var myCalendar;
@@ -133,6 +145,12 @@ function undoData(email, confId){
 	document.getElementById("undo").submit();
 }
 
+function undoHold(start, end){
+	document.getElementById("startUnhold").value = start;
+	document.getElementById("endUnhold").value = end;
+	document.getElementById("unhold").submit();
+}
+
 //get pricelist sent from server
 var priceList = '${list}';
 //console.log("js list: " + priceList);
@@ -147,6 +165,24 @@ var cancelsFromServer = JSON.parse(cancelDates);
 
 var cancelledDates = '${cancelledDates}';
 var cancelledFromServer = JSON.parse(cancelledDates);
+
+var heldDates = '${heldDates}';
+var heldFromServer = JSON.parse(heldDates);
+
+var heldTable = "<table align=\"center\">";
+
+for(var i = 0; i < heldFromServer.length; i+=2){
+	heldTable += ("<tr>" + "<td>" + heldFromServer[i] +"</td>"
+			+ "<td>" + heldFromServer[i+1] + "</td>" + "<td>" +
+			"<button id=\"unholdB\" class=\"w3-button w3-round-large w3-red\" " +
+		    "onclick=\"undoHold(\'" + heldFromServer[i] + "\',\'" + heldFromServer[i+1] + "\')\" value=\"Release\">Release</button>"
+		    + "</td>"
+			+ "</tr>");
+	
+}
+heldTable += "</table>";
+
+document.getElementById("heldDates").innerHTML = heldTable;
 
 for(var i = 0; i < jsemails.length; i++){
 	document.getElementById("maillist").innerHTML += (jsemails[i] + "<br>");
@@ -219,8 +255,7 @@ var endDate;
 var myDoubleCalendar;
 
 myDoubleCalendar = new dhtmlXDoubleCalendar("calendarHereThree");
-myDoubleCalendar.setDateFormat("%Y-%m-%d");
-myDoubleCalendar.setDates("2012-08-07","2012-08-23");
+
 myDoubleCalendar.show();
 
 myDoubleCalendar.leftCalendar.attachEvent("onClick", function(date){

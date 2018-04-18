@@ -15,16 +15,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class HoldDates
+ * Servlet implementation class UndoHold
  */
-@WebServlet("/HoldDates")
-public class HoldDates extends HttpServlet {
+@WebServlet("/UndoHold")
+public class UndoHold extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HoldDates() {
+    public UndoHold() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -42,32 +42,33 @@ public class HoldDates extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String startDateStr = request.getParameter("hiddenStartDate");
-		String endDateStr = request.getParameter("hiddenEndDate");
 		
-		SimpleDateFormat formatter4=new SimpleDateFormat("E MMM dd yyyy"); 
+		String start = request.getParameter("startUnhold");
+		String end = request.getParameter("endUnhold");
+		
+		SimpleDateFormat formatter4=new SimpleDateFormat("yyyy-MM-dd"); 
 		
 		//reformat dates sent from JSP
 		Date startDate = null;
 		Date endDate = null;
 		try {
-			startDate = formatter4.parse(startDateStr);
-			endDate = formatter4.parse(endDateStr);
+			startDate = formatter4.parse(start);
+			endDate = formatter4.parse(end);
 		} catch (ParseException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		
 		DBManager db = new DBManager();
 		Connection con = db.getConnection();
 		
 		try {
-			PreparedStatement td = con.prepareStatement("insert into temp_dates(startDate, endDate)" + "values (?,?)");
+			PreparedStatement ps = con.prepareStatement("DELETE FROM temp_dates WHERE startDate=? AND endDate=?");
 			java.sql.Date startDatesql = new java.sql.Date(startDate.getTime());
 			java.sql.Date endDatesql = new java.sql.Date(endDate.getTime());
-			
-			td.setDate(1, startDatesql);
-			td.setDate(2, endDatesql);
-			td.execute();
+			ps.setDate(1, startDatesql);
+			ps.setDate(2, endDatesql);
+			ps.execute();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
