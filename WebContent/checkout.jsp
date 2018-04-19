@@ -64,7 +64,7 @@ body, html {
 
 </div>
 <br>
-<div style="border: 1px solid grey; border-radius: 10px">
+<div style="border: 1px solid grey; border-radius: 10px; box-shadow: 1px 2px #888888;">
 <h2>Please review the following details for accuracy: </h2>
 <hr>
 <p style="text-align: right; padding-right: 5%">You have <span id="time">05:00</span> minutes left to check out!</p>

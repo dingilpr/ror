@@ -85,9 +85,10 @@ th, td {
  
  <hr>
  <h1 style="text-align: center">Promo Codes</h1><hr>
- <form name="promoCodeEntry" action="" method="post">
+ <form name="promoCodeEntry" action="GeneratePromo" method="post">
  	Code: <input type="text" name="promoCode"/>
  	Percent discount: <input type="text" name="percentOff"/> %
+ 	<input type="submit" class="w3-button w3-round-large w3-green" value="Generate"/>
  </form>
  <hr>
  <h1 style="text-align: center">Email List</h1><hr>

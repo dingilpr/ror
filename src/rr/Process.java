@@ -77,8 +77,9 @@ public class Process extends HttpServlet {
 		String lastName = request.getParameter("hiddenLastName");
 		String phone = request.getParameter("hiddenpNumber");
 		String email = request.getParameter("hiddenEmail");
+		String promo = null;
 		if(!request.getParameter("promo").isEmpty()) {
-			String promo = request.getParameter("promo");
+			promo = request.getParameter("promo");
 			promot = true;
 		}
 		
@@ -154,8 +155,20 @@ public class Process extends HttpServlet {
 				    }
 		
 		price *= 100;
+		int disc = 0;
 		if(promot == true) {
 			//apply promo
+			try {
+				PreparedStatement pp = con.prepareStatement("SELECT * FROM promos WHERE code =?");
+				pp.setString(1, promo);
+				ResultSet rs = pp.executeQuery();
+				while(rs.next()) {
+					disc = rs.getInt(1);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		
