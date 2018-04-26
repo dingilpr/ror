@@ -285,7 +285,7 @@ body, html {
 	  <p style="text-align: left; padding-left: 5px;"><i class="fa fa-hotel" aria-hidden="true" style="padding-left: 3px; padding-right: 8px;"></i>5 beds</p>
 	  <p style="text-align: left; padding-left: 5px;"><i class="fa fa-shower" aria-hidden="true" style="padding-left: 3px; padding-right: 8px;"></i>2.5 baths</p>
    </div>
-	  
+	  <br>
    <div style="border: 1px solid #eee; margin-top: 10px; margin-bottom: 30px; text-align: center; font-size: 80%; box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1.5px 5px 0 rgba(0, 0, 0, 0.19);"><h3 class="w3-hide-small"><b>NEWSLETTER</b></h3><hr class="w3-hide-small">
 	 		<div id="myCarouselthree" class="carousel slide" data-ride="carousel">
 		    <!-- Indicators -->
@@ -321,13 +321,32 @@ body, html {
 		  <a href="#"><button class="w3-center w3-button w3-large w3-large w3-white" style="width: 100%;" onclick="document.getElementById('id01').style.display='block'">Sign up!</button></a>
 	</div>
 </div>
-  <h2 style="display: inline-block;width: 60%; font-family: Futura, "Trebuchet MS", Arial, sans-serif;">Welcome to Ranch on the Rocks. </h2><br><br>
+  <h2 style="display: inline-block;width: 60%; font-family: Futura, "Trebuchet MS", Arial, sans-serif;">Welcome to Ranch on the Rocks. </h2>
   
-  <p style="padding-left: 10px; font-size: 125%; width: 60%; display: inline-block;"> Ranch on the Rocks is a renovated luxury three 
-  acre ranch that boasts spectacular views of Red Rocks and the surrounding mountains. 
+  <p style="padding-left: 10px; font-size: 125%; width: 60%; display: inline-block;"> Ranch on the Rocks is a renovated luxury three-acre 
+  vacation ranch that boasts spectacular views of Red Rocks and the surrounding mountains. 
   The property, which has recently been expanded to 3,800 square feet has retained its pueblo charm, offering warmth, comfort and a true sense of home.</p>
-  
-  
+  <br><br>
+  <div class="w3-card-4" style="margin-left: 10px; font-size: 70%; width: 60%; display: inline-block;" >
+
+	<header class="w3-container w3-light-grey">
+	  <h3 style="color: #595959"><b>TESTIMONIALS</b></h3>
+	</header>
+
+	<div class="w3-container">
+	  <p><i class="fa fa-star" style="font-size:24px; color: #FFD700"></i><i class="fa fa-star" style="font-size:24px; color: #FFD700"></i>
+	  <i class="fa fa-star" style="font-size:24px; color: #FFD700"></i>
+	  <i class="fa fa-star" style="font-size:24px; color: #FFD700"></i><i class="fa fa-star" style="font-size:24px; color: #FFD700"></i></p>
+	  
+	  
+	  <p>This house is INCREDIBLY GORGEOUS and Joe and Crystal are the most amazing hosts you could ever ask for! The inside of the house is just 
+	  absolutely beautiful (everything is brand new) and the outside surroundings, landscaping and views are breathtaking. Our group was there 
+	  for a conference for work, and it felt like a vacation because of this house and the hospitality of Joe and Crystal. They are immediately 
+	  responsive and also exceptionally
+	   thoughtful. I can not recommend this Airbnb highly enough. If you are headed to Colorado and this house is available, reserve it right away!!!</p>
+	</div>
+
+</div>
  
 	  
   
@@ -353,6 +372,7 @@ With heated floors in the master bathroom, and a custom wine bar made from Knott
 The ranch is also home to alpacas and goats who offer playful energy and are happy to interact with you if you choose to.  
 </p>
 <br>
+
 
   <div class = "w3-content w3-container w3-center">
   
