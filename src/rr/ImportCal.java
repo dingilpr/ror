@@ -3,6 +3,7 @@ package rr;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,7 +11,9 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -27,6 +30,7 @@ import net.fortuna.ical4j.model.Calendar;
 import net.fortuna.ical4j.model.ComponentList;
 import net.fortuna.ical4j.model.PropertyList;
 import net.fortuna.ical4j.model.component.CalendarComponent;
+import net.fortuna.ical4j.util.Calendars;
 
 /**
  * Servlet implementation class ImportCal
@@ -56,10 +60,14 @@ public class ImportCal extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 String description = request.getParameter("description"); // Retrieves <input type="text" name="description">
+		 String url = request.getParameter("description"); // Retrieves <input type="text" name="description">
 		    Part filePart = request.getPart("file"); // Retrieves <input type="file" name="file">
 		    String fileName = getSubmittedFileName(filePart);
-		    InputStream fileContent = filePart.getInputStream();
+		    
+		    URL calurl = new URL(url);
+		    InputStream fileContent = calurl.openStream();
+		    
+		   
 		    
 		    CalendarBuilder builder = new CalendarBuilder();
 		    Calendar calendar = null;
@@ -76,19 +84,66 @@ public class ImportCal extends HttpServlet {
 		    
 		    if (calendar != null) {
 	           ComponentList<CalendarComponent> comps = calendar.getComponents();
+	           System.out.println(comps);
 	           //get all components, turn into dates somehow, add to db
 	           for(int i = 0; i < comps.size(); i++) {
 	        	    String dstring = comps.get(i).getProperty("DTSTART").toString();
+	        	    String estring = null;
+	        	    String trimmedEnd = null;
+	        	    boolean end = false;
+	        	    if(!comps.get(i).getProperty("DTEND").equals(null)) {
+	        	    	estring = comps.get(i).getProperty("DTEND").toString();
+	        	    	end = true;
+	        	    	trimmedEnd = dstring.substring(dstring.length() - 10);
+	        	    	
+	        	    }
 	        	    //get last 8 characters, this is the date string 
 	        	    String trimmed = dstring.substring(dstring.length() - 10);
+	        	   
 	        	    Date imported = new Date();
-					try {
-						imported = parser.parse(trimmed);
-					} catch (ParseException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-	        	    importedDates.add(imported);
+	        	    Date importedEnd = new Date();
+	        	    
+	        	    if(end) {
+	        	    	try {
+							imported = parser.parse(trimmed);
+							importedEnd = parser.parse(trimmedEnd);
+						} catch (ParseException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+	        	    	//get all dates between start and end
+	        	    	 List<Date> dates = new ArrayList<Date>();
+	 				    GregorianCalendar calendarTemp = new GregorianCalendar();
+	 				    calendarTemp.setTime(imported);
+	 				    java.util.Calendar addCal = java.util.Calendar.getInstance();
+	 					addCal.setTime(importedEnd);
+	 					addCal.add(java.util.Calendar.DATE, 1);  // number of days to add
+	 					Date realEnd = addCal.getTime();  // dt is now the new date
+
+	 				    while (calendarTemp.getTime().before(realEnd))
+	 				    {
+	 				        Date result = calendarTemp.getTime();
+	 				        dates.add(result);
+	 				        calendarTemp.add(java.util.Calendar.DATE, 1);
+	 				    }
+	 				    Collections.sort(dates);
+	 				    for(int z = 0; z < dates.size(); z++) {
+	 				    	importedDates.add(dates.get(z));
+	 				    }
+	        	    }
+	        	    
+	        	    if(!end) {
+						try {
+							imported = parser.parse(trimmed);
+							if(end) {
+								
+							}
+						} catch (ParseException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+		        	    importedDates.add(imported);
+	        	    }
 	           }
 	        }
 		    
@@ -101,6 +156,8 @@ public class ImportCal extends HttpServlet {
 			else{
 				System.out.println("success ");
 			}
+			
+			Collections.sort(importedDates);
 			
 			boolean streak = false;
 			Date startDate = new Date();

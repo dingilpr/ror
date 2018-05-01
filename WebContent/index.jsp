@@ -16,8 +16,8 @@
 <link href="https://fonts.googleapis.com/css?family=Montserrat:700" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet" href="codebase/dhtmlxcalendar.css" 
-    type="text/css"> 
+<link rel="stylesheet" href="codebase/dhtmlxcalendar.css"> 
+   
 <!-- Facebook Pixel Code -->
 <script>
 !function(f,b,e,v,n,t,s)
@@ -45,6 +45,22 @@ src="https://www.facebook.com/tr?id=900972550076057&ev=PageView
   gtag('js', new Date());
 
   gtag('config', 'UA-114725707-1');
+</script>
+<script>
+/**
+* Function that tracks a click on an outbound link in Analytics.
+* This function takes a valid URL string as an argument, and uses that URL string
+* as the event label. Setting the transport method to 'beacon' lets the hit be sent
+* using 'navigator.sendBeacon' in browser that support it.
+*/
+var trackOutboundLink = function(url) {
+  gtag('event', 'click', {
+    'event_category': 'outbound',
+    'event_label': url,
+    'transport_type': 'beacon',
+    'event_callback': function(){document.location = url;}
+  });
+}
 </script>
 <script src="codebase/dhtmlxcalendar.js" 
     type="text/javascript"></script>
@@ -716,7 +732,7 @@ The ranch is also home to alpacas and goats who offer playful energy and are hap
  <div class="w3-content w3-container">
  
  <h1 class="w3-center w3-large w3-text-white" style="text-align: center;" id="bknow"><span class="w3-padding w3-red w3-opacity-min"><b>BOOK NOW!</b></span></h1>
-  <div class="airbnb-embed-frame" data-id="21715641" data-view="home" style="height:500px;margin:auto"><a href="https://www.airbnb.com/rooms/21715641?s=51"><span>View On Airbnb</span></a><a href="https://www.airbnb.com/rooms/21715641?s=51" rel="nofollow">Ranch On The Rocks Estate - Red Rocks Amphitheatre</a><script async="" src="https://www.airbnb.com/embeddable/airbnb_jssdk"></script></div>
+  <div class="airbnb-embed-frame" data-id="21715641" data-view="home" style="height:500px;margin:auto"><a href="https://www.airbnb.com/rooms/21715641?s=51" onclick="trackOutboundLink('https://www.airbnb.com/rooms/21715641?s=51'); return false;"><span>View On Airbnb</span></a><a href="https://www.airbnb.com/rooms/21715641?s=51" onclick="trackOutboundLink('https://www.airbnb.com/rooms/21715641?s=51'); return false;" rel="nofollow">Ranch On The Rocks Estate - Red Rocks Amphitheatre</a><script async="" src="https://www.airbnb.com/embeddable/airbnb_jssdk"></script></div>
 
   </div>
   

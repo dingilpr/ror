@@ -511,7 +511,7 @@ body, html {
 <div class="w3-card-4 animate-bottom" id="b1.7" style="width: 70%; margin: auto;">
 
 <header class="w3-container w3-light-grey">
-  <h3><i class="fa fa-cutlery" aria-hidden="true" style="padding-right: 5px"></i> Twin Forks Tavern</h3>
+  <h3><i class="fa fa-cutlery" aria-hidden="true" style="padding-right: 5px"></i> Cafe Prague</h3>
 </header>
 
 <div class="w3-container">

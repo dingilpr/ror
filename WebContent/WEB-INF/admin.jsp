@@ -63,7 +63,7 @@ th, td {
  <div class="w3-content w3-container-w3-center" style="margin-left: 60%">
  <h3>Import external iCal file</h3>
  <form action="ImportCal" method="post" enctype="multipart/form-data">
-    
+    <input type="text" name="description"/>
     <input type="file" name="file" />
     <input type="submit" />
 </form>
