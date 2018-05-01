@@ -62,7 +62,7 @@ public class ImportCal extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		 String url = request.getParameter("description"); // Retrieves <input type="text" name="description">
 		    Part filePart = request.getPart("file"); // Retrieves <input type="file" name="file">
-		    String fileName = getSubmittedFileName(filePart);
+		   
 		    
 		    URL calurl = new URL(url);
 		    InputStream fileContent = calurl.openStream();
@@ -88,106 +88,38 @@ public class ImportCal extends HttpServlet {
 	           //get all components, turn into dates somehow, add to db
 	           for(int i = 0; i < comps.size(); i++) {
 	        	    String dstring = comps.get(i).getProperty("DTSTART").toString();
-	        	    String estring = null;
-	        	    String trimmedEnd = null;
-	        	    boolean end = false;
-	        	    if(!comps.get(i).getProperty("DTEND").equals(null)) {
-	        	    	estring = comps.get(i).getProperty("DTEND").toString();
-	        	    	end = true;
-	        	    	trimmedEnd = dstring.substring(dstring.length() - 10);
-	        	    	
-	        	    }
-	        	    //get last 8 characters, this is the date string 
+	        	    String estring = comps.get(i).getProperty("DTEND").toString();  	
+	        	    
+	        	  //get last 8 characters, this is the date string 
 	        	    String trimmed = dstring.substring(dstring.length() - 10);
-	        	   
+	        	    String trimmedEnd = estring.substring(dstring.length() - 12);
+	        	    System.out.println(trimmedEnd);
 	        	    Date imported = new Date();
 	        	    Date importedEnd = new Date();
-	        	    
-	        	    if(end) {
-	        	    	try {
+		        	    try {
 							imported = parser.parse(trimmed);
 							importedEnd = parser.parse(trimmedEnd);
 						} catch (ParseException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-	        	    	//get all dates between start and end
-	        	    	 List<Date> dates = new ArrayList<Date>();
-	 				    GregorianCalendar calendarTemp = new GregorianCalendar();
-	 				    calendarTemp.setTime(imported);
-	 				    java.util.Calendar addCal = java.util.Calendar.getInstance();
-	 					addCal.setTime(importedEnd);
-	 					addCal.add(java.util.Calendar.DATE, 1);  // number of days to add
-	 					Date realEnd = addCal.getTime();  // dt is now the new date
-
-	 				    while (calendarTemp.getTime().before(realEnd))
-	 				    {
-	 				        Date result = calendarTemp.getTime();
-	 				        dates.add(result);
-	 				        calendarTemp.add(java.util.Calendar.DATE, 1);
-	 				    }
-	 				    Collections.sort(dates);
-	 				    for(int z = 0; z < dates.size(); z++) {
-	 				    	importedDates.add(dates.get(z));
-	 				    }
-	        	    }
-	        	    
-	        	    if(!end) {
-						try {
-							imported = parser.parse(trimmed);
-							if(end) {
-								
-							}
-						} catch (ParseException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-		        	    importedDates.add(imported);
-	        	    }
-	           }
-	        }
-		    
-		  //connect to DB
-			DBManager db = new DBManager();
-			Connection con = db.getConnection();
-			if(con == null){
-				System.out.println("failed");
-			}
-			else{
-				System.out.println("success ");
-			}
-			
-			Collections.sort(importedDates);
-			
-			boolean streak = false;
-			Date startDate = new Date();
-			Date endDate = new Date();
-			
-			//send imported dates to DB
-			for(int i = 0; i < importedDates.size(); i++) {
-				if(i == 0 || streak == false) {
-					startDate = importedDates.get(i);
-				}
-				//get next consecutive date
-				java.util.Calendar c = java.util.Calendar.getInstance();
-				c.setTime(importedDates.get(i));
-				c.add(java.util.Calendar.DATE, 1);
-				Date tomorrow = c.getTime();
-				
-				//see if next consecutive date is next date in list
-				if(i < importedDates.size() - 1) {
-					if(tomorrow.getTime() == importedDates.get(i+1).getTime()) {
-						streak = true;
-					}
-					else {
-						streak = false;
-						endDate = importedDates.get(i);
-						PreparedStatement psd;
-						
-						try {
+		        	    
+		        	    //connect to DB
+		    			DBManager db = new DBManager();
+		    			Connection con = db.getConnection();
+		    			if(con == null){
+		    				System.out.println("failed");
+		    			}
+		    			else{
+		    				System.out.println("success ");
+		    			}
+		    			
+		    			//send dates to bd
+		    			PreparedStatement psd;
+		    			try {
 							psd = con.prepareStatement("insert into dates(startDate, endDate, firstName, lastName, email, phone, confirmationId)" + "values (?,?,?,?,?,?,?)");
-							java.sql.Date startDatesql = new java.sql.Date(startDate.getTime());
-							java.sql.Date endDatesql = new java.sql.Date(endDate.getTime());
+							java.sql.Date startDatesql = new java.sql.Date(imported.getTime());
+							java.sql.Date endDatesql = new java.sql.Date(importedEnd.getTime());
 							psd.setDate(1, startDatesql);
 							psd.setDate(2, endDatesql);
 							psd.setString(3, "imported");
@@ -201,44 +133,10 @@ public class ImportCal extends HttpServlet {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}	
-					}
-				}
-				else {
-					//end of list
-					streak = false;
-					endDate = importedDates.get(i);
-					PreparedStatement psd;
-					try {
-						psd = con.prepareStatement("insert into dates(startDate, endDate, firstName, lastName, email, phone, confirmationId)" + "values (?,?,?,?,?,?,?)");
-						java.sql.Date startDatesql = new java.sql.Date(startDate.getTime());
-						java.sql.Date endDatesql = new java.sql.Date(endDate.getTime());
-						psd.setDate(1, startDatesql);
-						psd.setDate(2, endDatesql);
-						psd.setString(3, "imported");
-						psd.setString(4, "imported");
-						psd.setString(5, "imported");
-						psd.setString(6, "imported");
-						psd.setString(7, "imported");
-						psd.execute();
-						
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}	
-				}
-			}
-			
-		    		
+	           }
+		    }
 	}
-	
-	private static String getSubmittedFileName(Part part) {
-	    for (String cd : part.getHeader("content-disposition").split(";")) {
-	        if (cd.trim().startsWith("filename")) {
-	            String fileName = cd.substring(cd.indexOf('=') + 1).trim().replace("\"", "");
-	            return fileName.substring(fileName.lastIndexOf('/') + 1).substring(fileName.lastIndexOf('\\') + 1); // MSIE fix.
-	        }
-	    }
-	    return null;
-	}
-
 }
+
+	        
+		   
