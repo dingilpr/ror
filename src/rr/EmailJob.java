@@ -63,6 +63,9 @@ public class EmailJob extends HttpServlet {
            JobDetail job = newJob(QuartzJob.class)
                .withIdentity("job1", "group1")
                .build();
+           
+           //add airbnb job
+           
 
            Trigger trigger = newTrigger()
         		    .withIdentity("trigger7", "group1")
