@@ -2,7 +2,7 @@
 <html>
 <title>Ranch on the Rocks, a Red Rocks luxury rental home</title>
 <meta name="description" content="This Red Rocks ranch is a beautiful vacation house for rent in Colorado.
- Learn more about your Colorado adventure now!">
+ Learn more about your Colorado mountain adventure now!">
 <meta charset="UTF-8">
   <meta http-equiv="cache-control" content="no-cache, must-revalidate, post-check=0, pre-check=0" />
   <meta http-equiv="cache-control" content="max-age=0" />
@@ -54,13 +54,11 @@ src="https://www.facebook.com/tr?id=900972550076057&ev=PageView
 * using 'navigator.sendBeacon' in browser that support it.
 */
 var trackOutboundLink = function(url) {
-  gtag('event', 'click', {
-    'event_category': 'outbound',
-    'event_label': url,
-    'transport_type': 'beacon',
-    'event_callback': function(){document.location = url;}
-  });
-}
+	   ga('send', 'event', 'outbound', 'click', url, {
+	     'transport': 'beacon',
+	     'hitCallback': function(){document.location = url;}
+	   });
+	}
 </script>
 <script src="codebase/dhtmlxcalendar.js" 
     type="text/javascript"></script>
@@ -152,6 +150,28 @@ body, html {
    .airbnb-embed-frame{
    width: 300px;
    }
+   
+   #expand{
+   width: 115%; display: inline-block;
+   }
+}
+
+@media only screen and (max-width: 438px) {
+   #expand{
+   width: 190%; display: inline-block;
+   }
+}
+
+@media only screen and (min-width: 613px) {
+   #testexpand{
+   margin-left: 10px; font-size: 70%; width: 60%; display: inline-block;
+   }
+}
+
+@media only screen and (max-width: 612px) {
+   #testexpand{
+   margin-left: 10px; font-size: 70%; display: inline-block;
+   }
 }
 
 @media only screen and (min-width: 601px) {
@@ -170,6 +190,10 @@ body, html {
    
    .airbnb-embed-frame{
    width: 450px;
+   }
+   
+   #expand{
+  
    }
 }
 
@@ -340,10 +364,12 @@ body, html {
   <h2 style="display: inline-block;width: 60%; font-family: Futura, "Trebuchet MS", Arial, sans-serif;">Welcome to Ranch on the Rocks. </h2>
   
   <p style="padding-left: 10px; font-size: 125%; width: 60%; display: inline-block;"> Ranch on the Rocks is a renovated luxury three-acre 
-  vacation ranch that boasts spectacular views of Red Rocks and the surrounding mountains. 
-  The property, which has recently been expanded to 3,800 square feet has retained its pueblo charm, offering warmth, comfort and a true sense of home.</p>
+  vacation ranch that boasts spectacular views of <span id="expand">
+  Red Rocks and the surrounding mountains. 
+  The property, which has recently been expanded to 3,800 square feet has retained its pueblo charm, 
+  offering warmth, comfort and a true sense of home. </span></p>
   <br><br>
-  <div class="w3-card-4" style="margin-left: 10px; font-size: 70%; width: 60%; display: inline-block;" >
+  <div class="w3-card-4" id="testexpand">
 
 	<header class="w3-container w3-light-grey">
 	  <h3 style="color: #595959"><b>TESTIMONIALS</b></h3>
