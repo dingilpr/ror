@@ -65,7 +65,9 @@ public class EmailJob extends HttpServlet {
                .build();
            
            //add airbnb job
-           
+           JobDetail jobB = newJob(SyncJob.class)
+        		   .withIdentity("job2", "group1")
+        		   .build();
 
            Trigger trigger = newTrigger()
         		    .withIdentity("trigger7", "group1")
@@ -73,10 +75,18 @@ public class EmailJob extends HttpServlet {
         		        .withIntervalInMinutes(2)
         		        .repeatForever())
         		    .build();
+           
+           Trigger triggerB = newTrigger()
+       		    .withIdentity("trigger8", "group1")
+       		    .withSchedule(simpleSchedule()
+       		        .withIntervalInMinutes(10)
+       		        .repeatForever())
+       		    .build();
 
            // Tell quartz to schedule the job using our trigger
            try {
 				sched.scheduleJob(job, trigger);
+				sched.scheduleJob(jobB, triggerB);
 			} catch (SchedulerException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

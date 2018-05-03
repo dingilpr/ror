@@ -62,10 +62,28 @@ public class SyncJob implements Job{
     	 
     	//ummm
     	 SimpleDateFormat parser = new SimpleDateFormat("yyyyMMdd");
+    	   
     	 
     	  if (calendar != null) {
 	           ComponentList<CalendarComponent> comps = calendar.getComponents();
 	           System.out.println(comps);
+	         //connect to DB
+				DBManager db = new DBManager();
+				Connection con = db.getConnection();
+				if(con == null){
+					System.out.println("failed");
+				}
+				else{
+					System.out.println("success ");
+				}
+				try {
+					PreparedStatement clear = con.prepareStatement("DELETE FROM dates WHERE email=?");
+					clear.setString(1, "imported");
+					clear.execute();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 	           //get all components, turn into dates somehow, add to db
 	           for(int i = 0; i < comps.size(); i++) {
 	        	    String dstring = comps.get(i).getProperty("DTSTART").toString();
@@ -84,16 +102,6 @@ public class SyncJob implements Job{
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-		        	    
-		        	    //connect to DB
-		    			DBManager db = new DBManager();
-		    			Connection con = db.getConnection();
-		    			if(con == null){
-		    				System.out.println("failed");
-		    			}
-		    			else{
-		    				System.out.println("success ");
-		    			}
 		    			
 		    			//send dates to bd
 		    			PreparedStatement psd;

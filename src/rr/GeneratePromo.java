@@ -41,16 +41,25 @@ public class GeneratePromo extends HttpServlet {
 		// TODO Auto-generated method stub
 		String code = request.getParameter("promoCode");
 		String disc = request.getParameter("percentOff");
+		boolean membersOnly = false;
+		if(request.getParameter("mo") != null) {
+			membersOnly = true;
+		}
 		int discount = Integer.parseInt(disc);
 		
 		DBManager db = new DBManager();
 		Connection con = db.getConnection();
 		
 		try {
-			PreparedStatement td = con.prepareStatement("insert into promos(code, discount)" + "values (?,?)");
+			PreparedStatement td = con.prepareStatement("insert into promos(code, discount, members)" + "values (?,?, ?)");
 			
 			td.setString(1, code);
 			td.setInt(2, discount);
+			int membersCheck = 0;
+			if(membersOnly) {
+				membersCheck = 1;
+			}
+			td.setInt(3, membersCheck);
 			td.execute();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
