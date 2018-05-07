@@ -114,10 +114,12 @@ public class ExportCal extends HttpServlet {
 		 
      
 		
-		String fileLocation = "/tmp/mycalendar.ics";
+		String fileLocation = "https://s3.amazonaws.com/spvideocontent/bookings.ics";
 		File file = new File(fileLocation);
 		
+		
 		FileOutputStream fout = new FileOutputStream(file);
+		
 		
 		 if (!file.exists()) {
 		     file.createNewFile();
@@ -125,6 +127,7 @@ public class ExportCal extends HttpServlet {
 
 		CalendarOutputter outputter = new CalendarOutputter();
 		outputter.output(calendarS, fout);
+		
 		
 		//serve the file for downloading
 		

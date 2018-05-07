@@ -314,10 +314,10 @@ body, html {
 
 <!-- RELAX -->
 <div style="background: linear-gradient(white);">
-<div class="w3-content w3-container w3-padding-64" id="relax">
+<div class="w3-content w3-container w3-padding-32" id="relax" style="max-width: 1200px!important;">
   <!-- <h1 class="w3-center w3-wide w3-xxxlarge" style="border-bottom: 2px solid #777"><b><strong>RELAX...</strong></b></h1> -->
   
-  <div style="overflow-y: hide; padding-bottom: 180px;">
+  <div style="overflow-y: hide; padding-bottom: 95px;">
  <div style="float: right; width: 30%">
    <div style="border: 1px solid #eee; text-align: center; font-size: 80%; box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1.5px 5px 0 rgba(0, 0, 0, 0.19);"><h3 class="w3-hide-small"><b>DETAILS</b></h3><hr class="w3-hide-small">
 	  <p style="text-align: left; padding-left: 5px;"><i class="fa fa-group" aria-hidden="true" style="padding-left: 3px; padding-right: 8px;"></i>8 guests</p>
@@ -372,20 +372,22 @@ body, html {
   <div class="w3-card-4" id="testexpand">
 
 	<header class="w3-container w3-light-grey">
-	  <h3 style="color: #595959"><b>TESTIMONIALS</b></h3>
+	  <h3 style="color: #595959"><b>REVIEWS</b></h3>
 	</header>
 
 	<div class="w3-container">
-	  <p><i class="fa fa-star" style="font-size:24px; color: #FFD700"></i><i class="fa fa-star" style="font-size:24px; color: #FFD700"></i>
-	  <i class="fa fa-star" style="font-size:24px; color: #FFD700"></i>
-	  <i class="fa fa-star" style="font-size:24px; color: #FFD700"></i><i class="fa fa-star" style="font-size:24px; color: #FFD700"></i></p>
+	  <p><i class="fa fa-user" style="font-size: 24px;"></i><i class="fa fa-star" style="font-size:24px; color: #FFD700; float: right;"></i><i class="fa fa-star" style="font-size:24px; float: right; color: #FFD700"></i>
+	  <i class="fa fa-star" style="font-size:24px; float: right;color: #FFD700"></i>
+	  <i class="fa fa-star" style="font-size:24px; float: right;color: #FFD700"></i><i class="fa fa-star" style="font-size:24px; float: right;color: #FFD700"></i></p>
 	  
 	  
 	  <p>This house is INCREDIBLY GORGEOUS and Joe and Crystal are the most amazing hosts you could ever ask for! The inside of the house is just 
 	  absolutely beautiful (everything is brand new) and the outside surroundings, landscaping and views are breathtaking. Our group was there 
 	  for a conference for work, and it felt like a vacation because of this house and the hospitality of Joe and Crystal. They are immediately 
 	  responsive and also exceptionally
-	   thoughtful. I can not recommend this Airbnb highly enough. If you are headed to Colorado and this house is available, reserve it right away!!!</p>
+	   thoughtful. I can not recommend this Airbnb highly enough. If you are headed to Colorado and this house is available, reserve it right away!!!<br>
+	   <span style="float: right">Angie</span>
+	   </p>
 	</div>
 
 </div>
