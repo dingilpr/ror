@@ -53,12 +53,13 @@ src="https://www.facebook.com/tr?id=900972550076057&ev=PageView
 * as the event label. Setting the transport method to 'beacon' lets the hit be sent
 * using 'navigator.sendBeacon' in browser that support it.
 */
-var trackOutboundLink = function(url) {
-	   ga('send', 'event', 'outbound', 'click', url, {
-	     'transport': 'beacon',
-	     'hitCallback': function(){document.location = url;}
-	   });
-	}
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-114725707-1', 'auto');
+	ga('send', 'pageview');
 </script>
 <script src="codebase/dhtmlxcalendar.js" 
     type="text/javascript"></script>
@@ -251,7 +252,7 @@ body, html {
 
 <!-- Navbar (sit on top) -->
 <div class="w3-top">
-  <div class="w3-bar" id="myNavbar" style="padding-left: 10px; padding-right: 10px; color:#777;">
+  <div class="w3-bar" id="myNavbar" style="padding-left: 10px; padding-right: 10px; color:white; background-color: #2a586f">
     <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu">
       <i class="fa fa-bars"></i>
     </a>
@@ -300,11 +301,12 @@ body, html {
 
 <div style="background-color: #ebf2f9;">
 	<br>
-	<div class = "w3-content w3-container w3-center" style="background-color: #ebf2f9;">
+	<div class = "w3-content w3-container w3-center" style="background-color: #ebf2f9; font-size: 80%">
 	  <h3><b>Enjoy these benefits by joining our newsletter!</b></h3><hr>
-	  <div class="w3-third ani" style="height: 100px; padding: 10px; text-align: center;"><i class="fa fa-tag fa-2x" style="float: left; color: #607d8b"></i>Guaranteed lowest price</div>
-	  <div class="w3-third ani" style="height: 100px; padding: 10px; text-align: center"><img src="vip.icon.png" style="height: 50%; padding-right: 12px;"></img>Personalized vacation</div>
-	  <div class="w3-third ani" style="height: 100px; padding: 10px; text-align: center"><i class="fa fa-dollar fa-2x" style="float: left; color: #607d8b; padding-right: 10px; padding-left: 50px"></i><span style="float: left">Earn free nights</span></div>
+	  <div class="w3-quarter ani" style="height: 100px; padding: 10px; text-align: center;"><i class="fa fa-tag fa-2x" style="float: left; color: #607d8b"></i>Guaranteed lowest price</div>
+	  <div class="w3-quarter ani" style="height: 100px; padding: 10px; text-align: center"><img src="vip.icon.png" style="height: 50%; padding-right: 12px;"></img>Personalized vacation</div>
+	  <div class="w3-quarter ani" style="height: 100px; padding: 10px; text-align: center"><i class="fa fa-dollar fa-2x" style="float: left; color: #607d8b; padding-right: 10px; padding-left: 10px"></i><span style="">Earn free nights</span></div>
+	  <div class="w3-quarter ani" style="height: 100px; padding: 10px; text-align: center;"><i class="fa fa-mobile fa-2x" style="float: left; color: #607d8b"></i>Keyless entry</div>
 	  <div style="text-align:center">
  		 <a href="#"><button class="w3-center w3-button w3-round-large w3-xlarge w3-blue-grey" onclick="document.getElementById('id01').style.display='block'">Sign Up!</button></a>
   	  </div>
@@ -528,8 +530,29 @@ The ranch is also home to alpacas and goats who offer playful energy and are hap
     DINING
   </div>
 </div>
+
+<div class="w3-row w3-center w3-padding-16 ani">
+  <div class="w3-quarter w3-section">
+  <img src="rrhike.jpg" style="height: 80%; width: 80%; box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.19);">
+  <p style="text-align: center;padding-top: 10px;">Red Rocks Park</p>
+  </div>
+  <div class="w3-quarter w3-section">
+  <img src="raft.jpg" style="height: 80%; width: 80%; box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.19);">
+  <p style="text-align: center;padding-top: 10px;">Whitewater Rafting</p>
+  </div>
+  <div class="w3-quarter w3-section">
+  <img src="skull.png" style="height: 80%; width: 80%; box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.19);">
+  <p style="text-align: center;padding-top: 10px;">Morrison Natural History Museum</p>
+  </div>
+  <div class="w3-quarter w3-section">
+  <img src="dining.jpg" style="height: 80%; width: 80%; box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.19);">
+  <p style="text-align: center;padding-top: 10px;">Cafe Prague</p>
+  </div>
+</div>
+
+
  <div style="text-align:center">
-  <a href="explore.jsp"><button class="w3-center w3-button w3-round-large w3-xlarge w3-blue-grey">View activities!</button></a>
+  <a href="explore.jsp"><button class="w3-center w3-button w3-round-large w3-xlarge w3-blue-grey">View all activities!</button></a>
   </div>
   
   <br>
@@ -759,8 +782,9 @@ The ranch is also home to alpacas and goats who offer playful energy and are hap
  
  <div class="w3-content w3-container">
  
- <h1 class="w3-center w3-large w3-text-white" style="text-align: center;" id="bknow"><span class="w3-padding w3-red w3-opacity-min"><b>BOOK NOW!</b></span></h1>
-  <div class="airbnb-embed-frame" data-id="21715641" data-view="home" style="height:500px;margin:auto"><a href="https://www.airbnb.com/rooms/21715641?s=51" onclick="trackOutboundLink('https://www.airbnb.com/rooms/21715641?s=51'); return false;"><span>View On Airbnb</span></a><a href="https://www.airbnb.com/rooms/21715641?s=51" onclick="trackOutboundLink('https://www.airbnb.com/rooms/21715641?s=51'); return false;" rel="nofollow">Ranch On The Rocks Estate - Red Rocks Amphitheatre</a><script async="" src="https://www.airbnb.com/embeddable/airbnb_jssdk"></script></div>
+ <h1 class="w3-center w3-large w3-text-white" style="text-align: center;" id="bknow"><button class="w3-button w3-red" onclick="showBB(); ga('send', 'event', 'button', 'click', 'book');"><b>BOOK NOW!</b></button></h1>
+ 
+  <div class="airbnb-embed-frame" id="BB" data-id="21715641" data-view="home" style="height:0px;margin:auto;"><a href="https://www.airbnb.com/rooms/21715641?s=51" onclick="trackOutboundLink('https://www.airbnb.com/rooms/21715641?s=51'); return false;"><span>View On Airbnb</span></a><a href="https://www.airbnb.com/rooms/21715641?s=51" onclick="trackOutboundLink('https://www.airbnb.com/rooms/21715641?s=51'); return false;" rel="nofollow">Ranch On The Rocks Estate - Red Rocks Amphitheatre</a><script async="" src="https://www.airbnb.com/embeddable/airbnb_jssdk"></script></div>
 
   </div>
   
@@ -851,6 +875,10 @@ window.onload = function() {
     }
 }
 **/
+function showBB(){
+	document.getElementById("BB").style.height = "500px";
+}
+
 
 function myMap()
 {
@@ -876,7 +904,7 @@ function onClick(element) {
   captionText.innerHTML = element.alt;
 }
 
-// Change style of navbar on scroll
+/** Change style of navbar on scroll
 window.onscroll = function() {myFunction()};
 function myFunction() {
     var navbar = document.getElementById("myNavbar");
@@ -886,6 +914,7 @@ function myFunction() {
         navbar.className = navbar.className.replace(" w3-card w3-animate-top w3-white", "");
     }
 }
+**/
 
 // Used to toggle the menu on small screens when clicking on the menu button
 function toggleFunction() {
