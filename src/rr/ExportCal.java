@@ -30,6 +30,25 @@ import net.fortuna.ical4j.model.property.ProdId;
 import net.fortuna.ical4j.model.property.Version;
 import net.fortuna.ical4j.util.UidGenerator;
 
+import com.amazonaws.AmazonClientException;
+import com.amazonaws.AmazonServiceException;
+import com.amazonaws.auth.AWSCredentials;
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.auth.profile.ProfileCredentialsProvider;
+import com.amazonaws.regions.Region;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.Bucket;
+import com.amazonaws.services.s3.model.GetObjectRequest;
+import com.amazonaws.services.s3.model.ListObjectsRequest;
+import com.amazonaws.services.s3.model.ObjectListing;
+import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.amazonaws.services.s3.model.S3Object;
+import com.amazonaws.services.s3.model.S3ObjectSummary;
+
 /**
  * Servlet implementation class ExportCal
  */
@@ -49,7 +68,25 @@ public class ExportCal extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//connect to AWS s3
+		BasicAWSCredentials awsCreds = new BasicAWSCredentials("AKIAJRX5JRE6SU3UUFAA", "Z9EjoynRyIJcAKJ8dTuXI9UXSCNXvwmh1BRk12nL");
+	        AmazonS3 s3 = AmazonS3ClientBuilder.standard()
+	                .withCredentials(new AWSStaticCredentialsProvider(awsCreds))
+	                .withRegion("us-west-2")
+	                .build();
+	        
+	        String bucket = "rorcal";
+	        String key = "bookings.ics";
+	        
+	        
+	        
+	      
 		
+		//replace current calendar file if exists
+		
+		//upload to s3
+	        
+	        
 		//get all dates from DB for calendar EXPORT
 		 //connect to DB
 		DBManager db = new DBManager();
@@ -114,8 +151,8 @@ public class ExportCal extends HttpServlet {
 		 
      
 		
-		String fileLocation = "/src/bookings.ics";
-		File file = new File(fileLocation);
+		
+		File file = new File("/tmp/booking.ics");
 		
 		 if (!file.exists()) {
 		     file.createNewFile();
@@ -129,8 +166,10 @@ public class ExportCal extends HttpServlet {
 		CalendarOutputter outputter = new CalendarOutputter();
 		outputter.output(calendarS, fout);
 		
+	    s3.putObject(new PutObjectRequest(bucket, key, file));
 		
-		//serve the file for downloading
+		
+		/**serve the file for downloading
 		
 		FileInputStream fis = new FileInputStream(file);
 		ServletOutputStream sos = response.getOutputStream();
@@ -145,6 +184,9 @@ public class ExportCal extends HttpServlet {
 		}
 		
 		fis.close();
+		**/
+		
+		
 	}
 
 	/**
