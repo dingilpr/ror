@@ -247,6 +247,136 @@ body, html {
     -webkit-transform: scale(1.03); /* Safari 3-8 */
     transform: scale(1.03); 
 }
+
+.row > .galleryColumn {
+  padding: 0 8px;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Create four equal columns that floats next to eachother */
+.galleryColumn {
+  float: left;
+  width: 10%;
+}
+
+/* The Modal (background) */
+.galleryModal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  padding-top: 100px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: black;
+}
+
+/* Modal Content */
+.gallery-modal-content {
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 0;
+  width: 90%;
+  max-width: 1200px;
+}
+
+/* The Close Button */
+.close {
+  color: white;
+  position: absolute;
+  top: 10px;
+  right: 25px;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #999;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Hide the slides by default */
+.myGallerySlides {
+  display: none;
+}
+
+/* Next & previous buttons */
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -50px;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover,
+.next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* Caption text */
+.caption-container {
+  text-align: center;
+  background-color: black;
+  padding: 2px 16px;
+  color: white;
+}
+
+img.demo {
+  opacity: 0.6;
+  max-width: 60%;
+  max-height: 25px;
+}
+
+.activeB,
+.demo:hover {
+  opacity: 1;
+  max-width: 60%;
+  max-height: 25px;;
+}
+
+img.hover-shadow {
+  transition: 0.3s
+}
+
+.hover-shadow:hover {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
+}
 </style>
 <body>
 
@@ -277,6 +407,252 @@ body, html {
       </div>
     </div>
   </div>
+  
+  <!-- The Modal/Lightbox -->
+<div id="myGalleryModal" class="galleryModal">
+  <p onclick="closeGalleryModal()" class="w3-button w3-display-topright">X</p>
+  <div class="gallery-modal-content">
+  <div style="text-align: center; background-color: black; color: white;">
+	<p id="socialspaces" style="display: inline" onclick="currentSlide(1);">Social Spaces / </p>
+	<p id="kitchen" style="display: inline" onclick="currentSlide(12);">Kitchen / </p>
+	<p id="bedrooms" style="display: inline" onclick="currentSlide(16);">Bedrooms / </p>
+	<p id="outdoorspaces" style="display: inline" onclick="currentSlide(22);">Outdoor Spaces</p>
+   </div>
+	<!-- Social Spaces -->
+    <div class="myGallerySlides">
+      <div class="numbertext">1 / 24</div>
+      <img src="WebRes/10_FamilyRoom-GameArea-1.jpg" style="width:100%">
+    </div>
+
+	<div class="myGallerySlides">
+      <div class="numbertext">2 / 24</div>
+      <img src="WebRes/21_FamilyRoom-WetBar-2.jpg" style="width:100%">
+    </div>
+    
+    <div class="myGallerySlides">
+      <div class="numbertext">3 / 24</div>
+      <img src="WebRes/5_FamilyRoom-5.jpg" style="width:100%">
+    </div>
+    
+    <div class="myGallerySlides">
+      <div class="numbertext">4 / 24</div>
+      <img src="WebRes/8_FamilyRoom-1.jpg" style="width:100%">
+    </div>
+    
+    <div class="myGallerySlides">
+      <div class="numbertext">5 / 24</div>
+      <img src="WebRes/7_FamilyRoom-3.jpg" style="width:100%">
+    </div>
+    
+    <div class="myGallerySlides">
+      <div class="numbertext">6 / 24</div>
+      <img src="WebRes/11_SunRoom-SittingArea-1.jpg" style="width:100%">
+    </div>
+
+    <div class="myGallerySlides">
+      <div class="numbertext">7 / 24</div>
+      <img src="WebRes/12_SunRoom-SittingArea-2.jpg" style="width:100%">
+    </div>
+
+    <div class="myGallerySlides">
+      <div class="numbertext">8 / 24</div>
+      <img src="WebRes/13_SunRoom-SittingArea-3.jpg" style="width:100%">
+    </div>
+
+	<div class="myGallerySlides">
+      <div class="numbertext">9 / 24</div>
+      <img src="WebRes/14_SunRoom-FormalDiningArea-1.jpg" style="width:100%">
+    </div>
+    
+    <div class="myGallerySlides">
+      <div class="numbertext">10 / 24</div>
+      <img src="WebRes/15_SunRoom-FormalDiningArea-2.jpg" style="width:100%">
+    </div>
+    
+    <div class="myGallerySlides">
+      <div class="numbertext">11 / 24</div>
+      <img src="WebRes/16_SunRoom-FormalDiningArea-3.jpg" style="width:100%">
+    </div>
+    
+    <!-- Kitchen -->
+     <div class="myGallerySlides">
+      <div class="numbertext">12 / 24</div>
+      <img src="WebRes/19_Kitchen-1.jpg" style="width:100%">
+    </div>
+    
+    <div class="myGallerySlides">
+      <div class="numbertext">13 / 24</div>
+      <img src="WebRes/18_Kitchen-2.jpg" style="width:100%">
+    </div>
+    
+    <div class="myGallerySlides">
+      <div class="numbertext">14 / 24</div>
+      <img src="WebRes/17_Kitchen-3.jpg" style="width:100%">
+    </div>
+    
+    <div class="myGallerySlides">
+      <div class="numbertext">15 / 24</div>
+      <img src="WebRes/20_Kitchen-4.jpg" style="width:100%">
+    </div>
+    
+    <!-- Bedrooms and Powder Rooms -->
+    <div class="myGallerySlides">
+      <div class="numbertext">16 / 24</div>
+      <img src="WebRes/25_MasterSuite-Bedroom-1.jpg" style="width:100%">
+    </div>
+    
+    <div class="myGallerySlides">
+      <div class="numbertext">17 / 24</div>
+      <img src="WebRes/29_MasterSuite-Bathroom-1.jpg" style="width:100%">
+    </div>
+    
+    <div class="myGallerySlides">
+      <div class="numbertext">18 / 24</div>
+      <img src="WebRes/31_MasterSuite-Bathroom-3.jpg" style="width:100%">
+    </div>
+    
+    <div class="myGallerySlides">
+      <div class="numbertext">19 / 24</div>
+      <img src="WebRes/32_LowerLevel-BedroomTwo-1.jpg" style="width:100%">
+    </div>
+    
+    <div class="myGallerySlides">
+      <div class="numbertext">20 / 24</div>
+      <img src="WebRes/35_LowerLevel-BedroomThree-1.jpg" style="width:100%">
+    </div>
+    
+    <div class="myGallerySlides">
+      <div class="numbertext">21 / 24</div>
+      <img src="WebRes/37_LowerLevel-BathroomTwo-1.jpg" style="width:100%">
+    </div>
+    
+    <!-- Outdoor Spaces -->
+    <div class="myGallerySlides">
+      <div class="numbertext">22 / 24</div>
+      <img src="WebRes/41_Exterior-Back-3.jpg" style="width:100%">
+    </div>
+    
+    <div class="myGallerySlides">
+      <div class="numbertext">23 / 24</div>
+      <img src="WebRes/42_Exterior-Back-1-2.jpg" style="width:100%">
+    </div>
+    
+    <div class="myGallerySlides">
+      <div class="numbertext">24 / 24</div>
+      <img src="WebRes/1_Exterior-Front-2.jpg" style="width:100%">
+    </div>
+    
+    <!-- Next/previous controls -->
+    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+    <!-- Caption text -->
+    <div class="caption-container">
+      <p id="caption"></p>
+    </div>
+
+    <!-- Thumbnail image controls
+    	 Social Spaces
+     -->
+    <div class="galleryColumn">
+      <img class="demo" src="WebRes/10_FamilyRoom-GameArea-1.jpg" onclick="currentSlide(1)" alt="">
+    </div>
+
+	<div class="galleryColumn">
+      <img class="demo" src="WebRes/21_FamilyRoom-WetBar-2.jpg" onclick="currentSlide(2)" alt="">
+    </div>
+    
+    <div class="galleryColumn">
+      <img class="demo" src="WebRes/5_FamilyRoom-5.jpg" onclick="currentSlide(3)" alt="">
+    </div>
+    
+    <div class="galleryColumn">
+      <img class="demo" src="WebRes/8_FamilyRoom-1.jpg" onclick="currentSlide(4)" alt="">
+    </div>
+    
+    <div class="galleryColumn">
+      <img class="demo" src="WebRes/7_FamilyRoom-3.jpg" onclick="currentSlide(5)" alt="">
+    </div>
+    
+    <div class="galleryColumn">
+      <img class="demo" src="WebRes/11_SunRoom-SittingArea-1.jpg" onclick="currentSlide(6)" alt="">
+    </div>
+
+    <div class="galleryColumn">
+      <img class="demo" src="WebRes/12_SunRoom-SittingArea-2.jpg" onclick="currentSlide(7)" alt="">
+    </div>
+
+    <div class="galleryColumn">
+      <img class="demo" src="WebRes/13_SunRoom-SittingArea-3.jpg" onclick="currentSlide(8)" alt="">
+    </div>
+    
+    <div class="galleryColumn">
+      <img class="demo" src="WebRes/14_SunRoom-FormalDiningArea-1.jpg" onclick="currentSlide(9)" alt="">
+    </div>
+    
+    <div class="galleryColumn">
+      <img class="demo" src="WebRes/15_SunRoom-FormalDiningArea-2.jpg" onclick="currentSlide(10)" alt="">
+    </div>
+    
+    <div class="galleryColumn">
+      <img class="demo" src="WebRes/16_SunRoom-FormalDiningArea-3.jpg" onclick="currentSlide(11)" alt="">
+    </div>
+    
+    <div class="galleryColumn">
+      <img class="demo" src="WebRes/19_Kitchen-1.jpg" onclick="currentSlide(12)" alt="">
+    </div>
+    
+    <div class="galleryColumn">
+      <img class="demo" src="WebRes/18_Kitchen-2.jpg" onclick="currentSlide(13)" alt="">
+    </div>
+    
+    <div class="galleryColumn">
+      <img class="demo" src="WebRes/17_Kitchen-3.jpg" onclick="currentSlide(14)" alt="">
+    </div>
+    
+    <div class="galleryColumn">
+      <img class="demo" src="WebRes/20_Kitchen-4.jpg" onclick="currentSlide(15)" alt="">
+    </div>
+    
+    <div class="galleryColumn">
+      <img class="demo" src="WebRes/25_MasterSuite-Bedroom-1.jpg" onclick="currentSlide(16)" alt="">
+    </div>
+    
+    <div class="galleryColumn">
+      <img class="demo" src="WebRes/29_MasterSuite-Bathroom-1.jpg" onclick="currentSlide(17)" alt="">
+    </div>
+    
+    <div class="galleryColumn">
+      <img class="demo" src="WebRes/31_MasterSuite-Bathroom-3.jpg" onclick="currentSlide(18)" alt="">
+    </div>
+    
+    <div class="galleryColumn">
+      <img class="demo" src="WebRes/32_LowerLevel-BedroomTwo-1.jpg" onclick="currentSlide(19)" alt="">
+    </div>
+    
+    <div class="galleryColumn">
+      <img class="demo" src="WebRes/35_LowerLevel-BedroomThree-1.jpg" onclick="currentSlide(20)" alt="">
+    </div>
+    
+    <div class="galleryColumn">
+      <img class="demo" src="WebRes/37_LowerLevel-BathroomTwo-1.jpg" onclick="currentSlide(21)" alt="">
+    </div>
+    
+    <div class="galleryColumn">
+      <img class="demo" src="WebRes/41_Exterior-Back-3.jpg" onclick="currentSlide(22)" alt="">
+    </div>
+    
+    <div class="galleryColumn">
+      <img class="demo" src="WebRes/42_Exterior-Back-1-2.jpg" onclick="currentSlide(23)" alt="">
+    </div>
+    
+    <div class="galleryColumn">
+      <img class="demo" src="WebRes/1_Exterior-Front-2.jpg" onclick="currentSlide(24)" alt="">
+    </div>
+    
+  </div>
+</div>
+  
   <!-- Navbar on small screens -->
   <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium">
     <a href="#about" class="w3-bar-item w3-button" onclick="toggleFunction()">BOOK</a>
@@ -303,10 +679,10 @@ body, html {
 	<br>
 	<div class = "w3-content w3-container w3-center" style="background-color: #ebf2f9; font-size: 80%">
 	  <h3><b>Enjoy these benefits by joining our newsletter!</b></h3><hr>
-	  <div class="w3-quarter ani" style="height: 100px; padding: 10px; text-align: center;"><i class="fa fa-tag fa-2x" style="float: left; color: #607d8b"></i>Guaranteed lowest price</div>
-	  <div class="w3-quarter ani" style="height: 100px; padding: 10px; text-align: center"><img src="vip.icon.png" style="height: 50%; padding-right: 12px;"></img>Personalized vacation</div>
-	  <div class="w3-quarter ani" style="height: 100px; padding: 10px; text-align: center"><i class="fa fa-dollar fa-2x" style="float: left; color: #607d8b; padding-right: 10px; padding-left: 10px"></i><span style="">Earn free nights</span></div>
-	  <div class="w3-quarter ani" style="height: 100px; padding: 10px; text-align: center;"><i class="fa fa-mobile fa-2x" style="float: left; color: #607d8b"></i>Keyless entry</div>
+	  <div class="w3-quarter ani" style="height: 100px; padding: 10px; text-align: center;"><i class="fa fa-tag fa-2x" style="float: left; color: #607d8b; padding-right: 5px;"></i>Guaranteed lowest price</div>
+	  <div class="w3-quarter ani" style="height: 100px; padding: 10px; text-align: center"><img src="vip.icon.png" style="height: 50%; padding-right: 16px; float: left;"></img>Personalized vacation</div>
+	  <div class="w3-quarter ani" style="height: 100px; padding: 10px; text-align: center"><i class="fa fa-dollar fa-2x" style="float: left; color: #607d8b; padding-left: 30px"></i><span style="text-align: left;">Earn free nights</span></div>
+	  <div class="w3-quarter ani" style="height: 100px; padding: 10px; text-align: center;"><i class="fa fa-mobile fa-2x" style="float: left; color: #607d8b; padding-left: 30px"></i><span style="text-align: left;">Mobile keyless entry</span></div>
 	  <div style="text-align:center">
  		 <a href="#"><button class="w3-center w3-button w3-round-large w3-xlarge w3-blue-grey" onclick="document.getElementById('id01').style.display='block'">Sign Up!</button></a>
   	  </div>
@@ -326,6 +702,7 @@ body, html {
 	  <p style="text-align: left; padding-left: 5px;"><i class="fa fa-home" aria-hidden="true" style="padding-left: 3px; padding-right: 8px;"></i>3 bedrooms</p>
 	  <p style="text-align: left; padding-left: 5px;"><i class="fa fa-hotel" aria-hidden="true" style="padding-left: 3px; padding-right: 8px;"></i>5 beds</p>
 	  <p style="text-align: left; padding-left: 5px;"><i class="fa fa-shower" aria-hidden="true" style="padding-left: 3px; padding-right: 8px;"></i>2.5 baths</p>
+	  <a href="#"><button class="w3-center w3-button w3-large w3-large w3-white" onclick="openGalleryModal();currentSlide(1);" style="width: 100%;">View Photos</button></a>
    </div>
 	  <br>
    <div style="border: 1px solid #eee; margin-top: 10px; margin-bottom: 30px; text-align: center; font-size: 80%; box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1.5px 5px 0 rgba(0, 0, 0, 0.19);"><h3 class="w3-hide-small"><b>NEWSLETTER</b></h3><hr class="w3-hide-small">
@@ -374,7 +751,7 @@ body, html {
   <div class="w3-card-4" id="testexpand">
 
 	<header class="w3-container w3-light-grey">
-	  <h3 style="color: #595959"><b>REVIEWS</b></h3>
+	  <h3 style="color: #595959; padding: 2px;"><b>REVIEWS</b></h3>
 	</header>
 
 	<div class="w3-container">
@@ -618,7 +995,7 @@ The ranch is also home to alpacas and goats who offer playful energy and are hap
     <div class="w3-col m6 w3-hide-small w3-padding-large ani">
       <h3><b>Your Favorite Concert.</b></h3> <p>Red Rocks Ampitheater is one of the greatest entertainment venues in the world, and has no shortage of concerts. In fact, the venue has broken its own record for most shows in a year for the last six years.<br>
       <br>
-      <a href="http://redrocksonline.com/concerts-events/calendar/2018/07" target="_blank"><button class="w3-center w3-button w3-round-large w3-xlarge w3-blue-grey" style="text-align: center">View concert schedule!</button></a>
+      <a href="http://redrocksonline.com/concerts-events/calendar" target="_blank"><button class="w3-center w3-button w3-round-large w3-xlarge w3-blue-grey" style="text-align: center">View concert schedule!</button></a>
     </div>
     <br>
   </div>
@@ -894,6 +1271,75 @@ function myMap()
     position: myCenter,
   });
   marker.setMap(map);
+}
+
+//Open the Modal
+function openGalleryModal() {
+  document.getElementById('myGalleryModal').style.display = "block";
+}
+
+// Close the Modal
+function closeGalleryModal() {
+  document.getElementById('myGalleryModal').style.display = "none";
+}
+
+var slideIndex = 1;
+showSlides(slideIndex);
+
+
+// Next/previous controls
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+// Thumbnail image controls
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("myGallerySlides");
+  
+  var captionText = document.getElementById("caption");
+  if (n > slides.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  
+  slides[slideIndex-1].style.display = "block";
+  
+  
+  
+  if(slideIndex < 12){
+		document.getElementById('socialspaces').style.fontSize = "120%";
+		document.getElementById('kitchen').style.fontSize = "100%";
+		document.getElementById('bedrooms').style.fontSize = "100%";
+		document.getElementById('outdoorspaces').style.fontSize = "100%";
+	}
+
+	if(slideIndex >= 12 && slideIndex < 16){
+		document.getElementById('kitchen').style.fontSize = "120%";
+		document.getElementById('socialspaces').style.fontSize = "100%";
+		document.getElementById('bedrooms').style.fontSize = "100%";
+		document.getElementById('outdoorspaces').style.fontSize = "100%";
+	}
+
+	if(slideIndex >= 16 && slideIndex < 22){
+		document.getElementById('bedrooms').style.fontSize = "120%";
+		document.getElementById('socialspaces').style.fontSize = "100%";
+		document.getElementById('kitchen').style.fontSize = "100%";
+		document.getElementById('outdoorspaces').style.fontSize = "100%";
+	}
+	
+	if(slideIndex >= 22){
+		document.getElementById('outdoorspaces').style.fontSize = "120%";
+		document.getElementById('socialspaces').style.fontSize = "100%";
+		document.getElementById('bedrooms').style.fontSize = "100%";
+		document.getElementById('kitchen').style.fontSize = "100%";
+	}
+	
 }
 
 // Modal Image Gallery
