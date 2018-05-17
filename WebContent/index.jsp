@@ -413,10 +413,10 @@ img.hover-shadow {
   <p onclick="closeGalleryModal()" class="w3-button w3-display-topright">X</p>
   <div class="gallery-modal-content">
   <div style="text-align: center; background-color: black; color: white;">
-	<p id="socialspaces" style="display: inline" onclick="currentSlide(1);">Social Spaces / </p>
-	<p id="kitchen" style="display: inline" onclick="currentSlide(12);">Kitchen / </p>
-	<p id="bedrooms" style="display: inline" onclick="currentSlide(16);">Bedrooms / </p>
-	<p id="outdoorspaces" style="display: inline" onclick="currentSlide(22);">Outdoor Spaces</p>
+	<button class="w3-button w3-black"><p id="socialspaces" style="display: inline" onclick="currentSlide(1);">Social Spaces / </p></button>
+	<button class="w3-button w3-black"><p id="kitchen" style="display: inline" onclick="currentSlide(12);">Kitchen / </p></button>
+	<button class="w3-button w3-black"><p id="bedrooms" style="display: inline" onclick="currentSlide(16);">Bedrooms / </p></button>
+	<button class="w3-button w3-black"><p id="outdoorspaces" style="display: inline" onclick="currentSlide(22);">Outdoor Spaces</p></button>
    </div>
 	<!-- Social Spaces -->
     <div class="myGallerySlides">
@@ -555,11 +555,11 @@ img.hover-shadow {
     	 Social Spaces
      -->
     <div class="galleryColumn">
-      <img class="demo" src="WebRes/10_FamilyRoom-GameArea-1.jpg" onclick="currentSlide(1)" alt="">
+      <img class="demo" src="WebRes/10_FamilyRoom-GameArea-1.jpg" onclick="currentSlide(1)" alt="Family Room Game Area">
     </div>
 
 	<div class="galleryColumn">
-      <img class="demo" src="WebRes/21_FamilyRoom-WetBar-2.jpg" onclick="currentSlide(2)" alt="">
+      <img class="demo" src="WebRes/21_FamilyRoom-WetBar-2.jpg" onclick="currentSlide(2)" alt="Family Room Bar">
     </div>
     
     <div class="galleryColumn">
@@ -599,31 +599,31 @@ img.hover-shadow {
     </div>
     
     <div class="galleryColumn">
-      <img class="demo" src="WebRes/19_Kitchen-1.jpg" onclick="currentSlide(12)" alt="">
+      <img class="demo" src="WebRes/19_Kitchen-1.jpg" onclick="currentSlide(12)" alt="Bertazzoni Gas Burners and Custom Mosaics make Cooking Fun and Easy">
     </div>
     
     <div class="galleryColumn">
-      <img class="demo" src="WebRes/18_Kitchen-2.jpg" onclick="currentSlide(13)" alt="">
+      <img class="demo" src="WebRes/18_Kitchen-2.jpg" onclick="currentSlide(13)" alt="Bertazzoni Gas Burners and Custom Mosaics make Cooking Fun and Easy">
     </div>
     
     <div class="galleryColumn">
-      <img class="demo" src="WebRes/17_Kitchen-3.jpg" onclick="currentSlide(14)" alt="">
+      <img class="demo" src="WebRes/17_Kitchen-3.jpg" onclick="currentSlide(14)" alt="Bertazzoni Gas Burners and Custom Mosaics make Cooking Fun and Easy">
     </div>
     
     <div class="galleryColumn">
-      <img class="demo" src="WebRes/20_Kitchen-4.jpg" onclick="currentSlide(15)" alt="">
+      <img class="demo" src="WebRes/20_Kitchen-4.jpg" onclick="currentSlide(15)" alt="Bertazzoni Gas Burners and Custom Mosaics make Cooking Fun and Easy">
     </div>
     
     <div class="galleryColumn">
-      <img class="demo" src="WebRes/25_MasterSuite-Bedroom-1.jpg" onclick="currentSlide(16)" alt="">
+      <img class="demo" src="WebRes/25_MasterSuite-Bedroom-1.jpg" onclick="currentSlide(16)" alt="Master Bedroom with King Mattress">
     </div>
     
     <div class="galleryColumn">
-      <img class="demo" src="WebRes/29_MasterSuite-Bathroom-1.jpg" onclick="currentSlide(17)" alt="">
+      <img class="demo" src="WebRes/29_MasterSuite-Bathroom-1.jpg" onclick="currentSlide(17)" alt="Master Suite Bathroom">
     </div>
     
     <div class="galleryColumn">
-      <img class="demo" src="WebRes/31_MasterSuite-Bathroom-3.jpg" onclick="currentSlide(18)" alt="">
+      <img class="demo" src="WebRes/31_MasterSuite-Bathroom-3.jpg" onclick="currentSlide(18)" alt="Master Suite Bathroom">
     </div>
     
     <div class="galleryColumn">
@@ -639,11 +639,11 @@ img.hover-shadow {
     </div>
     
     <div class="galleryColumn">
-      <img class="demo" src="WebRes/41_Exterior-Back-3.jpg" onclick="currentSlide(22)" alt="">
+      <img class="demo" src="WebRes/41_Exterior-Back-3.jpg" onclick="currentSlide(22)" alt="Wooden Walkway Feature">
     </div>
     
     <div class="galleryColumn">
-      <img class="demo" src="WebRes/42_Exterior-Back-1-2.jpg" onclick="currentSlide(23)" alt="">
+      <img class="demo" src="WebRes/42_Exterior-Back-1-2.jpg" onclick="currentSlide(23)" alt="1200 Sqft Patio with Fire Pit and Gas Burner BBQ">
     </div>
     
     <div class="galleryColumn">
@@ -651,6 +651,39 @@ img.hover-shadow {
     </div>
     
   </div>
+  <!-- bedroom layouts -->
+  
+   <div class="w3-row w3-center w3-padding-16 ani" style="margin-left: 8%; margin-right: 8%;">
+  <div class="w3-quarter w3-section">
+    <div id="masterbed" class="w3-display-container">
+    	<img id="mstr" src="kingiconinvert.png" class="zoomS" style="height: 150px; transition: transform .2s;">
+    	<!-- <div class="w3-display-middle w3-large"><i id="mstricon" class="fa fa-hotel fa-2x" aria-hidden="true"></i></div>  -->
+    	<p id="mstrp" style="text-align: center">Master Bedroom</p>
+    </div>
+  </div>
+  <div class="w3-quarter w3-section" style="margin-right: 50px;">
+    <div id="secondbed" class="w3-display-container">
+    	<img id="scnd" src="kingandtwiniconinvert.png" class="zoomS" style="height: 150px; transition: transform .2s;">
+    	<!-- <div class="w3-display-middle w3-large"><i id="scndicon" class="fa fa-hotel fa-2x" aria-hidden="true"></i></div>  -->
+    	<p id="scndp" style="text-align: center">Second Bedroom</p>
+    </div>
+  </div>
+  <div class="w3-quarter w3-section" style="margin-right: -30px;">
+    <div id="thirdbed" class="w3-display-container">
+    	<img id="thrd" src="queeniconinvert.png" class="zoomS" style="height: 150px; transition: transform .2s;">
+    	<!-- <div class="w3-display-middle w3-large"><i id="thrdicon" class="fa fa-hotel fa-2x" aria-hidden="true"></i></div>  -->
+    	<p id="thrdp" style="text-align: center">Third Bedroom</p>
+    </div>
+  </div>
+  <div class="w3-quarter w3-section" id="frthcont">
+    <div id="fourthbed" class="w3-display-container">
+    	<img id="frth" src="twiniconinvert.png" class="zoomS" style="height: 150px; transition: transform .2s;">
+    	<!-- <div class="w3-display-middle w3-large"><i id="frthicon" class="fa fa-cutlery fa-2x" aria-hidden="true"></i></div>  -->
+    	<p id="frthp" style="text-align: center">Extra Bed</p>
+    </div>
+  </div>
+</div>
+  
 </div>
   
   <!-- Navbar on small screens -->
@@ -751,23 +784,46 @@ img.hover-shadow {
   <div class="w3-card-4" id="testexpand">
 
 	<header class="w3-container w3-light-grey">
-	  <h3 style="color: #595959; padding: 2px;"><b>REVIEWS</b></h3>
+	  <h3 style="color: #595959; padding: 2px; margin-top: 0px!important"><b>REVIEWS</b></h3>
 	</header>
-
-	<div class="w3-container">
-	  <p><i class="fa fa-user" style="font-size: 24px;"></i><i class="fa fa-star" style="font-size:24px; color: #FFD700; float: right;"></i><i class="fa fa-star" style="font-size:24px; float: right; color: #FFD700"></i>
+	<!-- Review One -->
+	<div class="w3-container" style="padding-top: 5px;">
+	  <p><i class="fa fa-user" style="font-size: 24px;"></i><span style="padding-left: 5px;">Angie</span>
+	  <i class="fa fa-star" style="font-size:24px; color: #FFD700; float: right;"></i><i class="fa fa-star" style="font-size:24px; float: right; color: #FFD700"></i>
 	  <i class="fa fa-star" style="font-size:24px; float: right;color: #FFD700"></i>
 	  <i class="fa fa-star" style="font-size:24px; float: right;color: #FFD700"></i><i class="fa fa-star" style="font-size:24px; float: right;color: #FFD700"></i></p>
 	  
 	  
-	  <p>This house is INCREDIBLY GORGEOUS and Joe and Crystal are the most amazing hosts you could ever ask for! The inside of the house is just 
+	  <p onmouseover="showFull();" onmouseout="hideFull();">This house is INCREDIBLY GORGEOUS and Joe and Crystal are the most amazing hosts you could ever ask for! 
+	  <span id="dotdotone" style="display: inline;">...</span> <span id="fullRev" style="display: none;"> The inside of the house is just 
 	  absolutely beautiful (everything is brand new) and the outside surroundings, landscaping and views are breathtaking. Our group was there 
 	  for a conference for work, and it felt like a vacation because of this house and the hospitality of Joe and Crystal. They are immediately 
 	  responsive and also exceptionally
-	   thoughtful. I can not recommend this Airbnb highly enough. If you are headed to Colorado and this house is available, reserve it right away!!!<br>
-	   <span style="float: right">Angie</span>
+	   thoughtful. I can not recommend this Airbnb highly enough. If you are headed to Colorado and this house is available, 
+	   reserve it right away!!!</span><br>
+	   
 	   </p>
 	</div>
+	<!-- Review Two -->
+	<div class="w3-container">
+	  <p><i class="fa fa-user" style="font-size: 24px;"></i><span style="padding-left: 5px;">Willem</span>
+	  <i class="fa fa-star" style="font-size:24px; color: #FFD700; float: right;"></i><i class="fa fa-star" style="font-size:24px; float: right; color: #FFD700"></i>
+	  <i class="fa fa-star" style="font-size:24px; float: right;color: #FFD700"></i>
+	  <i class="fa fa-star" style="font-size:24px; float: right;color: #FFD700"></i><i class="fa fa-star" style="font-size:24px; float: right;color: #FFD700"></i></p>
+	  
+	  
+	  <p onmouseover="showFullTwo();" onmouseout="hideFullTwo();">An outstanding place, an excellent location. We rented Ranch at the rocks for three days as a base for the wedding of our son 
+	  <span id="dotdottwo" style="display: inline;">...</span><span id="fullRevTwo" style="display: none;">
+	  in Golden. We also organized a catered "rehearsal dinner" at the ranch. Our stay was excellent. We were only the second renters. 
+	  The facility is large, and in- and exterior are of a very high standard. Kitchen, bathrooms and extras are amazing. It is easy to sleep 
+	  8 persons in large beds. Joe also provided us with coffee, some beer and wine. The view of the red rocks and the fireplace on the deck are 
+	  fabulous to spend a night out with friends. Also the help and communication with Joe was top of the line. 
+	  Every question was answered within an hour. In short an outstanding place, the best we ever rented so far.
+	  </span><br>
+	   
+	   </p>
+	</div>
+	
 
 </div>
  
@@ -1072,8 +1128,8 @@ The ranch is also home to alpacas and goats who offer playful energy and are hap
 
 <!-- Container (Contact Section) -->
 <div class="w3-content w3-container w3-padding-64" id="book">
-  <h1 class="w3-center w3-wide w3-xxxlarge" style="border-bottom: 2px solid #777"><b>BOOK</b></h1>
-  <p class="w3-center"><em>Reserve your stay today!</em></p>
+  <h1 class="w3-center w3-wide w3-xxxlarge" style="border-bottom: 2px solid #777; padding-bottom: 15px;"><span style="background-color: red; color: white; padding-left: 6px; padding-right: 6px;"><b>BOOK</b></span></h1>
+  <p class="w3-center">Reserve your stay today!</p>
   <br>
  <div class="w3-row">
  	<div class="w3-container w3-third">
@@ -1256,6 +1312,25 @@ function showBB(){
 	document.getElementById("BB").style.height = "500px";
 }
 
+function showFull(){
+	document.getElementById("fullRev").style.display = "inline";
+	document.getElementById("dotdotone").style.display = "none";
+}
+
+function showFullTwo(){
+	document.getElementById("fullRevTwo").style.display = "inline";
+	document.getElementById("dotdottwo").style.display = "none";
+}
+
+function hideFull(){
+	document.getElementById("fullRev").style.display = "none";
+	document.getElementById("dotdotone").style.display = "inline";
+}
+
+function hideFullTwo(){
+	document.getElementById("fullRevTwo").style.display = "none";
+	document.getElementById("dotdottwo").style.display = "inline";
+}
 
 function myMap()
 {
@@ -1313,28 +1388,28 @@ function showSlides(n) {
   
   
   if(slideIndex < 12){
-		document.getElementById('socialspaces').style.fontSize = "120%";
+		document.getElementById('socialspaces').style.fontSize = "130%";
 		document.getElementById('kitchen').style.fontSize = "100%";
 		document.getElementById('bedrooms').style.fontSize = "100%";
 		document.getElementById('outdoorspaces').style.fontSize = "100%";
 	}
 
 	if(slideIndex >= 12 && slideIndex < 16){
-		document.getElementById('kitchen').style.fontSize = "120%";
+		document.getElementById('kitchen').style.fontSize = "130%";
 		document.getElementById('socialspaces').style.fontSize = "100%";
 		document.getElementById('bedrooms').style.fontSize = "100%";
 		document.getElementById('outdoorspaces').style.fontSize = "100%";
 	}
 
 	if(slideIndex >= 16 && slideIndex < 22){
-		document.getElementById('bedrooms').style.fontSize = "120%";
+		document.getElementById('bedrooms').style.fontSize = "130%";
 		document.getElementById('socialspaces').style.fontSize = "100%";
 		document.getElementById('kitchen').style.fontSize = "100%";
 		document.getElementById('outdoorspaces').style.fontSize = "100%";
 	}
 	
 	if(slideIndex >= 22){
-		document.getElementById('outdoorspaces').style.fontSize = "120%";
+		document.getElementById('outdoorspaces').style.fontSize = "130%";
 		document.getElementById('socialspaces').style.fontSize = "100%";
 		document.getElementById('bedrooms').style.fontSize = "100%";
 		document.getElementById('kitchen').style.fontSize = "100%";
