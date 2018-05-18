@@ -823,7 +823,23 @@ img.hover-shadow {
 	   
 	   </p>
 	</div>
-	
+	<!-- Review Three -->
+	<div class="w3-container">
+	  <p><i class="fa fa-user" style="font-size: 24px;"></i><span style="padding-left: 5px;">Shawn</span>
+	  <i class="fa fa-star" style="font-size:24px; color: #FFD700; float: right;"></i><i class="fa fa-star" style="font-size:24px; float: right; color: #FFD700"></i>
+	  <i class="fa fa-star" style="font-size:24px; float: right;color: #FFD700"></i>
+	  <i class="fa fa-star" style="font-size:24px; float: right;color: #FFD700"></i><i class="fa fa-star" style="font-size:24px; float: right;color: #FFD700"></i></p>
+	  
+	  
+	  <p onmouseover="showFullThree();" onmouseout="hideFullThree();">This place was absolutely perfect for what my group was looking for 
+	  <span id="dotdotthree" style="display: inline;">...</span><span id="fullRevThree" style="display: none;">
+	  . Absolutely beautiful property and less than a mile walk to 
+	  Red Rocks entrance. Our only regret was that we didn't book the property for the rest of the weekend! If you are going to a show at Red Rocks, 
+	  do yourself a favor and don't put up with the hour long wait for an uber home! Rent this place and simply walk back.
+	  </span><br>
+	   
+	   </p>
+	</div>
 
 </div>
  
@@ -1322,6 +1338,11 @@ function showFullTwo(){
 	document.getElementById("dotdottwo").style.display = "none";
 }
 
+function showFullThree(){
+	document.getElementById("fullRevThree").style.display = "inline";
+	document.getElementById("dotdotthree").style.display = "none";
+}
+
 function hideFull(){
 	document.getElementById("fullRev").style.display = "none";
 	document.getElementById("dotdotone").style.display = "inline";
@@ -1330,6 +1351,11 @@ function hideFull(){
 function hideFullTwo(){
 	document.getElementById("fullRevTwo").style.display = "none";
 	document.getElementById("dotdottwo").style.display = "inline";
+}
+
+function hideFullThree(){
+	document.getElementById("fullRevThree").style.display = "none";
+	document.getElementById("dotdotthree").style.display = "inline";
 }
 
 function myMap()

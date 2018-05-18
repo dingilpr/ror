@@ -42,6 +42,7 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.Bucket;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.ListObjectsRequest;
 import com.amazonaws.services.s3.model.ObjectListing;
@@ -165,6 +166,8 @@ public class ExportCal extends HttpServlet {
 
 		CalendarOutputter outputter = new CalendarOutputter();
 		outputter.output(calendarS, fout);
+		
+		s3.deleteObject(new DeleteObjectRequest(bucket, key));
 		
 	    s3.putObject(new PutObjectRequest(bucket, key, file));
 		
