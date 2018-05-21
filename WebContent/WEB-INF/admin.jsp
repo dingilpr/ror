@@ -54,7 +54,9 @@ th, td {
  </div>
  <div class="w3-container w3-half">
  <form name="exportCal" action="ExportCal" method="get" style="text-align: center; padding-top: 40px;">
- 	<input type="submit" value="EXPORT BOOKING CALENDAR" class="w3-button w3-round w3-blue">
+ 	<p>Calendar url: <br>
+ 	https://s3-us-west-2.amazonaws.com/rorcal/bookings.ics?gfix=666</p>
+ 	<input type="submit" value="Manual Refresh" class="w3-button w3-round w3-blue">
  </form>
  </div>
  </div>

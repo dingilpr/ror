@@ -421,125 +421,125 @@ img.hover-shadow {
 	<!-- Social Spaces -->
     <div class="myGallerySlides">
       <div class="numbertext">1 / 24</div>
-      <img src="WebRes/10_FamilyRoom-GameArea-1.jpg" style="width:100%">
+      <img src="WebRes/10_FamilyRoom-GameArea-1.jpg" alt="Family Game Room Area" style="width:100%">
     </div>
 
 	<div class="myGallerySlides">
       <div class="numbertext">2 / 24</div>
-      <img src="WebRes/21_FamilyRoom-WetBar-2.jpg" style="width:100%">
+      <img src="WebRes/21_FamilyRoom-WetBar-2.jpg" alt="Family Room Bar" style="width:100%">
     </div>
     
     <div class="myGallerySlides">
       <div class="numbertext">3 / 24</div>
-      <img src="WebRes/5_FamilyRoom-5.jpg" style="width:100%">
+      <img src="WebRes/5_FamilyRoom-5.jpg" alt="Family Room" style="width:100%">
     </div>
     
     <div class="myGallerySlides">
       <div class="numbertext">4 / 24</div>
-      <img src="WebRes/8_FamilyRoom-1.jpg" style="width:100%">
+      <img src="WebRes/8_FamilyRoom-1.jpg" alt="Window Facing Hog's Back Ridge" style="width:100%">
     </div>
     
     <div class="myGallerySlides">
       <div class="numbertext">5 / 24</div>
-      <img src="WebRes/7_FamilyRoom-3.jpg" style="width:100%">
+      <img src="WebRes/7_FamilyRoom-3.jpg" alt="Family Room" style="width:100%">
     </div>
     
     <div class="myGallerySlides">
       <div class="numbertext">6 / 24</div>
-      <img src="WebRes/11_SunRoom-SittingArea-1.jpg" style="width:100%">
+      <img src="WebRes/11_SunRoom-SittingArea-1.jpg" alt="Sunroom" style="width:100%">
     </div>
 
     <div class="myGallerySlides">
       <div class="numbertext">7 / 24</div>
-      <img src="WebRes/12_SunRoom-SittingArea-2.jpg" style="width:100%">
+      <img src="WebRes/12_SunRoom-SittingArea-2.jpg" alt="Sunroom" style="width:100%">
     </div>
 
     <div class="myGallerySlides">
       <div class="numbertext">8 / 24</div>
-      <img src="WebRes/13_SunRoom-SittingArea-3.jpg" style="width:100%">
+      <img src="WebRes/13_SunRoom-SittingArea-3.jpg" alt="Sunroom" style="width:100%">
     </div>
 
 	<div class="myGallerySlides">
       <div class="numbertext">9 / 24</div>
-      <img src="WebRes/14_SunRoom-FormalDiningArea-1.jpg" style="width:100%">
+      <img src="WebRes/14_SunRoom-FormalDiningArea-1.jpg" alt="Dining Room with Large View Windows" style="width:100%">
     </div>
     
     <div class="myGallerySlides">
       <div class="numbertext">10 / 24</div>
-      <img src="WebRes/15_SunRoom-FormalDiningArea-2.jpg" style="width:100%">
+      <img src="WebRes/15_SunRoom-FormalDiningArea-2.jpg" alt="Dining Room with Large View Windows" style="width:100%">
     </div>
     
     <div class="myGallerySlides">
       <div class="numbertext">11 / 24</div>
-      <img src="WebRes/16_SunRoom-FormalDiningArea-3.jpg" style="width:100%">
+      <img src="WebRes/16_SunRoom-FormalDiningArea-3.jpg" alt="Dining Room with Large View Windows" style="width:100%">
     </div>
     
     <!-- Kitchen -->
      <div class="myGallerySlides">
       <div class="numbertext">12 / 24</div>
-      <img src="WebRes/19_Kitchen-1.jpg" style="width:100%">
+      <img src="WebRes/19_Kitchen-1.jpg" alt="Bertazzoni Gas Burners and Custom Mosaics make Cooking Fun and Easy" style="width:100%">
     </div>
     
     <div class="myGallerySlides">
       <div class="numbertext">13 / 24</div>
-      <img src="WebRes/18_Kitchen-2.jpg" style="width:100%">
+      <img src="WebRes/18_Kitchen-2.jpg" alt="Bertazzoni Gas Burners and Custom Mosaics make Cooking Fun and Easy" style="width:100%">
     </div>
     
     <div class="myGallerySlides">
       <div class="numbertext">14 / 24</div>
-      <img src="WebRes/17_Kitchen-3.jpg" style="width:100%">
+      <img src="WebRes/17_Kitchen-3.jpg" alt="Bertazzoni Gas Burners and Custom Mosaics make Cooking Fun and Easy" style="width:100%">
     </div>
     
     <div class="myGallerySlides">
       <div class="numbertext">15 / 24</div>
-      <img src="WebRes/20_Kitchen-4.jpg" style="width:100%">
+      <img src="WebRes/20_Kitchen-4.jpg" alt="Bertazzoni Gas Burners and Custom Mosaics make Cooking Fun and Easy" style="width:100%">
     </div>
     
     <!-- Bedrooms and Powder Rooms -->
     <div class="myGallerySlides">
       <div class="numbertext">16 / 24</div>
-      <img src="WebRes/25_MasterSuite-Bedroom-1.jpg" style="width:100%">
+      <img src="WebRes/25_MasterSuite-Bedroom-1.jpg" alt="Master Suite with King mattress" style="width:100%">
     </div>
     
     <div class="myGallerySlides">
       <div class="numbertext">17 / 24</div>
-      <img src="WebRes/29_MasterSuite-Bathroom-1.jpg" style="width:100%">
+      <img src="WebRes/29_MasterSuite-Bathroom-1.jpg" alt="Master Bathroom Shower with Travertine Tile and Antique Copper Faucets" style="width:100%">
     </div>
     
     <div class="myGallerySlides">
       <div class="numbertext">18 / 24</div>
-      <img src="WebRes/31_MasterSuite-Bathroom-3.jpg" style="width:100%">
+      <img src="WebRes/31_MasterSuite-Bathroom-3.jpg" alt="Master Bathroom Shower with Travertine Tile and Antique Copper Faucets" style="width:100%">
     </div>
     
     <div class="myGallerySlides">
       <div class="numbertext">19 / 24</div>
-      <img src="WebRes/32_LowerLevel-BedroomTwo-1.jpg" style="width:100%">
+      <img src="WebRes/32_LowerLevel-BedroomTwo-1.jpg" alt="Lower Level Bedroom" style="width:100%">
     </div>
     
     <div class="myGallerySlides">
       <div class="numbertext">20 / 24</div>
-      <img src="WebRes/35_LowerLevel-BedroomThree-1.jpg" style="width:100%">
+      <img src="WebRes/35_LowerLevel-BedroomThree-1.jpg" alt="Lower Level Bedroom" style="width:100%">
     </div>
     
     <div class="myGallerySlides">
       <div class="numbertext">21 / 24</div>
-      <img src="WebRes/37_LowerLevel-BathroomTwo-1.jpg" style="width:100%">
+      <img src="WebRes/37_LowerLevel-BathroomTwo-1.jpg" alt="Lower Level Bedroom" style="width:100%">
     </div>
     
     <!-- Outdoor Spaces -->
     <div class="myGallerySlides">
       <div class="numbertext">22 / 24</div>
-      <img src="WebRes/41_Exterior-Back-3.jpg" style="width:100%">
+      <img src="WebRes/41_Exterior-Back-3.jpg" alt="Wooden Walkway Feature" style="width:100%">
     </div>
     
     <div class="myGallerySlides">
       <div class="numbertext">23 / 24</div>
-      <img src="WebRes/42_Exterior-Back-1-2.jpg" style="width:100%">
+      <img src="WebRes/42_Exterior-Back-1-2.jpg" alt="1200 Sqft Patio with Fire Pit and Gas Burner BBQ" style="width:100%">
     </div>
     
     <div class="myGallerySlides">
       <div class="numbertext">24 / 24</div>
-      <img src="WebRes/1_Exterior-Front-2.jpg" style="width:100%">
+      <img src="WebRes/1_Exterior-Front-2.jpg" alt="Ranch on the Rocks Estate" style="width:100%">
     </div>
     
     <!-- Next/previous controls -->
@@ -559,7 +559,7 @@ img.hover-shadow {
     </div>
 
 	<div class="galleryColumn">
-      <img class="demo" src="WebRes/21_FamilyRoom-WetBar-2.jpg" onclick="currentSlide(2)" alt="Family Room Bar">
+      <img class="demo" src="WebRes/21_FamilyRoom-WetBar-2.jpg" onclick="currentSlide(2)">
     </div>
     
     <div class="galleryColumn">
@@ -1411,6 +1411,8 @@ function showSlides(n) {
   
   slides[slideIndex-1].style.display = "block";
   
+  var c = slides[slideIndex-1].children;
+  captionText.innerHTML = c[1].alt;
   
   
   if(slideIndex < 12){

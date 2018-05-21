@@ -160,9 +160,6 @@ public class ExportCal extends HttpServlet {
 		  }
 		 
 		FileOutputStream fout = new FileOutputStream(file);
-		
-		
-		
 
 		CalendarOutputter outputter = new CalendarOutputter();
 		outputter.output(calendarS, fout);
