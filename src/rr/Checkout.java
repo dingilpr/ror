@@ -1,6 +1,9 @@
 package rr;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,6 +24,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import net.fortuna.ical4j.data.CalendarBuilder;
+import net.fortuna.ical4j.data.ParserException;
+import net.fortuna.ical4j.model.ComponentList;
+import net.fortuna.ical4j.model.component.CalendarComponent;
 
 /**
  * Servlet implementation class Checkout
@@ -114,6 +122,7 @@ public class Checkout extends HttpServlet {
 		}
 		
 		ArrayList<Date> fullTempDates = new ArrayList<Date>();
+		ArrayList<Date> dates = new ArrayList<Date>();
 		
 		//check for collision
 		if(tempDates != null) {
@@ -139,7 +148,7 @@ public class Checkout extends HttpServlet {
 				
 			}
 			//get all dates between startdate and enddate
-			 List<Date> dates = new ArrayList<Date>();
+			 
 			    Calendar calendar = new GregorianCalendar();
 			    calendar.setTime(startDate);
 			    java.util.Calendar addCalT = java.util.Calendar.getInstance();
@@ -167,6 +176,76 @@ public class Checkout extends HttpServlet {
 			}
 			    
 		}
+		
+		//finally, check AirBnB dates for collision
+		URL calurl = null;
+		try {
+			calurl = new URL("https://www.airbnb.com/calendar/ical/21715641.ics?s=a13290268869a0cd41b5392ddbc211c6");
+		} catch (MalformedURLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		 InputStream fileContent = null;
+		try {
+			fileContent = calurl.openStream();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		 CalendarBuilder builder = new CalendarBuilder();
+		 net.fortuna.ical4j.model.Calendar calendar = null;
+		 
+		 try {
+				calendar = builder.build(fileContent);
+			 } catch (ParserException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			 } catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		 
+		//Parse AirBnB iCal to Java dates
+    	 SimpleDateFormat parser = new SimpleDateFormat("yyyyMMdd");
+    	 
+    	 if(calendar != null) {
+    		 List<Date> airBdates = new ArrayList<Date>();
+    		 ComponentList<CalendarComponent> comps = calendar.getComponents();
+    		 for(int i = 0; i < comps.size(); i++) {
+    			 String dstring = comps.get(i).getProperty("DTSTART").toString();
+	        	 String estring = comps.get(i).getProperty("DTEND").toString(); 
+	        	 
+	        	 String trimmed = dstring.substring(dstring.length() - 10);
+	        	 String trimmedEnd = estring.substring(dstring.length() - 12);
+	        	    
+	        	 Date imported = new Date();
+	        	 Date importedEnd = new Date();
+		         try {
+				   imported = parser.parse(trimmed);
+				   importedEnd = parser.parse(trimmedEnd);
+				   
+				   //for current dateset in question
+				   for(int j = 0; j < dates.size(); j+=2) {
+					   //if the start and end date overlap with another dateset for AirBnB
+					   if((dates.get(j).getTime() >= imported.getTime()) && (dates.get(j+1).getTime() <= importedEnd.getTime())) {
+						   //collision
+						   errorCode = 5;
+						   invalidDate = true;
+					   }
+				   }
+				   
+				 } catch (ParseException e) {	
+					e.printStackTrace();
+				 }
+		         
+		         airBdates.add(imported);
+		         airBdates.add(importedEnd);
+    		 }
+    		 
+    		 //see if imported dates from DB are same as current AirB dates
+    		 
+    	 }
+		 
 		
 		//if no collision, add dates to temp_dates
 		if(!invalidDate) {

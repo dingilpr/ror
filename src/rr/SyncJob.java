@@ -55,8 +55,7 @@ public class SyncJob implements Job{
 
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
-		// TODO Auto-generated method stub
-		
+		//First check AirBnB for new dates
 		URL calurl = null;
 		try {
 			calurl = new URL("https://www.airbnb.com/calendar/ical/21715641.ics?s=a13290268869a0cd41b5392ddbc211c6");
@@ -71,9 +70,7 @@ public class SyncJob implements Job{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		    
-		   
-		    
+		      
 		 CalendarBuilder builder = new CalendarBuilder();
 		 net.fortuna.ical4j.model.Calendar calendar = null;
 		 List<Date> importedDates = new ArrayList<Date>();
@@ -87,14 +84,14 @@ public class SyncJob implements Job{
 			e.printStackTrace();
 		}
     	 
-    	//ummm
+    	//Parse AirBnB iCal to Java dates
     	 SimpleDateFormat parser = new SimpleDateFormat("yyyyMMdd");
     	   
-    	 
+    	 //Replace old imported dates with new ones
     	  if (calendar != null) {
 	           ComponentList<CalendarComponent> comps = calendar.getComponents();
 	           System.out.println(comps);
-	         //connect to DB
+	           //connect to DB
 				DBManager dbQ = new DBManager();
 				Connection conQ = dbQ.getConnection();
 				if(conQ == null){
@@ -152,7 +149,7 @@ public class SyncJob implements Job{
 	           }
 		    }
     	  
-    	//connect to AWS s3
+    	    //connect to AWS s3
 			BasicAWSCredentials awsCreds = new BasicAWSCredentials("AKIAJRX5JRE6SU3UUFAA", "Z9EjoynRyIJcAKJ8dTuXI9UXSCNXvwmh1BRk12nL");
 		        AmazonS3 s3 = AmazonS3ClientBuilder.standard()
 		                .withCredentials(new AWSStaticCredentialsProvider(awsCreds))
