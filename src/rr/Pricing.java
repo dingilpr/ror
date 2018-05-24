@@ -66,6 +66,7 @@ public class Pricing extends HttpServlet {
 		JSONArray cancelDates=new JSONArray();
 		JSONArray cancelledDates=new JSONArray();
 		JSONArray heldDates=new JSONArray();
+		JSONArray bookingReqs=new JSONArray();
 		
 	    //connect to DB
 		DBManager db = new DBManager();
@@ -223,6 +224,31 @@ PreparedStatement rps;
 			e.printStackTrace();
 		}
 		
+		PreparedStatement brps;
+		try {
+			brps = con.prepareStatement("select * from booking_req");
+			ResultSet brrs = brps.executeQuery();
+			while(brrs.next()) {
+				
+				Date startDate = brrs.getDate("startDate");
+				Date endDate = brrs.getDate("endDate");
+				
+				
+				DateFormat ddf = new SimpleDateFormat("yyyy-MM-dd");
+				String stringStart = ddf.format(startDate);
+				String stringEnd = ddf.format(endDate);
+				
+				bookingReqs.add(stringStart);
+				bookingReqs.add(stringEnd);
+				
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 		request.setAttribute("list", list);
 		request.setAttribute("emails", emails);
@@ -230,6 +256,7 @@ PreparedStatement rps;
 		request.setAttribute("cancelDates", cancelDates);
 		request.setAttribute("cancelledDates", cancelledDates);
 		request.setAttribute("heldDates", heldDates);
+		request.setAttribute("bookingReqs", bookingReqs);
 		HttpSession session = request.getSession(false);
 		String correctu = "admin";
 		

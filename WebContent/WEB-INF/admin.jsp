@@ -72,6 +72,15 @@ th, td {
 </div>
 <br>
 <hr>
+
+
+<div class="w3-content w3-container w3-center">
+<h1 style="text-align: center">Booking Requests</h1><hr>
+<div id="calendarHereThree" style="position:relative;height:350px;margin-left: 22%"></div>
+	<div style="padding-top: 10px;" id="bookingReqs"></div>
+</div>
+
+
 <div class="w3-content w3-container w3-center">
 <h1 style="text-align: center">Hold dates</h1><hr>
 <div id="calendarHereThree" style="position:relative;height:350px;margin-left: 22%"></div>
@@ -129,6 +138,17 @@ th, td {
  <input type="hidden" name="endUnhold" id="endUnhold">
  </form>
  
+  <form name="accept" id="accept" action="AcceptRequest" method="post">
+ <input type="hidden" name="startAccept" id="startAccept">
+ <input type="hidden" name="endAccept" id="endAccept">
+ </form>
+ 
+  <form name="deny" id="deny" action="DenyRequest" method="post">
+ <input type="hidden" name="startDeny" id="startDeny">
+ <input type="hidden" name="endDeny" id="endDeny">
+ <input type="hidden" name="reasonDeny" id="reasonDeny">
+ </form>
+ 
 
 <script>
 var myCalendar;
@@ -155,6 +175,19 @@ function undoHold(start, end){
 	document.getElementById("unhold").submit();
 }
 
+function accept(start, end){
+	document.getElementById("startAccept").value = start;
+	document.getElementById("endAccept").value = end;
+	document.getElementById("accept").submit();
+}
+
+function deny(start, end){
+	document.getElementById("startDeny").value = start;
+	document.getElementById("endDeny").value = end;
+	document.getElementById("reasonsDeny").value = reason;
+	document.getElementById("deny").submit();
+}
+
 //get pricelist sent from server
 var priceList = '${list}';
 //console.log("js list: " + priceList);
@@ -173,7 +206,12 @@ var cancelledFromServer = JSON.parse(cancelledDates);
 var heldDates = '${heldDates}';
 var heldFromServer = JSON.parse(heldDates);
 
+var bookingReqs = '${bookingReqs}';
+var bookingReqsFromServer = JSON.parse(bookingReqs);
+
+
 var heldTable = "<table align=\"center\">";
+var reqTable = "<table align=\"center\">";
 
 for(var i = 0; i < heldFromServer.length; i+=2){
 	heldTable += ("<tr>" + "<td>" + heldFromServer[i] +"</td>"
@@ -185,8 +223,24 @@ for(var i = 0; i < heldFromServer.length; i+=2){
 	
 }
 heldTable += "</table>";
-
 document.getElementById("heldDates").innerHTML = heldTable;
+//
+
+for(var i = 0; i < bookingReqsFromServer.length; i+=2){
+	reqTable += ("<tr>" + "<td>" + bookingReqsFromServer[i] +"</td>"
+			+ "<td>" + bookingReqsFromServer[i+1] + "</td>" + "<td>" +
+			"<button id=\"acceptB\" class=\"w3-button w3-round-large w3-green\" " +
+		    "onclick=\"accept(\'" + bookingReqsFromServer[i] + "\',\'" + bookingReqsFromServer[i+1] + "\')\" value=\"Accept\">Accept</button>"
+		    + "<button id=\"denyB\" class=\"w3-button w3-round-large w3-red\" " +
+		    "onclick=\"deny(\'" + bookingReqsFromServer[i] + "\',\'" + bookingReqsFromServer[i+1] + "\')\" value=\"Deny\">Deny</button>" +
+		    "<br><texarea rows=\"4\" cols=\"50\" id=\"reason\">Reason for Denying...</textarea>"
+		    + "</td>"
+			+ "</tr>");
+	
+}
+reqTable += "</table>";
+
+document.getElementById("bookingReqs").innerHTML = reqTable;
 
 for(var i = 0; i < jsemails.length; i++){
 	document.getElementById("maillist").innerHTML += (jsemails[i] + "<br>");

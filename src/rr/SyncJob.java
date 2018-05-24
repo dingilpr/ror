@@ -150,7 +150,7 @@ public class SyncJob implements Job{
 		    }
     	  
     	    //connect to AWS s3
-			BasicAWSCredentials awsCreds = new BasicAWSCredentials("AKIAJRX5JRE6SU3UUFAA", "Z9EjoynRyIJcAKJ8dTuXI9UXSCNXvwmh1BRk12nL");
+			BasicAWSCredentials awsCreds = new BasicAWSCredentials("make", "private");
 		        AmazonS3 s3 = AmazonS3ClientBuilder.standard()
 		                .withCredentials(new AWSStaticCredentialsProvider(awsCreds))
 		                .withRegion("us-west-2")

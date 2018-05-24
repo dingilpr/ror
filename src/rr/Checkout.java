@@ -193,10 +193,10 @@ public class Checkout extends HttpServlet {
 			e1.printStackTrace();
 		}
 		 CalendarBuilder builder = new CalendarBuilder();
-		 net.fortuna.ical4j.model.Calendar calendar = null;
+		 net.fortuna.ical4j.model.Calendar calendarB = null;
 		 
 		 try {
-				calendar = builder.build(fileContent);
+				calendarB = builder.build(fileContent);
 			 } catch (ParserException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -208,9 +208,9 @@ public class Checkout extends HttpServlet {
 		//Parse AirBnB iCal to Java dates
     	 SimpleDateFormat parser = new SimpleDateFormat("yyyyMMdd");
     	 
-    	 if(calendar != null) {
+    	 if(calendarB != null) {
     		 List<Date> airBdates = new ArrayList<Date>();
-    		 ComponentList<CalendarComponent> comps = calendar.getComponents();
+    		 ComponentList<CalendarComponent> comps = calendarB.getComponents();
     		 for(int i = 0; i < comps.size(); i++) {
     			 String dstring = comps.get(i).getProperty("DTSTART").toString();
 	        	 String estring = comps.get(i).getProperty("DTEND").toString(); 
@@ -362,8 +362,6 @@ public class Checkout extends HttpServlet {
 	    int cleaning = 100;
 	    
 	    int totalPrice = price + deposit + cleaning;
-	    
-	    System.out.println("FINAL PRICE: " + price);
 	    
 	    int pricePerDay = price/dayCounter;
 	    
