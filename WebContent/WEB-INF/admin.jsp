@@ -76,7 +76,7 @@ th, td {
 
 <div class="w3-content w3-container w3-center">
 <h1 style="text-align: center">Booking Requests</h1><hr>
-<div id="calendarHereThree" style="position:relative;height:350px;margin-left: 22%"></div>
+
 	<div style="padding-top: 10px;" id="bookingReqs"></div>
 </div>
 
@@ -175,16 +175,16 @@ function undoHold(start, end){
 	document.getElementById("unhold").submit();
 }
 
-function accept(start, end){
+function acceptB(start, end){
 	document.getElementById("startAccept").value = start;
 	document.getElementById("endAccept").value = end;
 	document.getElementById("accept").submit();
 }
 
-function deny(start, end){
+function denyB(start, end){
 	document.getElementById("startDeny").value = start;
 	document.getElementById("endDeny").value = end;
-	document.getElementById("reasonsDeny").value = reason;
+	document.getElementById("reasonDeny").value = document.getElementById("reason").value;
 	document.getElementById("deny").submit();
 }
 
@@ -230,10 +230,10 @@ for(var i = 0; i < bookingReqsFromServer.length; i+=2){
 	reqTable += ("<tr>" + "<td>" + bookingReqsFromServer[i] +"</td>"
 			+ "<td>" + bookingReqsFromServer[i+1] + "</td>" + "<td>" +
 			"<button id=\"acceptB\" class=\"w3-button w3-round-large w3-green\" " +
-		    "onclick=\"accept(\'" + bookingReqsFromServer[i] + "\',\'" + bookingReqsFromServer[i+1] + "\')\" value=\"Accept\">Accept</button>"
+		    "onclick=\"acceptB(\'" + bookingReqsFromServer[i] + "\',\'" + bookingReqsFromServer[i+1] + "\')\" value=\"Accept\">Accept</button>"
 		    + "<button id=\"denyB\" class=\"w3-button w3-round-large w3-red\" " +
-		    "onclick=\"deny(\'" + bookingReqsFromServer[i] + "\',\'" + bookingReqsFromServer[i+1] + "\')\" value=\"Deny\">Deny</button>" +
-		    "<br><texarea rows=\"4\" cols=\"50\" id=\"reason\">Reason for Denying...</textarea>"
+		    "onclick=\"denyB(\'" + bookingReqsFromServer[i] + "\',\'" + bookingReqsFromServer[i+1] + "\')\" value=\"Deny\">Deny</button>" +
+		    "<br><textarea rows=\"4\" cols=\"50\" id=\"reason\">Reason for Denying...</textarea>"
 		    + "</td>"
 			+ "</tr>");
 	

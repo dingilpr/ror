@@ -117,69 +117,7 @@ public class Index extends HttpServlet {
 					session.setAttribute("pressedBack", obj);
 				}
 				
-				ServletContext ctx = request.getServletContext();
-		    	 StdSchedulerFactory factory = (StdSchedulerFactory) ctx.getAttribute( QuartzInitializerServlet.QUARTZ_FACTORY_KEY);  
-		    	 Scheduler sched = null;
-				try {
-					sched = factory.getScheduler();
-				} catch (SchedulerException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-
-
-		            // computer a time that is on the next round minute
-		            Date runTime = evenMinuteDate(new Date());
-
-		            
-		            // define the job and tie it to our HelloJob class
-		            JobDetail job = newJob(QuartzJob.class)
-		                .withIdentity("job1", "group1")
-		                .build();
-
-		            // Trigger the job to run on the next round minute
-		            Trigger trigger = newTrigger()
-		                .withIdentity("trigger1", "group1")
-		                .startAt(runTime)
-		                .withSchedule(simpleSchedule()
-		                        .withIntervalInMinutes(5)
-		                        .repeatForever())
-		                .build();
-
-		            // Tell quartz to schedule the job using our trigger
-		            try {
-						sched.scheduleJob(job, trigger);
-					} catch (SchedulerException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-
-		            // Start up the scheduler (nothing can actually run until the 
-		            // scheduler has been started)
-		            try {
-						sched.start();
-					} catch (SchedulerException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-
-
-		            // wait long enough so that the scheduler as an opportunity to 
-		            // run the job!
-		            try {
-		                // wait 65 seconds to show job
-		                Thread.sleep(65L * 1000L); 
-		                // executing...
-		            } catch (Exception e) {
-		            }
-
-		            // shut down the scheduler
-		            try {
-						sched.shutdown(true);
-					} catch (SchedulerException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+				
 				
 				
 				request.setAttribute("list", list);

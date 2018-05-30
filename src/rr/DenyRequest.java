@@ -80,8 +80,7 @@ public class DenyRequest extends HttpServlet {
 				email = rsd.getString("email");
 				firstName = rsd.getString("firstName");
 				lastName = rsd.getString("lastName");
-			}
-					
+			}			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -703,7 +703,7 @@ img.hover-shadow {
   
    <div class="w3-display-bottommiddle" style="white-space:nowrap; padding-bottom: 70px; text-decoration: none;">
     
-    <a href="#"><h1 class="w3-xxlarge w3-text-white" id="bknow"><span class="w3-padding w3-red w3-opacity-min"><b>BOOK NOW</b></span></h1></a>
+    <a href="#"><h1 class="w3-center w3-large w3-text-white" style="text-align: center; margin-bottom: 5px;" id="bknow"><button onclick="showBB(); ga('send', 'event', 'button', 'click', 'book');" style="width: 25%; background-color: transparent; border: none;"><img src="AdobeStock_41998511.png" style="width: 100%;"></button></h1></a>
     
   </div>
 </div>
@@ -714,7 +714,7 @@ img.hover-shadow {
 	  <h3><b>Enjoy these benefits by joining our newsletter!</b></h3><hr>
 	  <div class="w3-quarter ani" style="height: 100px; padding: 10px; text-align: center;"><i class="fa fa-tag fa-2x" style="float: left; color: #607d8b; padding-right: 5px;"></i>Guaranteed lowest price</div>
 	  <div class="w3-quarter ani" style="height: 100px; padding: 10px; text-align: center"><img src="vip.icon.png" style="height: 50%; padding-right: 16px; float: left;"></img>Personalized vacation</div>
-	  <div class="w3-quarter ani" style="height: 100px; padding: 10px; text-align: center"><i class="fa fa-dollar fa-2x" style="float: left; color: #607d8b; padding-left: 30px"></i><span style="text-align: left;">Earn free nights</span></div>
+	  <div class="w3-quarter ani" style="height: 100px; padding: 10px; text-align: center"><i class="fa fa-dollar fa-2x" style="float: left; color: #607d8b; padding-left: 30px"></i><span style="text-align: left; margin-left: -25px;">Earn free nights</span></div>
 	  <div class="w3-quarter ani" style="height: 100px; padding: 10px; text-align: center;"><i class="fa fa-mobile fa-2x" style="float: left; color: #607d8b; padding-left: 30px"></i><span style="text-align: left;">Mobile keyless entry</span></div>
 	  <div style="text-align:center">
  		 <a href="#"><button class="w3-center w3-button w3-round-large w3-xlarge w3-blue-grey" onclick="document.getElementById('id01').style.display='block'">Sign Up!</button></a>
@@ -728,16 +728,15 @@ img.hover-shadow {
 <div class="w3-content w3-container w3-padding-32" id="relax" style="max-width: 1200px!important;">
   <!-- <h1 class="w3-center w3-wide w3-xxxlarge" style="border-bottom: 2px solid #777"><b><strong>RELAX...</strong></b></h1> -->
   
-  <div style="overflow-y: hide; padding-bottom: 95px;">
- <div style="float: right; width: 30%">
-   <div style="border: 1px solid #eee; text-align: center; font-size: 80%; box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1.5px 5px 0 rgba(0, 0, 0, 0.19);"><h3 class="w3-hide-small"><b>DETAILS</b></h3><hr class="w3-hide-small">
+  <div style="overflow-y: hide; padding-bottom: 15px;">
+ <div style="float: right; width: 30%;">
+   <div style="border: 1px solid #eee; text-align: center; font-size: 80%; box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1.5px 5px 0 rgba(0, 0, 0, 0.19); margin-bottom: 40px;"><h3 class="w3-hide-small"><b>DETAILS</b></h3><hr class="w3-hide-small">
 	  <p style="text-align: left; padding-left: 5px;"><i class="fa fa-group" aria-hidden="true" style="padding-left: 3px; padding-right: 8px;"></i>8 guests</p>
 	  <p style="text-align: left; padding-left: 5px;"><i class="fa fa-home" aria-hidden="true" style="padding-left: 3px; padding-right: 8px;"></i>3 bedrooms</p>
 	  <p style="text-align: left; padding-left: 5px;"><i class="fa fa-hotel" aria-hidden="true" style="padding-left: 3px; padding-right: 8px;"></i>5 beds</p>
 	  <p style="text-align: left; padding-left: 5px;"><i class="fa fa-shower" aria-hidden="true" style="padding-left: 3px; padding-right: 8px;"></i>2.5 baths</p>
 	  <a href="#"><button class="w3-center w3-button w3-large w3-large w3-white" onclick="openGalleryModal();currentSlide(1);" style="width: 100%;">View Photos</button></a>
    </div>
-	  <br>
    <div style="border: 1px solid #eee; margin-top: 10px; margin-bottom: 30px; text-align: center; font-size: 80%; box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1.5px 5px 0 rgba(0, 0, 0, 0.19);"><h3 class="w3-hide-small"><b>NEWSLETTER</b></h3><hr class="w3-hide-small">
 	 		<div id="myCarouselthree" class="carousel slide" data-ride="carousel">
 		    <!-- Indicators -->
@@ -749,6 +748,10 @@ img.hover-shadow {
 		    <!-- Wrapper for slides -->
 		    <div class="carousel-inner">
 		      <div class="item active">
+		        <img src="AdobeStock_105726165.jpg" alt="Los Angeles" style="width:100%;">
+		      </div>
+		      
+		       <div class="item">
 		        <img src="bookyourfavoriteconcert.png" alt="Los Angeles" style="width:100%;">
 		      </div>
 		
@@ -775,13 +778,19 @@ img.hover-shadow {
 </div>
   <h2 style="display: inline-block;width: 60%; font-family: Futura, "Trebuchet MS", Arial, sans-serif;">Welcome to Ranch on the Rocks. </h2>
   
-  <p style="padding-left: 10px; font-size: 125%; width: 60%; display: inline-block;"> Ranch on the Rocks is a renovated luxury three-acre 
+  <p style="padding-left: 10px; font-size: 125%; width: 60%; display: inline-block;"> Ranch on the Rocks is a renovated stunning three-acre 
   vacation ranch that boasts spectacular views of <span id="expand">
   Red Rocks and the surrounding mountains. 
   The property, which has recently been expanded to 3,800 square feet has retained its pueblo charm, 
   offering warmth, comfort and a true sense of home. </span></p>
-  <br><br>
-  <div class="w3-card-4" id="testexpand">
+  <br>
+  <div style="position: relative;">
+  <a href="#"><img src="familyroomPano.jpg" style="width: 60%; margin-left: 1px;" onclick="openGalleryModal();currentSlide(1);"></a>
+  <a href="#"><div style="background-color: rgba(42,88,111,0.3);position: absolute; top: 50%;left: 30%;transform: translate(-50%, -50%); color: white; font-size: 120%;" onclick="openGalleryModal();currentSlide(1);"><b>View Photos</b></div></a>
+  </div>
+  
+  <br>
+  <div class="w3-card-4" id="testexpand" style="margin-top: 10px;">
 
 	<header class="w3-container w3-light-grey">
 	  <h3 style="color: #595959; padding: 2px; margin-top: 0px!important"><b>REVIEWS</b></h3>
@@ -789,9 +798,7 @@ img.hover-shadow {
 	<!-- Review One -->
 	<div class="w3-container" style="padding-top: 5px;">
 	  <p><i class="fa fa-user" style="font-size: 24px;"></i><span style="padding-left: 5px;">Angie</span>
-	  <i class="fa fa-star" style="font-size:24px; color: #FFD700; float: right;"></i><i class="fa fa-star" style="font-size:24px; float: right; color: #FFD700"></i>
-	  <i class="fa fa-star" style="font-size:24px; float: right;color: #FFD700"></i>
-	  <i class="fa fa-star" style="font-size:24px; float: right;color: #FFD700"></i><i class="fa fa-star" style="font-size:24px; float: right;color: #FFD700"></i></p>
+	  <span style="float: right"><img src="AdobeStock_190102207.png" style="width: 20%; float: right;"></span></p>
 	  
 	  
 	  <p onmouseover="showFull();" onmouseout="hideFull();">This house is INCREDIBLY GORGEOUS and Joe and Crystal are the most amazing hosts you could ever ask for! 
@@ -807,9 +814,7 @@ img.hover-shadow {
 	<!-- Review Two -->
 	<div class="w3-container">
 	  <p><i class="fa fa-user" style="font-size: 24px;"></i><span style="padding-left: 5px;">Willem</span>
-	  <i class="fa fa-star" style="font-size:24px; color: #FFD700; float: right;"></i><i class="fa fa-star" style="font-size:24px; float: right; color: #FFD700"></i>
-	  <i class="fa fa-star" style="font-size:24px; float: right;color: #FFD700"></i>
-	  <i class="fa fa-star" style="font-size:24px; float: right;color: #FFD700"></i><i class="fa fa-star" style="font-size:24px; float: right;color: #FFD700"></i></p>
+	  <span style="float: right"><img src="AdobeStock_190102207.png" style="width: 20%; float: right;"></span></p>
 	  
 	  
 	  <p onmouseover="showFullTwo();" onmouseout="hideFullTwo();">An outstanding place, an excellent location. We rented Ranch at the rocks for three days as a base for the wedding of our son 
@@ -826,9 +831,7 @@ img.hover-shadow {
 	<!-- Review Three -->
 	<div class="w3-container">
 	  <p><i class="fa fa-user" style="font-size: 24px;"></i><span style="padding-left: 5px;">Shawn</span>
-	  <i class="fa fa-star" style="font-size:24px; color: #FFD700; float: right;"></i><i class="fa fa-star" style="font-size:24px; float: right; color: #FFD700"></i>
-	  <i class="fa fa-star" style="font-size:24px; float: right;color: #FFD700"></i>
-	  <i class="fa fa-star" style="font-size:24px; float: right;color: #FFD700"></i><i class="fa fa-star" style="font-size:24px; float: right;color: #FFD700"></i></p>
+	  <span style="float: right"><img src="AdobeStock_190102207.png" style="width: 20%; float: right;"></span></p>
 	  
 	  
 	  <p onmouseover="showFullThree();" onmouseout="hideFullThree();">This place was absolutely perfect for what my group was looking for 
@@ -845,7 +848,19 @@ img.hover-shadow {
  
 	  
   
-  </div>
+ 
+  
+  <h2 style="padding-top: 10px;">About Ranch on the Rocks </h2><p>
+Designed with the mountain views in mind, the architecture blurs the line between outside and inside. A lot of love and craftsmanship went 
+into designing the home and all natural, locally sourced materials were used whenever possible. 
+Travertine for the stone floor, chiseled red rock, as well as copper and wood imbue the space with the beauty of the surrounding elements.
+From the custom mosaics in the kitchen and bathrooms, to the handmade mantle over the fireplace, or the custom vanities and copper wash basin we wanted
+ to stay true to the Southwestern Ranch design and give the space an artisanal feel. 
+With heated floors in the master bathroom, and a custom wine bar made from Knotty Alder, your comfort and enjoyment was our main priority.
+The ranch is also home to alpacas and goats who offer playful energy and are happy to interact with you if you choose to.  
+</p>
+ </div>
+
   <!-- 
   <h1 class="ani" style="float:right; padding-right: 100px;"><em>Enjoy the view...</em></h1>
    -->
@@ -856,16 +871,6 @@ img.hover-shadow {
 
 </video> 
   
-<br>
-<h2>About Ranch on the Rocks </h2><p>
-Designed with the mountain views in mind, the architecture blurs the line between outside and inside. A lot of love and craftsmanship went 
-into designing the home and all natural, locally sourced materials were used whenever possible. 
-Travertine for the stone floor, chiseled red rock, as well as copper and wood imbue the space with the beauty of the surrounding elements.
-From the custom mosaics in the kitchen and bathrooms, to the handmade mantle over the fireplace, or the custom vanities and copper wash basin we wanted
- to stay true to the Southwestern Ranch design and give the space an artisanal feel. 
-With heated floors in the master bathroom, and a custom wine bar made from Knotty Alder, your comfort and enjoyment was our main priority.
-The ranch is also home to alpacas and goats who offer playful energy and are happy to interact with you if you choose to.  
-</p>
 <br>
 
 
@@ -1005,11 +1010,10 @@ The ranch is also home to alpacas and goats who offer playful energy and are hap
   </div>
   
   <br>
-  <h2>Walk to Red Rocks Park. </h2><p> The location of Ranch on the Rocks is incredible. Situated just 20 miles from Denver, and 50 miles from Colorado's best skiing,
-  Ranch on the Rocks is one of only three properties within walking distance of the world renowned Red Rocks Ampitheater.</p><hr>
+  <h2>Your Favorite Concert. </h2><hr>
   <div class="w3-row">
     <div class="w3-col m6 w3-center w3-padding-large ani">
-    <h3 style=text-align:left;"><b>Now at Red Rocks</b></h3>
+    <h3 style=text-align:left;"><b>Playing at Red Rocks</b></h3>
       <div id="myCarouseltwo" class="carousel slide ani" data-ride="carousel">
     <!-- Indicators -->
     <ol class="carousel-indicators">
@@ -1018,19 +1022,23 @@ The ranch is also home to alpacas and goats who offer playful energy and are hap
       <li data-target="#myCarouseltwo" data-slide-to="2"></li>
       <li data-target="#myCarouseltwo" data-slide-to="3"></li>
       <li data-target="#myCarouseltwo" data-slide-to="4"></li>
+      <li data-target="#myCarouseltwo" data-slide-to="5"></li>
     </ol>
 
     <!-- Wrapper for slides -->
     <div class="carousel-inner">
       <div class="item active">
       	<div class="w3-display-topmiddle" style="white-space:nowrap; padding-bottom: 10px; text-decoration: none;">
-    		<h3 class="w3-text-white" id="bknow"><span class="w3-padding w3-grey w3-opacity-min"><b>5-25-18</b></span></h1>
+    		<h3 class="w3-text-white" id="bknow"><span class="w3-padding w3-grey w3-opacity-min"><b>6-10-18</b></span></h1>
   		</div>
-        <img src="the-devil-makes-three-tickets_05-25-18_18_.jpg" alt="Los Angeles" style="width:100%;">
+        <img src="john-butler-trio-tickets_06-10-18_18_5a6ba01949393.jpg" alt="Los Angeles" style="width:100%;">
       </div>
 
       <div class="item">
-        <img src="the-disco-biscuits-tickets_05-27-18_18.jpg" alt="Chicago" style="width:100%;">
+      <div class="w3-display-topmiddle" style="white-space:nowrap; padding-bottom: 10px; text-decoration: none;">
+    		<h3 class="w3-text-white" id="bknow"><span class="w3-padding w3-grey w3-opacity-min"><b>6-26-18</b></span></h1>
+  		</div>
+        <img src="dirty-heads-tickets_06-26-18_18_5aa30bd198236.jpg" alt="Chicago" style="width:100%;">
       </div>
     
       <div class="item">
@@ -1042,6 +1050,13 @@ The ranch is also home to alpacas and goats who offer playful energy and are hap
     		<h3 class="w3-text-white" id="bknow"><span class="w3-padding w3-grey w3-opacity-min"><b>6-19-18</b></span></h1>
   		</div>
         <img src="barenaked-ladies-tickets_06-19-18_18.jpg" alt="New york" style="width:100%;">
+      </div>
+      
+       <div class="item">
+      <div class="w3-display-topmiddle" style="white-space:nowrap; padding-bottom: 10px; text-decoration: none;">
+    		<h3 class="w3-text-white" id="bknow"><span class="w3-padding w3-grey w3-opacity-min"><b>6-25-18</b></span></h1>
+  		</div>
+        <img src="lady-antebellum-tickets_06-25-18_18_5af9ad208a272.jpg" alt="New york" style="width:100%;">
       </div>
       
       <div class="item">
@@ -1065,19 +1080,22 @@ The ranch is also home to alpacas and goats who offer playful energy and are hap
 
     <!-- Hide this text on small devices -->
     <div class="w3-col m6 w3-hide-small w3-padding-large ani">
-      <h3><b>Your Favorite Concert.</b></h3> <p>Red Rocks Ampitheater is one of the greatest entertainment venues in the world, and has no shortage of concerts. In fact, the venue has broken its own record for most shows in a year for the last six years.<br>
+       <p style="padding-top: 30px;">Red Rocks Ampitheater is one of the greatest entertainment venues in the world, and has no shortage of concerts. In fact, the venue has broken its own record for most shows in a year for the last six years.<br>
       <br>
       <a href="http://redrocksonline.com/concerts-events/calendar" target="_blank"><button class="w3-center w3-button w3-round-large w3-xlarge w3-blue-grey" style="text-align: center">View concert schedule!</button></a>
     </div>
     <br>
   </div>
 <br>
-	<h1 style="text-align:center;"><em>Experience Ranch on the Rocks...</em></h1><hr>
+	<h1 style="text-align:center;">Experience Ranch on the Rocks...</h1><hr>
 	<br>
     <!-- Hide this text on small devices -->
   <div class="w3-row">
     <div class="w3-col m6 w3-center w3-padding-large ani">
-      <br><p style="text-align: left; font-size: 115%">Whether you're enjoying a concert, 
+      <br>
+      <p style="text-align: left; font-size: 100%"> The location of Ranch on the Rocks is incredible. Situated just 20 miles from Denver, and 50 miles from Colorado's best skiing,
+  Ranch on the Rocks is one of only three properties within walking distance of the world renowned Red Rocks Ampitheater.</p>
+  <p style="text-align: left; font-size: 100%">Whether you're enjoying a concert, 
       hosting a wedding or enjoying all that Colorado has to offer, more than anything, 
       we want this to be a space for you to gather, connect and enjoy.</p>
     </div>
@@ -1144,8 +1162,8 @@ The ranch is also home to alpacas and goats who offer playful energy and are hap
 
 <!-- Container (Contact Section) -->
 <div class="w3-content w3-container w3-padding-64" id="book">
-  <h1 class="w3-center w3-wide w3-xxxlarge" style="border-bottom: 2px solid #777; padding-bottom: 15px;"><span style="background-color: red; color: white; padding-left: 6px; padding-right: 6px;"><b>BOOK</b></span></h1>
-  <p class="w3-center">Reserve your stay today!</p>
+  <h1 class="w3-center w3-large w3-text-white" style="text-align: center; margin-bottom: 5px;" id="bknow"><button onclick="showBB(); ga('send', 'event', 'button', 'click', 'book');" style="width: 15%; background-color: transparent; border: none;"><img src="AdobeStock_41998511.png" style="width: 100%;"></button></h1>
+  <hr><p class="w3-center">Reserve your stay today!</p>
   <br>
  <div class="w3-row">
  	<div class="w3-container w3-third">
@@ -1157,7 +1175,7 @@ The ranch is also home to alpacas and goats who offer playful energy and are hap
  	</div>
  
  	<div class="w3-container w3-third">
- 	<p class="zoom" style="text-align: left; padding-left: 30%; transition: transform .2s; "><i class="fa fa-snowflake-o fa-lg" aria-hidden="true" style="padding-left: 3px; padding-right: 8px;"></i>AC/Heat</p>
+ 	<p class="zoom" style="text-align: left; padding-left: 30%; transition: transform .2s; "><i class="fa fa-glass fa-lg" aria-hidden="true" style="padding-left: 3px; padding-right: 8px;"></i>Wine Bar</p>
  	</div>
  </div> 
   <br>
@@ -1221,6 +1239,7 @@ The ranch is also home to alpacas and goats who offer playful energy and are hap
       <p class="w3-third">Towels\sheets</p>
       <p class="w3-third">Linens</p><br>
       <p class="w3-third">Heated bath floor</p><br>
+      <p class="w3-third">AC/Heat</p><br>
     </div>
   </div>
 </div>
@@ -1231,9 +1250,9 @@ The ranch is also home to alpacas and goats who offer playful energy and are hap
  
  <div class="w3-content w3-container">
  
- <h1 class="w3-center w3-large w3-text-white" style="text-align: center;" id="bknow"><button class="w3-button w3-red" onclick="showBB(); ga('send', 'event', 'button', 'click', 'book');"><b>BOOK NOW!</b></button></h1>
  
-  <div class="airbnb-embed-frame" id="BB" data-id="21715641" data-view="home" style="height:0px;margin:auto;"><a href="https://www.airbnb.com/rooms/21715641?s=51" onclick="trackOutboundLink('https://www.airbnb.com/rooms/21715641?s=51'); return false;"><span>View On Airbnb</span></a><a href="https://www.airbnb.com/rooms/21715641?s=51" onclick="trackOutboundLink('https://www.airbnb.com/rooms/21715641?s=51'); return false;" rel="nofollow">Ranch On The Rocks Estate - Red Rocks Amphitheatre</a><script async="" src="https://www.airbnb.com/embeddable/airbnb_jssdk"></script></div>
+ 
+  <div class="airbnb-embed-frame" id="BB" data-id="21715641" data-view="home" style="height: 500px;margin:auto;"><a href="https://www.airbnb.com/rooms/21715641?s=51" onclick="trackOutboundLink('https://www.airbnb.com/rooms/21715641?s=51'); return false;"><span>View On Airbnb</span></a><a href="https://www.airbnb.com/rooms/21715641?s=51" onclick="trackOutboundLink('https://www.airbnb.com/rooms/21715641?s=51'); return false;" rel="nofollow">Ranch On The Rocks Estate - Red Rocks Amphitheatre</a><script async="" src="https://www.airbnb.com/embeddable/airbnb_jssdk"></script></div>
 
   </div>
   
