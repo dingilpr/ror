@@ -377,6 +377,11 @@ img.hover-shadow {
 .hover-shadow:hover {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
 }
+
+@font-face{
+font-family: "West";
+src: url("css/fonts/WesternBangBang.ttf") format("truetype");
+}
 </style>
 <body>
 
@@ -776,7 +781,7 @@ img.hover-shadow {
 		  <a href="#"><button class="w3-center w3-button w3-large w3-large w3-white" style="width: 100%;" onclick="document.getElementById('id01').style.display='block'">Sign up!</button></a>
 	</div>
 </div>
-  <h2 style="display: inline-block;width: 60%; font-family: Futura, "Trebuchet MS", Arial, sans-serif;">Welcome to Ranch on the Rocks. </h2>
+  <h2 style="display: inline-block;width: 60%; font-family: West; font-size: 260%;">Welcome to Ranch on the Rocks. </h2>
   
   <p style="padding-left: 10px; font-size: 125%; width: 60%; display: inline-block;"> Ranch on the Rocks is a renovated stunning three-acre 
   vacation ranch that boasts spectacular views of <span id="expand">
@@ -967,22 +972,22 @@ The ranch is also home to alpacas and goats who offer playful energy and are hap
   <h3 class="w3-center w3-wide w3-xxxlarge" style="border-bottom: 2px solid #777"><b>EXPLORE...</b></h3>
   
   <div class="w3-row w3-center w3-padding-16 ani">
-  <div class="w3-quarter w3-section">
+  <a href="explore.jsp#nature" style="color: #595959;"><div class="w3-quarter w3-section">
   <i class="fa fa-tree fa-2x" aria-hidden="true"></i>
     NATURE
-  </div>
-  <div class="w3-quarter w3-section">
+  </div></a>
+  <a href="explore.jsp#sports" style="color: #595959;"><div class="w3-quarter w3-section">
   <i class="fa fa-heartbeat fa-2x" aria-hidden="true" style="padding-right: 5px"></i>
     SPORTS
   </div>
-  <div class="w3-quarter w3-section">
+  <a href="explore.jsp#culture" style="color: #595959;"><div class="w3-quarter w3-section">
   <i class="fa fa-paint-brush fa-2x" aria-hidden="true" style="padding-right: 5px"></i>
     CULTURE
-  </div>
-  <div class="w3-quarter w3-section">
+  </div></a>
+  <a href="explore.jsp#dining" style="color: #595959;"><div class="w3-quarter w3-section">
   <i class="fa fa-cutlery fa-2x" aria-hidden="true" style="padding-right: 5px"></i>
     DINING
-  </div>
+  </div></a>
 </div>
 
 <div class="w3-row w3-center w3-padding-16 ani">

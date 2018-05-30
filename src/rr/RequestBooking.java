@@ -56,8 +56,9 @@ public class RequestBooking extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String startDateStr = request.getParameter("hiddenStartDate");
-		String endDateStr = request.getParameter("hiddenEndDate");
+		String startDateStr = request.getParameter("hiddenStartDateTwo");
+		String endDateStr = request.getParameter("hiddenEndDateTwo");
+		System.out.println(startDateStr);
 		
 		SimpleDateFormat formatter4=new SimpleDateFormat("E MMM dd yyyy"); 
 		

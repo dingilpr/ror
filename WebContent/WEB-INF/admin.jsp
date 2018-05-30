@@ -33,6 +33,29 @@ th, td {
     text-align: left;
 }
 
+@media only screen and (min-width: 845px) {
+    /* For tablets: */
+    #calendarHereTest {
+    position: relative; height: 250px; margin-left: 40%;
+    }
+    
+    #calendarHereTooTest {
+    position: relative; height: 250px; margin-left: 0%;
+    }
+    
+}
+
+@media only screen and (max-width: 845px) {
+    /* For tablets: */
+    #calendarHereTest {
+    position: relative; height: 250px; margin-left: 20%;
+    }
+    
+    #calendarHereTooTest {
+    position: relative; height: 250px; margin-left: 20%;
+    }
+    
+}
 
 </style>
 <title>Admin Calendar</title>
@@ -149,6 +172,40 @@ th, td {
  <input type="hidden" name="reasonDeny" id="reasonDeny">
  </form>
  
+ 
+ <!-- CHECKOUT TESTING -->
+ 
+ <div class="w3-row">
+		
+  			<div class = "w3-container w3-center w3-half" style="margin-bottom: 40px;"> <span id="checkki" style="margin-left: 38%;">Check in</span><div id="calendarHereTest"></div></div>
+   			<div class = "w3-container w3-center w3-half" style="margin-bottom: 40px;"> <span id="checkko" style="margin-right: 40%;">Check out</span><div id="calendarHereTooTest"></div></div>
+   			
+   		</div>
+   		
+   		
+	
+   		
+<div class="w3-row">
+		<div class="w3-container w3-center w3-third">
+		   <a href="#home" onclick="dimBeforeToday()" class="w3-button w3-round w3-light-gray" style="text-decoration: none; margin-top: 25px;">Clear trip</a>
+		</div>
+		
+		
+		<div class="w3-container w3-center w3-third">
+		
+			<p id="estimatedprice" style="text-align: center"><i class="fa fa-tag" style="float: left;"></i>Estimated price: -</p><br>
+		
+		</div>
+		 
+		
+		<div class="w3-container w3-center w3-third">
+			<form name="sendToBooks" action="RequestBooking" method="post" style="padding-top: 25px;">
+				<input type="hidden" name="hiddenStartDateTwo" id="hiddenStartDateTest"/>
+				<input type="hidden" name="hiddenEndDateTwo" id="hiddenEndDateTest"/>
+			    <input type="submit"  id="next" class="w3-button w3-round-large w3-green" onclick="insertDatesTwo()" value="Reserve">
+			</form>
+		</div>
+</div>
 
 <script>
 var myCalendar;
@@ -400,6 +457,89 @@ myTable += "</table";
 
 
 document.getElementById("bookingtable").innerHTML = myTable;
+
+//FOR TESTING CHECKOUT
+var myCalendarTest;
+	var myNextCalendarTest;
+	var startDateTwo;
+	var endDateTwo;
+	var dayPrice = {date: new Date(2018,0,22), price: 500};
+	var today = new Date();
+	var priceArr = new Array();
+	var yesterday = new Date(today.getTime());
+	yesterday.setDate(today.getDate() - 1);
+	
+	//insert calendars
+	myCalendarTest = new dhtmlXCalendarObject("calendarHereTest");
+	myNextCalendarTest = new dhtmlXCalendarObject("calendarHereTooTest");
+	myCalendarTest.hideTime();
+	myNextCalendarTest.hideTime();
+	myCalendarTest.show();
+	myNextCalendarTest.show();
+	today = myCalendarTest.getDate(true);
+	dimBeforeToday();
+	startDateTwo=myCalendarTest.getDate();
+	
+	//make days before today unclickable
+	function dimBeforeToday() {
+		myCalendarTest.setInsensitiveRange(null, yesterday);
+		myNextCalendarTest.setInsensitiveRange(null, yesterday);
+		
+		myCalendarTest.setHolidays(null);
+		myNextCalendarTest.setHolidays(null);
+		//document.getElementById("estimatedprice").innerHTML = "Estimated price: -";
+		document.getElementById("next").disabled = true;
+	}
+	
+	document.getElementById("next").disabled = true;
+	
+	//function to get all days between two days
+	function getDateArray(start, end) {
+	    var arr = new Array();
+	    var dt = new Date(start);
+	    
+	    while (dt <= end) {
+	        arr.push(new Date(dt));
+	        dt.setDate(dt.getDate() + 1);
+	    }
+	    return arr;
+	}
+	
+	//capture start date	
+	var getStartDate = myCalendarTest.attachEvent("onClick", function(){
+		startDateTwo = myCalendarTest.getDate();
+	});
+	
+	//capture end date and highlight trip and enable next button if selected trip is longer than three days
+	var getEndDate = myNextCalendarTest.attachEvent("onClick", function(){
+	    endDateTwo = myNextCalendarTest.getDate();
+	    var outOfBounds = false;
+	    //make sure end date is before next insensitive date
+	    
+	    //make sure three day minimum
+	    var _MS_PER_DAY = 1000 * 60 * 60 * 24;
+	     if(Math.floor((endDate - startDate) / _MS_PER_DAY) < 2){
+	    	 outOfBounds = true;
+	     }
+	    
+	    if(startDate!=null && outOfBounds == false){
+	    	dimBeforeToday();
+	    	document.getElementById("next").disabled = false;
+	    	myCalendarTest.setHolidays(getDateArray(startDate, endDate));
+	    	myNextCalendarTest.setHolidays(getDateArray(startDate, endDate));
+	    }
+	    //document.getElementById("estimatedprice").innerHTML = "Estimated price: " + calcPayment();
+    });
+	
+	function dimDates() {
+		myCalendarTest.setInsensitiveRange(startDateTwo,endDateTwo);
+		myNextCalendarTest.setInsensitiveRange(startDate, endDateTwo);
+	}
+	
+	function insertDatesTwo(){
+		document.getElementById("hiddenStartDateTest").value = startDateTwo;
+		document.getElementById("hiddenEndDateTest").value = endDateTwo;
+	}
 
 </script>
 </body>
