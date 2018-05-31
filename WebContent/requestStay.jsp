@@ -95,4 +95,55 @@ Guests are required to show a photo ID and credit card upon check-in. Please not
 <br><br>
 
 </body>
+<script>
+//checkout timer
+function startTimer(duration, display) {
+    var timer = duration, minutes, seconds;
+    setInterval(function () {
+        minutes = parseInt(timer / 60, 10)
+        seconds = parseInt(timer % 60, 10);
+
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = minutes + ":" + seconds;
+
+        if (--timer < 0) {
+            timer = duration;
+        }
+    }, 1000);
+}
+
+window.onload = function () {
+    var fiveMinutes = 60 * 5,
+        display = document.querySelector('#time');
+    startTimer(fiveMinutes, display);
+};
+
+//set timer for session timeout, redirect to servlet that deletes startdate and enddate from temp dates
+var checkin = document.getElementById("checkind").innerHTML;
+var checkout = document.getElementById("checkoutd").innerHTML;
+var trimmedCheckin = checkin.slice(0,14) + checkin.slice(31,35);
+var trimmedCheckout = checkout.slice(0,14) + checkout.slice(31,35);
+document.getElementById("checkind").innerHTML = trimmedCheckin;
+document.getElementById("checkoutd").innerHTML = trimmedCheckout;
+
+var price = document.getElementById("jsPPrice").innerHTML;
+
+document.getElementById("hiddenStartDate").value=checkin.slice(3,31);
+document.getElementById("hiddenEndDate").value=checkout.slice(3,31);
+document.getElementById("hiddenCancelStartDate").value=checkin.slice(3,31);
+document.getElementById("hiddenCancelEndDate").value=checkout.slice(3,31);
+document.getElementById("hiddenPrice").value = price;
+
+setTimeout(function(){document.getElementById("cancelTrip").submit();},300000);
+window.onbeforeunload = cancel;
+document.pagehide = cancel;
+
+
+function cancel(){
+	document.getElementById("cancelTrip").submit();
+}
+
+</script>
 </html>

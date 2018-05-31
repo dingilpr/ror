@@ -116,7 +116,8 @@ public class FulfillBookRequest extends HttpServlet {
 			//email confirmation 
 			Mailer mailer = new Mailer();
 			mailer.sendMail("smtp.gmail.com", "587", "pdingilian@sartopartners.com", "pdingilian@sartopartners.com", "Sarto Partners", "pdingilian@sartopartners.com", "Booking Request",
-					"Your booking request is being reviewed! You will hear back shortly. " + confirmationId + ".");
+					"Your booking request is being reviewed! You will hear back shortly. Your cancellation code is: " + confirmationId + ". If you "
+							+ "decide to cancel, please visit https://ranchontherocks.com/cancel.jsp and enter your cancellation code.");
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -174,7 +175,7 @@ public class FulfillBookRequest extends HttpServlet {
 		request.setAttribute("price", price/100);
 		request.setAttribute("startDate", startDate);
 		request.setAttribute("endDate", endDate);
-		request.getRequestDispatcher("requestSuccess.jsp").forward(request, response);
+		request.getRequestDispatcher("success.jsp").forward(request, response);
 	
 	}
 

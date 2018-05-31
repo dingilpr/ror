@@ -74,17 +74,11 @@ body, html {
 </div>
 <div class="w3-content w3-container w3-padding-64" id="checkout" style="text-align:center">
 	<div style="border: 1px solid grey; border-radius: 10px">
-		<form action="RequestCancellation"  style="margin-left: 20%; margin-right: 20%; text-align: left;"method="POST">
-			<label>Enter Trip Cancellation Code: </label>
-			<input type="text" class="w3-input" name="confirmationId" id="confirmationId" required><br>
-			
-			
-			<label>Enter Email: </label>
-			<input type="text" class="w3-input" name="email" id="email" required><br>
-	  
-	 		
-			  
-			  <input type="submit" value="Request Cancellation" class="w3-button w3-round w3-center w3-blue-grey">
+		<form action="PaymentCodeRedirect"  style="margin-left: 20%; margin-right: 20%; text-align: left;"method="POST">
+			<label>Enter Trip Payment Code: </label>
+			<input type="text" class="w3-input" name="paymentCode" id="paymentCode" required><br>
+	  		  
+			  <input type="submit" value="Continue" class="w3-button w3-round w3-center w3-blue-grey">
 		</form>
 	</div>
 </div>

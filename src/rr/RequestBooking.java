@@ -170,7 +170,84 @@ public class RequestBooking extends HttpServlet {
 						}
 					}
 					    
+					}
+				
+				//check booking reqs
+				//get the dates that are currently in people's carts (temp_dates) and see if there is overlap
+				ArrayList<Date> currentReqs = new ArrayList<Date>();
+				PreparedStatement cps;
+				
+				try {
+					cps = con.prepareStatement("select * from booking_req");
+					ResultSet reqRS = cps.executeQuery();
+					while(reqRS.next()){
+						Date reqstartDate = reqRS.getDate("startDate");
+						Date reqendDate = reqRS.getDate("endDate");
+						if(reqstartDate != null) {
+							currentReqs.add(reqstartDate);
+						}
+						if(reqendDate != null) {
+							currentReqs.add(reqendDate);
+						}
+					}
+				} catch (SQLException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
 				}
+				ArrayList<Date> fullCurrentReqs = new ArrayList<Date>();
+				//get all booking Req days
+				if(currentReqs != null) {
+					for(int i = 0; i < currentReqs.size(); i+=2) {
+						Date tempStart = currentReqs.get(i);
+						Date tempEnd = currentReqs.get(i+1);
+						java.util.Calendar addCalFullC = java.util.Calendar.getInstance();
+						addCalFullC.setTime(tempEnd);
+						addCalFullC.add(java.util.Calendar.DATE, 1);  // number of days to add
+						Date realEnd = addCalFullC.getTime();  // dt is now the new date
+						
+						
+						Calendar calendarFullC = new GregorianCalendar();
+						calendarFullC.setTime(tempStart);
+
+						while (calendarFullC.getTime().before(realEnd))
+						{
+						    Date result = calendarFullC.getTime();
+						    fullCurrentReqs.add(result);
+						    calendarFullC.add(Calendar.DATE, 1);
+						}
+						
+					}
+				}
+				
+				//get all dates between startdate and enddate
+				 
+			    Calendar calendarReq = new GregorianCalendar();
+				calendarReq.setTime(startDate);
+				java.util.Calendar addCalTReq = java.util.Calendar.getInstance();
+		    	addCalTReq.setTime(endDate);
+				addCalTReq.add(java.util.Calendar.DATE, 1);  // number of days to add
+				Date realEndReq = addCalTReq.getTime();  // dt is now the new date
+
+			    while (calendarReq.getTime().before(realEndReq))
+			    {
+				       Date result = calendarReq.getTime();
+				       dates.add(result);
+				       calendarReq.add(Calendar.DATE, 1);
+			    }
+				
+				if(fullCurrentReqs != null) {
+					//compare all days sent from JSP to all days in tempDates
+					System.out.println("CHECKING OVERLAPS!");
+					for(int i = 0; i < dates.size(); i++) {
+						for(int j = 0; j < fullCurrentReqs.size(); j++) {
+							if(dates.get(i).compareTo(fullCurrentReqs.get(j)) == 0) {
+								invalidDate = true;
+								errorCode = 3;
+							}
+						}
+					}
+				}
+				
 				
 				//
 				//finally, check AirBnB dates for collision
@@ -357,6 +434,7 @@ public class RequestBooking extends HttpServlet {
 		    	
 			    //reroute to new page with dates
 			    HttpSession session = request.getSession();  
+			    if(invalidDate == false) {
 		    	session.setAttribute("startDate", startDateStr);
 		    	session.setAttribute("endDate", endDateStr);
 		    	session.setMaxInactiveInterval(60);
@@ -369,6 +447,12 @@ public class RequestBooking extends HttpServlet {
 				request.setAttribute("cleaning", cleaning);
 				request.setAttribute("totalPrice", totalPrice);
 				request.getRequestDispatcher("requestStay.jsp").forward(request, response);
+				}
+			    
+				else {
+					request.setAttribute("errorCode", errorCode);
+					request.getRequestDispatcher("error.jsp").forward(request, response);
+				}
 	}
 
 }

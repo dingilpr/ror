@@ -798,7 +798,7 @@ src: url("css/fonts/WesternBangBang.ttf") format("truetype");
   <div class="w3-card-4" id="testexpand" style="margin-top: 10px;">
 
 	<header class="w3-container w3-light-grey">
-	  <h3 style="color: #595959; padding: 2px; margin-top: 0px!important"><b>REVIEWS</b></h3>
+	  <h3 style="color: #595959; padding: 2px; margin-top: 0px!important; font-family: Montserrat;"><b>REVIEWS</b></h3>
 	</header>
 	<!-- Review One -->
 	<div class="w3-container" style="padding-top: 5px;">

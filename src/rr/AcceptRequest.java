@@ -75,7 +75,7 @@ public class AcceptRequest extends HttpServlet {
 		java.sql.Date endDatesql = new java.sql.Date(endDate.getTime());
 		
 		try {
-			brps = con.prepareStatement("SELECT * FROM booking_reqs WHERE startDate=? AND endDate=?");
+			brps = con.prepareStatement("SELECT * FROM booking_req WHERE startDate=? AND endDate=?");
 			brps.setDate(1, startDatesql);
 			brps.setDate(2, endDatesql);
 		    brrs = brps.executeQuery();
