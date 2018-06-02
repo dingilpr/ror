@@ -86,6 +86,7 @@ body, html {
    <input type="hidden" name="hiddenLastName" id="hiddenLastName"/>
    <input type="hidden" name="hiddenpNumber" id="hiddenpNumber"/>
    <input type="hidden" name="hiddenEmail" id="hiddenEmail"/>
+   <input type="hidden" name="promo" id="promo"/>
 </form>
 <br>
 </div>

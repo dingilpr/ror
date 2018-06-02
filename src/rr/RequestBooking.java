@@ -58,6 +58,7 @@ public class RequestBooking extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String startDateStr = request.getParameter("hiddenStartDateTwo");
 		String endDateStr = request.getParameter("hiddenEndDateTwo");
+		String promo = request.getParameter("promo");
 		System.out.println(startDateStr);
 		
 		SimpleDateFormat formatter4=new SimpleDateFormat("E MMM dd yyyy"); 
@@ -431,6 +432,25 @@ public class RequestBooking extends HttpServlet {
 			    int totalPrice = price + deposit + cleaning;
 			    
 			    int pricePerDay = price/dayCounter;
+			    int discount = 0; 
+			    int discountMath = 0;
+			    
+			    //if promo isn't null, get discount
+			    if(promo != null) {
+			    	try {
+						PreparedStatement proPs = con.prepareStatement("select * from promos where code = ?");
+						proPs.setString(1, promo);
+						ResultSet proRs = proPs.executeQuery();
+						while(proRs.next()) {
+							discount = proRs.getInt("discount");
+							discountMath = discount/100;
+							totalPrice = totalPrice * discountMath;
+						}
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			    }
 		    	
 			    //reroute to new page with dates
 			    HttpSession session = request.getSession();  

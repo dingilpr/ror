@@ -83,7 +83,7 @@ public class Process extends HttpServlet {
 			promot = true;
 		}
 		
-		SimpleDateFormat formatter4=new SimpleDateFormat("E MMM dd HH:mm:ssz yyyy");
+		SimpleDateFormat formatter4=new SimpleDateFormat("yyyy-MM-dd");
 		
 		//reformat dates sent from JSP
 				Date startDate = null;
@@ -156,6 +156,7 @@ public class Process extends HttpServlet {
 		
 		price *= 100;
 		int disc = 0;
+		int discount = 0;
 		if(promot == true) {
 			//apply promo
 			try {
@@ -169,9 +170,15 @@ public class Process extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
+		    discount = disc/100;
 		}
 		
-		
+		price = price * discount;
+		int deposit = price/2;
+	    int cleaning = 100;
+	    
+	    int totalPrice = price + deposit + cleaning;
 		
 		// Set your secret key: remember to change this to your live secret key in production
 		// See your keys here: https://dashboard.stripe.com/account/apikeys
@@ -183,7 +190,7 @@ public class Process extends HttpServlet {
 
 		// Charge the user's card:
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("amount", price);
+		params.put("amount", totalPrice);
 		params.put("currency", "usd");
 		params.put("description", "Example charge");
 		params.put("source", token);

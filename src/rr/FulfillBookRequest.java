@@ -55,7 +55,11 @@ public class FulfillBookRequest extends HttpServlet {
 		String lastName = request.getParameter("lname");
 		String phone = request.getParameter("phone");
 		String email = request.getParameter("email");
-		
+		String promo = null;
+		if(!request.getParameter("promo").isEmpty()) {
+			promo = request.getParameter("promo");
+			
+		}
 		//create a random Confirmation Id for this trip
 		String confirmationId = UUID.randomUUID().toString().replaceAll("-", "");
 		
@@ -101,7 +105,7 @@ public class FulfillBookRequest extends HttpServlet {
 		//insert all into booking_req
 		PreparedStatement psd;
 		try {
-			psd = con.prepareStatement("insert into booking_req(startDate, endDate, firstName, lastName, email, phone, confirmationId)" + "values (?,?,?,?,?,?,?)");
+			psd = con.prepareStatement("insert into booking_req(startDate, endDate, firstName, lastName, email, phone, confirmationId, promo)" + "values (?,?,?,?,?,?,?,?)");
 			java.sql.Date startDatesql = new java.sql.Date(startDate.getTime());
 			java.sql.Date endDatesql = new java.sql.Date(endDate.getTime());
 			psd.setDate(1, startDatesql);
@@ -111,6 +115,12 @@ public class FulfillBookRequest extends HttpServlet {
 			psd.setString(5, email);
 			psd.setString(6, phone);
 			psd.setString(7, confirmationId);
+			if(promo != null) {
+				psd.setString(8, promo);
+			}
+			else {
+				psd.setString(8, null);
+			}
 			psd.execute();
 			
 			//email confirmation 

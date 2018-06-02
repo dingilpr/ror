@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -70,7 +71,8 @@ public class AcceptRequest extends HttpServlet {
 		String lastName = null;
 		String email = null;
 		String phone = null;
-		String confirmationId = null;
+		String promo = null;
+		String confirmationId = UUID.randomUUID().toString().replaceAll("-", "");;
 		java.sql.Date startDatesql = new java.sql.Date(startDate.getTime());
 		java.sql.Date endDatesql = new java.sql.Date(endDate.getTime());
 		
@@ -84,7 +86,11 @@ public class AcceptRequest extends HttpServlet {
 		    	lastName = brrs.getString("lastName");
 		    	email = brrs.getString("email");
 		    	phone = brrs.getString("phone");
-		    	confirmationId = brrs.getString("confirmationId");
+		    	if(brrs.getString("promo") != null) {
+		    		promo = brrs.getString("promo");
+		    	}
+		    	
+		    	
 		    }
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -95,7 +101,7 @@ public class AcceptRequest extends HttpServlet {
 		//add to dates
 		PreparedStatement psd;
 		try {
-			psd = con.prepareStatement("insert into dates(startDate, endDate, firstName, lastName, email, phone, confirmationId)" + "values (?,?,?,?,?,?,?)");
+			psd = con.prepareStatement("insert into dates(startDate, endDate, firstName, lastName, email, phone, confirmationId, promo)" + "values (?,?,?,?,?,?,?,?)");
 			startDatesql = new java.sql.Date(startDate.getTime());
 			endDatesql = new java.sql.Date(endDate.getTime());
 			psd.setDate(1, startDatesql);
@@ -105,6 +111,9 @@ public class AcceptRequest extends HttpServlet {
 			psd.setString(5, email);
 			psd.setString(6, phone);
 			psd.setString(7, confirmationId);
+			
+			psd.setString(8, promo);
+			
 			psd.execute();
 			
 			//email confirmation 
