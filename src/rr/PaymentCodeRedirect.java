@@ -76,6 +76,7 @@ public class PaymentCodeRedirect extends HttpServlet {
 			e.printStackTrace();
 		}
 		
+		System.out.println("PROMO in PCREDIRECT: " + promo);
 		//get all dates between start and end
 		 List<Date> currentDates = new ArrayList<Date>();
 		    Calendar calendar = new GregorianCalendar();
@@ -129,7 +130,8 @@ public class PaymentCodeRedirect extends HttpServlet {
 	    int totalPrice = price + deposit + cleaning;
 	    
 	    int discount = 0;
-	    int discountMath = 0;
+	    double discountMath = 0;
+	    double totalMath = 0;
 	    
 	    System.out.println("TOTALPRICE BEFORE PROMO CODE" + totalPrice);
 	    
@@ -137,17 +139,22 @@ public class PaymentCodeRedirect extends HttpServlet {
 	    if(promo != null) {
 	    	try {
 				PreparedStatement proPs = con.prepareStatement("select * from promos where code = ?");
+				System.out.println("promo: " + promo);
 				proPs.setString(1, promo);
 				ResultSet proRs = proPs.executeQuery();
 				while(proRs.next()) {
 					discount = proRs.getInt("discount");
-					discountMath = discount/100;
-					totalPrice = totalPrice - (totalPrice * discountMath);
+					System.out.println("discount: " + discount);
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+	    	discountMath = discount/100;
+	    	System.out.println("discount math: " + discountMath);
+			totalMath = ((double)totalPrice - ((double)totalPrice * discountMath));
+			totalPrice = (int)totalMath;
+			System.out.println("total price after DISCOUNT MATH: " + totalPrice);
 	    }
 	    
 	   
@@ -159,6 +166,7 @@ public class PaymentCodeRedirect extends HttpServlet {
 		request.setAttribute("pNumber", pNumber);
 		request.setAttribute("email", email);
 		request.setAttribute("price", totalPrice);
+		request.setAttribute("promo", promo);
 				
 		System.out.println("TOTAL PRICE PASSED TO payment: " + totalPrice);
 				

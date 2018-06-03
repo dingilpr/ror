@@ -58,7 +58,7 @@ public class FulfillBookRequest extends HttpServlet {
 		String promo = null;
 		if(!request.getParameter("promo").isEmpty()) {
 			promo = request.getParameter("promo");
-			
+			System.out.println("promo in FULFILL: " + promo);
 		}
 		//create a random Confirmation Id for this trip
 		String confirmationId = UUID.randomUUID().toString().replaceAll("-", "");
@@ -182,7 +182,7 @@ public class FulfillBookRequest extends HttpServlet {
 		HttpSession session = request.getSession();  
 		session.invalidate();
 		
-		request.setAttribute("price", price/100);
+		request.setAttribute("price", price);
 		request.setAttribute("startDate", startDate);
 		request.setAttribute("endDate", endDate);
 		request.getRequestDispatcher("success.jsp").forward(request, response);

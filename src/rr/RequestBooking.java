@@ -433,7 +433,8 @@ public class RequestBooking extends HttpServlet {
 			    
 			    int pricePerDay = price/dayCounter;
 			    int discount = 0; 
-			    int discountMath = 0;
+			    double discountMath = 0;
+			    double totalMath = 0;
 			    
 			    //if promo isn't null, get discount
 			    if(promo != null) {
@@ -443,14 +444,17 @@ public class RequestBooking extends HttpServlet {
 						ResultSet proRs = proPs.executeQuery();
 						while(proRs.next()) {
 							discount = proRs.getInt("discount");
-							discountMath = discount/100;
-							totalPrice = totalPrice * discountMath;
 						}
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 			    }
+			    
+			    discountMath = discount/100;
+				totalMath = (double)totalPrice - ((double)totalPrice * discountMath);
+				
+				totalPrice = (int)totalMath;
 		    	
 			    //reroute to new page with dates
 			    HttpSession session = request.getSession();  

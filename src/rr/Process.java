@@ -78,7 +78,7 @@ public class Process extends HttpServlet {
 		String phone = request.getParameter("hiddenpNumber");
 		String email = request.getParameter("hiddenEmail");
 		String promo = null;
-		if(!request.getParameter("promo").isEmpty()) {
+		if(!request.getParameter("hiddenPromo").isEmpty()) {
 			promo = request.getParameter("promo");
 			promot = true;
 			System.out.println("PROMOTION: TRUE");
@@ -154,10 +154,10 @@ public class Process extends HttpServlet {
 				    		price += priceAndDate.get(dates.get(i));
 				    	}
 				    }
-		
+		System.out.println("price before stripe reFORMATTING" + price);
 		price *= 100;
 		int disc = 0;
-		int discount = 0;
+		double discount = 0;
 		if(promot == true) {
 			//apply promo
 			try {
@@ -173,15 +173,17 @@ public class Process extends HttpServlet {
 			}
 			
 		    discount = disc/100;
-		    System.out.println("DISCOUNT: " + discount);
+		    System.out.println("DISCOUNT MULTIPLIER: " + discount);
 		}
 		
 		
 		int deposit = price/2;
 	    int cleaning = 100;
+	    double totalMath = 0;
 	    
 	    int totalPrice = price + deposit + cleaning;
-	    totalPrice = totalPrice - (totalPrice * discount);
+	    totalMath = (double)totalPrice - ((double)totalPrice * discount);
+	    totalPrice = (int)totalMath;
 	    
 	    System.out.println("TOTAL PRICE: " + totalPrice);
 		
@@ -200,9 +202,6 @@ public class Process extends HttpServlet {
 		params.put("description", "Example charge");
 		params.put("source", token);
 		
-		//create a random Confirmation Id for this trip
-		String confirmationId = UUID.randomUUID().toString().replaceAll("-", "");
-
 	
 		boolean chargeWorked = true;
 		try {
@@ -217,52 +216,23 @@ public class Process extends HttpServlet {
 		
 		if(chargeWorked) {
 			//actually book dates
-			PreparedStatement psd;
-			try {
-				psd = con.prepareStatement("insert into dates(startDate, endDate, firstName, lastName, email, phone, confirmationId)" + "values (?,?,?,?,?,?,?)");
-				java.sql.Date startDatesql = new java.sql.Date(startDate.getTime());
-				java.sql.Date endDatesql = new java.sql.Date(endDate.getTime());
-				psd.setDate(1, startDatesql);
-				psd.setDate(2, endDatesql);
-				psd.setString(3, firstName);
-				psd.setString(4, lastName);
-				psd.setString(5, email);
-				psd.setString(6, phone);
-				psd.setString(7, confirmationId);
-				psd.execute();
-				
-				//email confirmation 
-				Mailer mailer = new Mailer();
-				mailer.sendMail("smtp.gmail.com", "587", "pdingilian@sartopartners.com", "pdingilian@sartopartners.com", "Sarto Partners", "pdingilian@sartopartners.com", "Cancellation Request",
-						"You have booked Ranch on the Rocks! Your trip confirmation ID is: " + confirmationId + ".");
-				
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 			
-			//remove from temp_dates
-			PreparedStatement tsd;
-			try {
-				tsd = con.prepareStatement("delete from temp_dates where startDate = ? and endDate = ?");
-				java.sql.Date startDatesql = new java.sql.Date(startDate.getTime());
-				java.sql.Date endDatesql = new java.sql.Date(endDate.getTime());
-				tsd.setDate(1, startDatesql);
-				tsd.setDate(2, endDatesql);
-				tsd.execute();
 				
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			//invalidate session
-			HttpSession session = request.getSession();  
-			session.invalidate();
+		//email confirmation 
+		Mailer mailer = new Mailer();
+		mailer.sendMail("smtp.gmail.com", "587", "pdingilian@sartopartners.com", "pdingilian@sartopartners.com", "Sarto Partners", "pdingilian@sartopartners.com", "Payment Accepted!",
+						"You have payed for Ranch on the Rocks!");
+				
 			
-			request.setAttribute("price", totalPrice);
-			request.setAttribute("startDate", startDate);
-			request.setAttribute("endDate", endDate);
-			request.getRequestDispatcher("success.jsp").forward(request, response);
+			
+			
+		//invalidate session
+		HttpSession session = request.getSession();  
+		session.invalidate();			
+		request.setAttribute("price", totalPrice/100);
+		request.setAttribute("startDate", startDate);
+		request.setAttribute("endDate", endDate);
+		request.getRequestDispatcher("success.jsp").forward(request, response);
 		}
 		else if(!chargeWorked) {
 			//remove from temp dates
