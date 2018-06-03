@@ -81,6 +81,7 @@ public class Process extends HttpServlet {
 		if(!request.getParameter("promo").isEmpty()) {
 			promo = request.getParameter("promo");
 			promot = true;
+			System.out.println("PROMOTION: TRUE");
 		}
 		
 		SimpleDateFormat formatter4=new SimpleDateFormat("yyyy-MM-dd");
@@ -172,13 +173,17 @@ public class Process extends HttpServlet {
 			}
 			
 		    discount = disc/100;
+		    System.out.println("DISCOUNT: " + discount);
 		}
 		
-		price = price * discount;
+		
 		int deposit = price/2;
 	    int cleaning = 100;
 	    
 	    int totalPrice = price + deposit + cleaning;
+	    totalPrice = totalPrice - (totalPrice * discount);
+	    
+	    System.out.println("TOTAL PRICE: " + totalPrice);
 		
 		// Set your secret key: remember to change this to your live secret key in production
 		// See your keys here: https://dashboard.stripe.com/account/apikeys
@@ -254,7 +259,7 @@ public class Process extends HttpServlet {
 			HttpSession session = request.getSession();  
 			session.invalidate();
 			
-			request.setAttribute("price", price/100);
+			request.setAttribute("price", totalPrice);
 			request.setAttribute("startDate", startDate);
 			request.setAttribute("endDate", endDate);
 			request.getRequestDispatcher("success.jsp").forward(request, response);

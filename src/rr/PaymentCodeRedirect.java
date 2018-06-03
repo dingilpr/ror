@@ -131,6 +131,8 @@ public class PaymentCodeRedirect extends HttpServlet {
 	    int discount = 0;
 	    int discountMath = 0;
 	    
+	    System.out.println("TOTALPRICE BEFORE PROMO CODE" + totalPrice);
+	    
 	    //if promo isnt't null, get discount
 	    if(promo != null) {
 	    	try {
@@ -150,15 +152,17 @@ public class PaymentCodeRedirect extends HttpServlet {
 	    
 	   
 		//forward it all
-				request.setAttribute("startDate", startDate.toString());
-				request.setAttribute("endDate", endDate.toString());
-				request.setAttribute("firstName", firstName);
-				request.setAttribute("lastName", lastName);
-				request.setAttribute("pNumber", pNumber);
-				request.setAttribute("email", email);
-				request.setAttribute("price", totalPrice);
+		request.setAttribute("startDate", startDate.toString());
+		request.setAttribute("endDate", endDate.toString());
+		request.setAttribute("firstName", firstName);
+		request.setAttribute("lastName", lastName);
+		request.setAttribute("pNumber", pNumber);
+		request.setAttribute("email", email);
+		request.setAttribute("price", totalPrice);
 				
-				request.getRequestDispatcher("payment.jsp").forward(request, response);
+		System.out.println("TOTAL PRICE PASSED TO payment: " + totalPrice);
+				
+		request.getRequestDispatcher("payment.jsp").forward(request, response);
 	}
 
 }
