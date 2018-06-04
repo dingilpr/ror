@@ -150,7 +150,7 @@ public class PaymentCodeRedirect extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-	    	discountMath = discount/100;
+	    	discountMath = (double)discount/100;
 	    	System.out.println("discount math: " + discountMath);
 			totalMath = ((double)totalPrice - ((double)totalPrice * discountMath));
 			totalPrice = (int)totalMath;

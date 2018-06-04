@@ -79,9 +79,10 @@ public class Process extends HttpServlet {
 		String email = request.getParameter("hiddenEmail");
 		String promo = null;
 		if(!request.getParameter("hiddenPromo").isEmpty()) {
-			promo = request.getParameter("promo");
+			promo = request.getParameter("hiddenPromo");
 			promot = true;
 			System.out.println("PROMOTION: TRUE");
+			System.out.println("PROMO PASSED: " + promo);
 		}
 		
 		SimpleDateFormat formatter4=new SimpleDateFormat("yyyy-MM-dd");
@@ -165,20 +166,22 @@ public class Process extends HttpServlet {
 				pp.setString(1, promo);
 				ResultSet rs = pp.executeQuery();
 				while(rs.next()) {
-					disc = rs.getInt(1);
+					disc = rs.getInt("discount");
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			System.out.println("disc: " + disc);
 			
-		    discount = disc/100;
+		    discount = (double)disc/100;
+		    
 		    System.out.println("DISCOUNT MULTIPLIER: " + discount);
 		}
 		
 		
 		int deposit = price/2;
-	    int cleaning = 100;
+	    int cleaning = 10000;
 	    double totalMath = 0;
 	    
 	    int totalPrice = price + deposit + cleaning;
