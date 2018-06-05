@@ -125,7 +125,7 @@ public class FulfillBookRequest extends HttpServlet {
 			
 			//email confirmation 
 			Mailer mailer = new Mailer();
-			mailer.sendMail("smtp.gmail.com", "587", "pdingilian@sartopartners.com", "pdingilian@sartopartners.com", "Sarto Partners", "pdingilian@sartopartners.com", "Booking Request",
+			mailer.sendMail("smtp.gmail.com", "587", "pdingilian@sartopartners.com", "pdingilian@sartopartners.com", "Sarto Partners", "pdingilian@sartopartners.com", "Booking Requested!",
 					"Your booking request is being reviewed! You will hear back shortly. Your cancellation code is: " + confirmationId + ". If you "
 							+ "decide to cancel, please visit https://ranchontherocks.com/cancel.jsp and enter your cancellation code.");
 			

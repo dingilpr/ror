@@ -50,7 +50,7 @@ body, html {
 <div class="w3-content w3-container w3-padding-64" id="checkout" style="text-align:center">
 
 <div style="border: 1px solid grey; border-radius: 10px">
-<h2> Success, charged $${price} </h2>
+<h2> Submitted! </h2>
 <hr>
 <p>Check in: <span id="checkin">${startDate}</span></p>
 <p>Check out: <span id="checkout">${endDate}</span></p>

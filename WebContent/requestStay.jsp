@@ -4,6 +4,25 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" type ="text/css" href="styles.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:500">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="codebase/dhtmlxcalendar.css" 
+    type="text/css"> 
+<script src="codebase/dhtmlxcalendar.js" 
+    type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Poppins", sans-serif;}
+body, html {
+    height: 100%;
+    color: #595959;
+    line-height: 1.8;
+    font-size: 106%;
+}
+</style>
 <title>Request Stay</title>
 </head>
 <body>

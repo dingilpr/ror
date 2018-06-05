@@ -224,7 +224,7 @@ public class Process extends HttpServlet {
 		//email confirmation 
 		Mailer mailer = new Mailer();
 		mailer.sendMail("smtp.gmail.com", "587", "pdingilian@sartopartners.com", "pdingilian@sartopartners.com", "Sarto Partners", "pdingilian@sartopartners.com", "Payment Accepted!",
-						"You have payed for Ranch on the Rocks!");
+						"You have payed for Ranch on the Rocks! Your payment code is now your cancellation code. Please visit https://ranchontherocks.com/jsp if you decide to cancel.");
 				
 			
 			

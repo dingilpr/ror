@@ -119,7 +119,7 @@ public class AcceptRequest extends HttpServlet {
 			//email confirmation 
 			Mailer mailer = new Mailer();
 			mailer.sendMail("smtp.gmail.com", "587", "pdingilian@sartopartners.com", "pdingilian@sartopartners.com", "Sarto Partners", "pdingilian@sartopartners.com", "Booking Accepted!",
-					"You have booked Ranch on the Rocks! Your trip confirmation ID is: " + confirmationId + ". Please visit the payment page and enter your confirmation ID to pay.");
+					"You have booked Ranch on the Rocks! Your Trip Payment Code is: " + confirmationId + ". Please visit the payment page and enter your code to pay.");
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
