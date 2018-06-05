@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -53,6 +54,15 @@ public class PaymentCodeRedirect extends HttpServlet {
 		String pNumber = null;
 		String email = null;
 		String promo = null;
+		String trimmedCode = id.substring(id.lastIndexOf("?"));
+		System.out.println("trimmedCode: " + trimmedCode);
+		Long timeStamp = Long.parseLong(trimmedCode);
+		if (timeStamp >= System.currentTimeMillis()-(60*60*24*1000)) {
+			   // interval is up to 24 hours
+			} else {
+			   // interval is more than 24 hours
+			}
+		
 		
 		
 		//connect to db

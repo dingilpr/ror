@@ -72,9 +72,11 @@ public class AcceptRequest extends HttpServlet {
 		String email = null;
 		String phone = null;
 		String promo = null;
-		String confirmationId = UUID.randomUUID().toString().replaceAll("-", "");;
+		String confirmationId = UUID.randomUUID().toString().replaceAll("-", "");
 		java.sql.Date startDatesql = new java.sql.Date(startDate.getTime());
 		java.sql.Date endDatesql = new java.sql.Date(endDate.getTime());
+		String code = confirmationId + "?" + System.currentTimeMillis();
+		System.out.println("CODE WITH TIME: " + code);
 		
 		try {
 			brps = con.prepareStatement("SELECT * FROM booking_req WHERE startDate=? AND endDate=?");
@@ -110,7 +112,7 @@ public class AcceptRequest extends HttpServlet {
 			psd.setString(4, lastName);
 			psd.setString(5, email);
 			psd.setString(6, phone);
-			psd.setString(7, confirmationId);
+			psd.setString(7, code);
 			
 			psd.setString(8, promo);
 			
@@ -119,7 +121,7 @@ public class AcceptRequest extends HttpServlet {
 			//email confirmation 
 			Mailer mailer = new Mailer();
 			mailer.sendMail("smtp.gmail.com", "587", "pdingilian@sartopartners.com", "pdingilian@sartopartners.com", "Sarto Partners", "pdingilian@sartopartners.com", "Booking Accepted!",
-					"You have booked Ranch on the Rocks! Your Trip Payment Code is: " + confirmationId + ". Please visit the payment page and enter your code to pay.");
+					"You have booked Ranch on the Rocks! Your Trip Payment Code is: " + code + ". Please https://ranchontherocks.com/paymentCode.jsp#" + code + " to pay.");
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

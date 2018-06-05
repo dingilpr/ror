@@ -55,6 +55,7 @@ public class FulfillBookRequest extends HttpServlet {
 		String lastName = request.getParameter("lname");
 		String phone = request.getParameter("phone");
 		String email = request.getParameter("email");
+		String people = request.getParameter("ppl");
 		String promo = null;
 		if(!request.getParameter("promo").isEmpty()) {
 			promo = request.getParameter("promo");

@@ -70,8 +70,8 @@ body, html {
 <p style="text-align: right; padding-right: 5%">You have <span id="time">05:00</span> minutes left to check out!</p>
 <p style="text-align: left; padding-left: 20%">Check in: <span id="checkind" style="padding-left: 43%"><b>${startDate}</b></span></p>
 <p style="text-align: left; padding-left: 20%">Check out: <span id="checkoutd" style="padding-left: 41%"><b>${endDate}</b></span></p>
-<p style="text-align: left; padding-left: 20%">Total Days: <span id="" style="padding-left: 40.5%"><b>${dayCounter}</b></span></p>
-<p style="text-align: left; padding-left: 20%">Price per Day: <span id="" style="padding-left: 37.5%"><b>x $${pricePerDay}</b></span></p>
+<p style="text-align: left; padding-left: 20%">Total Nights: <span id="" style="padding-left: 40.5%"><b>${dayCounter}</b></span></p>
+<p style="text-align: left; padding-left: 20%">Price per Night: <span id="" style="padding-left: 37.5%"><b>x $${pricePerDay}</b></span></p>
 <p style="text-align: left; padding-left: 20%">Deposit: <span id="" style="padding-left: 44%"><b>+ $${deposit}</b></span></p>
 <p style="text-align: left; padding-left: 20%">Cleaning Fee: <span id="" style="padding-left: 37.5%"><b>+ $${cleaning}</b></span></p>
 <hr>
@@ -95,6 +95,9 @@ Guests are required to show a photo ID and credit card upon check-in. Please not
 
 <label>Enter Email: </label>
 <input type="email" class="w3-input" name="email" id="email" required><br>
+
+<label>Number of People (Max 8): </label>
+<input type="text" class="w3-input" name="ppl" id="ppl" required><br>
 
 <label>Enter Promo Code: (Optional) </label>
 <input type="text" class="w3-input" name="promo" id="promo"><br>

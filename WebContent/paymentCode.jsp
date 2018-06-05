@@ -49,7 +49,7 @@ body, html {
 </style>
 <title>Insert title here</title>
 </head>
-<body>
+<body onload="load()">
 
 
 <!-- Navbar (sit on top) -->
@@ -75,7 +75,7 @@ body, html {
 <div class="w3-content w3-container w3-padding-64" id="checkout" style="text-align:center">
 	<div style="border: 1px solid grey; border-radius: 10px">
 		<form action="PaymentCodeRedirect"  style="margin-left: 20%; margin-right: 20%; text-align: left;"method="POST">
-			<label>Enter Trip Payment Code: </label>
+			<label>Trip Payment Code: </label>
 			<input type="text" class="w3-input" name="paymentCode" id="paymentCode" required><br>
 	  		  
 			  <input type="submit" value="Continue" class="w3-button w3-round w3-center w3-blue-grey">
@@ -85,6 +85,13 @@ body, html {
 
 </body>
 <script>
+var url = window.location.href;
+var code = url.split('#')[1];
+
+function load(){
+	document.getElementById("paymentCode").value = code;
+}
+
 </script>
 
 </html>
