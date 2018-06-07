@@ -43,27 +43,31 @@ public class QuartzJob implements Job{
 		
 		//to store emails
 		List<String> emails = new ArrayList<String>();
+		Date startDate = null;
+		Date endDate = null;
 		
 		//query DB for checkins 7 days from now
 		try {
-			PreparedStatement ps = con.prepareStatement("SELECT email FROM dates WHERE startDate=?");
+			PreparedStatement ps = con.prepareStatement("SELECT * FROM dates WHERE startDate=?");
 			ps.setDate(1, startDatesql);
 			ResultSet rs = ps.executeQuery();
 			
 			
 			while(rs.next()) {
 				emails.add(rs.getString("email"));
+				startDate = rs.getDate("startDate");
+				endDate = rs.getDate("endDate");
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		if(!emails.isEmpty()) {
+		if(!emails.isEmpty() && (startDate.getTime() == dt.getTime())) {
 		//email confirmation 
 			Mailer mailer = new Mailer();
 			mailer.sendMail("smtp.gmail.com", "587", "pdingilian@sartopartners.com", "pdingilian@sartopartners.com", "Sarto Partners", "pdingilian@sartopartners.com", "Pack your bags!",
-					"Your trip to Ranch on the Rocks begins a week from today!");
+					"Your trip to Ranch on the Rocks begins a week from today!. Start Date: " + startDate + " End Date: " + endDate);
 		}
 		
 	}

@@ -61,6 +61,7 @@ public class FulfillBookRequest extends HttpServlet {
 			promo = request.getParameter("promo");
 			System.out.println("promo in FULFILL: " + promo);
 		}
+		
 		//create a random Confirmation Id for this trip
 		String confirmationId = UUID.randomUUID().toString().replaceAll("-", "");
 		

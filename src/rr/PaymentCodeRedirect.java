@@ -83,6 +83,7 @@ public class PaymentCodeRedirect extends HttpServlet {
 				lastName = rs.getString("lastName");
 				pNumber = rs.getString("phone");
 				promo = rs.getString("promo");
+				email = rs.getString("email");
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -188,14 +189,17 @@ public class PaymentCodeRedirect extends HttpServlet {
 			request.getRequestDispatcher("payment.jsp").forward(request, response);
 	    }
 	    else {
-	    	request.setAttribute("startDate", startDate.toString());
-			request.setAttribute("endDate", endDate.toString());
+	    	String startDatestr = startDate.toString();
+	    	String endDatestr = endDate.toString();
+	    	request.setAttribute("startDate", startDatestr);
+			request.setAttribute("endDate", endDatestr);
 			request.setAttribute("firstName", firstName);
 			request.setAttribute("lastName", lastName);
 			request.setAttribute("pNumber", pNumber);
 			request.setAttribute("email", email);
 			request.setAttribute("price", totalPrice);
 			request.setAttribute("promo", promo);
+			request.setAttribute("code", id);
 			request.getRequestDispatcher("/HandleExpiration").forward(request, response);
 	    }
 	}

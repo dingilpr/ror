@@ -77,5 +77,9 @@ if(errorCode == 5){
 	document.getElementById("error").innerHTML = "Timeout.";
 }
 
+if(errorCode == 10){
+	document.getElementById("error").innerHTML = "Your Trip Payment Code has expired. Your trip has been cancelled.";
+}
+
 </script>
 </html>

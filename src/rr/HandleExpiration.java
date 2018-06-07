@@ -42,15 +42,20 @@ public class HandleExpiration extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String startDateStr = request.getParameter("startDate");
-		String endDateStr = request.getParameter("endDate");
-		String firstName = request.getParameter("firstName");
-		String lastName = request.getParameter("lastName");
-		String pNumber = request.getParameter("pNumber");
-		String email = request.getParameter("email");
+		String startDateStr = request.getAttribute("startDate").toString();
+		
+		String endDateStr = request.getAttribute("endDate").toString();
+		
+		String firstName = request.getAttribute("firstName").toString();
+		String lastName = request.getAttribute("lastName").toString();
+		String pNumber = request.getAttribute("pNumber").toString();
+		
+		String email = request.getAttribute("email").toString();
+		String confirmationId = request.getAttribute("code").toString();
+		
 		
 		//
-		 SimpleDateFormat formatter4=new SimpleDateFormat("E MMM dd HH:mm:ssz yyyy");
+		 SimpleDateFormat formatter4=new SimpleDateFormat("yyyy-MM-dd");
 			
 		//reformat dates sent from JSP
 		Date startDate = null;
@@ -68,15 +73,32 @@ public class HandleExpiration extends HttpServlet {
 		
 		//
 		try {
+			//insert into cancelledDates for redundancy
+			PreparedStatement cps = con.prepareStatement("insert into cancelledTrips(startDate, endDate, firstName, lastName, email, phone, confirmationId)" + "values (?,?,?,?,?,?,?)");
+			cps.setDate(1, new java.sql.Date(startDate.getTime()));
+			cps.setDate(2, new java.sql.Date(endDate.getTime()));
+			cps.setString(3, firstName);
+			cps.setString(4, lastName);
+			cps.setString(5, email);
+			cps.setString(6, pNumber);
+			cps.setString(7, confirmationId);
+			cps.execute();
+			
+			//remove from dates
 			PreparedStatement ps = con.prepareStatement("delete from dates where startDate = ? and endDate = ? and firstName = ? and lastName = ?");
 			ps.setDate(1, new java.sql.Date(startDate.getTime()));
 			ps.setDate(2, new java.sql.Date(endDate.getTime()));
 			ps.setString(3, firstName);
 			ps.setString(4, lastName);
+			ps.execute();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		//email confirmation 
+		request.setAttribute("errorCode", 10);
+    	request.getRequestDispatcher("error.jsp").forward(request, response);
 		
 	}
 
