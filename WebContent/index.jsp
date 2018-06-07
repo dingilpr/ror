@@ -708,7 +708,7 @@ src: url("css/fonts/WesternBangBang.ttf") format("truetype");
   
    <div class="w3-display-bottommiddle" style="white-space:nowrap; padding-bottom: 70px; text-decoration: none;">
     
-    <a href="#"><h1 class="w3-center w3-large w3-text-white" style="text-align: center; margin-bottom: 5px;" id="bknow"><button onclick="showBB(); ga('send', 'event', 'button', 'click', 'book');" style="width: 25%; background-color: transparent; border: none;"><img src="AdobeStock_41998511.png" style="width: 100%;"></button></h1></a>
+    <a href="https://www.airbnb.com/rooms/21715641" target="_blank"><h1 class="w3-center w3-large w3-text-white" style="text-align: center; margin-bottom: 5px;" id="bknow"><button onclick="showBB(); ga('send', 'event', 'button', 'click', 'book');" style="width: 25%; background-color: transparent; border: none;"><img src="AdobeStock_41998511.png" style="width: 100%;"></button></h1></a>
     
   </div>
 </div>
@@ -855,7 +855,7 @@ src: url("css/fonts/WesternBangBang.ttf") format("truetype");
   
  
   
-  <h2 style="padding-top: 10px;">About Ranch on the Rocks </h2><p>
+  <h2 style="font-family: West; font-size: 260%;">About Ranch on the Rocks </h2><p>
 Designed with the mountain views in mind, the architecture blurs the line between outside and inside. A lot of love and craftsmanship went 
 into designing the home and all natural, locally sourced materials were used whenever possible. 
 Travertine for the stone floor, chiseled red rock, as well as copper and wood imbue the space with the beauty of the surrounding elements.
@@ -1167,7 +1167,7 @@ The ranch is also home to alpacas and goats who offer playful energy and are hap
 
 <!-- Container (Contact Section) -->
 <div class="w3-content w3-container w3-padding-64" id="book">
-  <h1 class="w3-center w3-large w3-text-white" style="text-align: center; margin-bottom: 5px;" id="bknow"><button onclick="showBB(); ga('send', 'event', 'button', 'click', 'book');" style="width: 15%; background-color: transparent; border: none;"><img src="AdobeStock_41998511.png" style="width: 100%;"></button></h1>
+  <h1 class="w3-center w3-large w3-text-white" style="text-align: center; margin-bottom: 5px;" id="bknow"><a href="https://www.airbnb.com/rooms/21715641" target="_blank"><button onclick="showBB(); ga('send', 'event', 'button', 'click', 'book');" style="width: 15%; background-color: transparent; border: none;"><img src="AdobeStock_41998511.png" style="width: 100%;"></button></a></h1>
   <hr><p class="w3-center">Reserve your stay today!</p>
   <br>
  <div class="w3-row">

@@ -54,14 +54,17 @@ public class PaymentCodeRedirect extends HttpServlet {
 		String pNumber = null;
 		String email = null;
 		String promo = null;
-		String trimmedCode = id.substring(id.lastIndexOf("?"));
+		boolean expired = false;
+		String trimmedCode = id.substring(id.lastIndexOf("?")+1);
 		System.out.println("trimmedCode: " + trimmedCode);
 		Long timeStamp = Long.parseLong(trimmedCode);
-		if (timeStamp >= System.currentTimeMillis()-(60*60*24*1000)) {
-			   // interval is up to 24 hours
-			} else {
-			   // interval is more than 24 hours
-			}
+		if ((System.currentTimeMillis() - timeStamp) >= (60*60*1000)) { //add 24 between 60 and 1000
+			// interval is over 24 hours
+			expired = true;
+		} else {
+			// interval is less than 24 hours
+			expired = false;
+		}
 		
 		
 		
@@ -169,18 +172,32 @@ public class PaymentCodeRedirect extends HttpServlet {
 	    
 	   
 		//forward it all
-		request.setAttribute("startDate", startDate.toString());
-		request.setAttribute("endDate", endDate.toString());
-		request.setAttribute("firstName", firstName);
-		request.setAttribute("lastName", lastName);
-		request.setAttribute("pNumber", pNumber);
-		request.setAttribute("email", email);
-		request.setAttribute("price", totalPrice);
-		request.setAttribute("promo", promo);
-				
-		System.out.println("TOTAL PRICE PASSED TO payment: " + totalPrice);
-				
-		request.getRequestDispatcher("payment.jsp").forward(request, response);
+	    if(expired == false) {
+			request.setAttribute("startDate", startDate.toString());
+			request.setAttribute("endDate", endDate.toString());
+			request.setAttribute("firstName", firstName);
+			request.setAttribute("lastName", lastName);
+			request.setAttribute("pNumber", pNumber);
+			request.setAttribute("email", email);
+			request.setAttribute("price", totalPrice);
+			request.setAttribute("promo", promo);
+		    
+					
+			System.out.println("TOTAL PRICE PASSED TO payment: " + totalPrice);
+					
+			request.getRequestDispatcher("payment.jsp").forward(request, response);
+	    }
+	    else {
+	    	request.setAttribute("startDate", startDate.toString());
+			request.setAttribute("endDate", endDate.toString());
+			request.setAttribute("firstName", firstName);
+			request.setAttribute("lastName", lastName);
+			request.setAttribute("pNumber", pNumber);
+			request.setAttribute("email", email);
+			request.setAttribute("price", totalPrice);
+			request.setAttribute("promo", promo);
+			request.getRequestDispatcher("/HandleExpiration").forward(request, response);
+	    }
 	}
 
 }
