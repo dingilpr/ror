@@ -76,7 +76,7 @@ public class RequestBooking extends HttpServlet {
 			e1.printStackTrace();
 		}
 		
-		//check to see if strange dates somehow made it through
+		//check invalid dates
 		if(startDate.after(endDate)) {
 			invalidDate = true;
 			errorCode = 1;
@@ -135,7 +135,7 @@ public class RequestBooking extends HttpServlet {
 				    calendar.add(Calendar.DATE, 1);
 				}
 						
-				}
+			}
 					
 				//get all dates between startdate and enddate
 					 
@@ -191,7 +191,7 @@ public class RequestBooking extends HttpServlet {
 			}
 			
 			ArrayList<Date> fullCurrentReqs = new ArrayList<Date>();
-			//get all booking request full days
+			//get all booking request days
 			if(currentReqs != null) {
 				for(int i = 0; i < currentReqs.size(); i+=2) {
 					Date tempStart = currentReqs.get(i);
@@ -215,8 +215,7 @@ public class RequestBooking extends HttpServlet {
 				}
 			}
 				
-			//get all dates between startdate and enddate
-				 
+		   //get all dates between startdate and enddate
 		   Calendar calendarReq = new GregorianCalendar();
 		   calendarReq.setTime(startDate);
 		   java.util.Calendar addCalTReq = java.util.Calendar.getInstance();

@@ -123,10 +123,7 @@ public class PaymentCodeRedirect extends HttpServlet {
 				Integer price = rs.getInt("price");
 				priceAndDate.put(date, price);
 			}
-			//System.out.println("ArrayList to send back: " + list);
-			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     	 
@@ -147,8 +144,6 @@ public class PaymentCodeRedirect extends HttpServlet {
 	    double discountMath = 0;
 	    double totalMath = 0;
 	    
-	    System.out.println("TOTALPRICE BEFORE PROMO CODE" + totalPrice);
-	    
 	    //if promo isnt't null, get discount
 	    if(promo != null) {
 	    	try {
@@ -165,10 +160,8 @@ public class PaymentCodeRedirect extends HttpServlet {
 				e.printStackTrace();
 			}
 	    	discountMath = (double)discount/100;
-	    	System.out.println("discount math: " + discountMath);
 			totalMath = ((double)totalPrice - ((double)totalPrice * discountMath));
 			totalPrice = (int)totalMath;
-			System.out.println("total price after DISCOUNT MATH: " + totalPrice);
 	    }
 	    
 	   
@@ -182,10 +175,6 @@ public class PaymentCodeRedirect extends HttpServlet {
 			request.setAttribute("email", email);
 			request.setAttribute("price", totalPrice);
 			request.setAttribute("promo", promo);
-		    
-					
-			System.out.println("TOTAL PRICE PASSED TO payment: " + totalPrice);
-					
 			request.getRequestDispatcher("payment.jsp").forward(request, response);
 	    }
 	    else {

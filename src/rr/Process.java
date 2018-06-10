@@ -65,11 +65,6 @@ public class Process extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
-		//this is insecure - I have to calculate on server :(
-		//int price = Integer.parseInt(request.getParameter("hiddenPrice"));
-		//price *= 100;
 		boolean promot = false;
 		String startDateStr = request.getParameter("hiddenStartDate");
 		String endDateStr = request.getParameter("hiddenEndDate");
@@ -81,81 +76,67 @@ public class Process extends HttpServlet {
 		if(!request.getParameter("hiddenPromo").isEmpty()) {
 			promo = request.getParameter("hiddenPromo");
 			promot = true;
-			System.out.println("PROMOTION: TRUE");
-			System.out.println("PROMO PASSED: " + promo);
 		}
 		
 		SimpleDateFormat formatter4=new SimpleDateFormat("yyyy-MM-dd");
 		
 		//reformat dates sent from JSP
-				Date startDate = null;
-				Date endDate = null;
-				try {
-					startDate = formatter4.parse(startDateStr);
-					endDate = formatter4.parse(endDateStr);
-				} catch (ParseException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+		Date startDate = null;
+		Date endDate = null;
+		try {
+			startDate = formatter4.parse(startDateStr);
+			endDate = formatter4.parse(endDateStr);
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
 				
-				//give error code 2 if dates already exist in DB
+		//give error code 2 if dates already exist in DB
 				
-				//get all dates between start and end
-				 List<Date> dates = new ArrayList<Date>();
-				    Calendar calendar = new GregorianCalendar();
-				    calendar.setTime(startDate);
-				    java.util.Calendar addCal = java.util.Calendar.getInstance();
-					addCal.setTime(endDate);
-					addCal.add(java.util.Calendar.DATE, 1);  // number of days to add
-					Date realEnd = addCal.getTime();  // dt is now the new date
+		//get all dates between start and end
+		List<Date> dates = new ArrayList<Date>();
+		Calendar calendar = new GregorianCalendar();
+		calendar.setTime(startDate);
+		java.util.Calendar addCal = java.util.Calendar.getInstance();
+		addCal.setTime(endDate);
+		addCal.add(java.util.Calendar.DATE, 1);  // number of days to add
+		Date realEnd = addCal.getTime();  // dt is now the new date
 
-				    while (calendar.getTime().before(realEnd))
-				    {
-				        Date result = calendar.getTime();
-				        dates.add(result);
-				        calendar.add(Calendar.DATE, 1);
-				    }
+		while (calendar.getTime().before(realEnd))
+		{
+			Date result = calendar.getTime();
+			dates.add(result);
+			calendar.add(Calendar.DATE, 1);
+		}
 		
-				  //initialize map
-					HashMap<Date, Integer> priceAndDate = new HashMap<>();
+		//initialize map
+		HashMap<Date, Integer> priceAndDate = new HashMap<>();
 					
-					//connect to DB
-					DBManager db = new DBManager();
-					Connection con = db.getConnection();
-					if(con == null){
-						System.out.println("failed");
-					}
-					else{
-						System.out.println("success ");
-					}
+		//connect to DB
+		DBManager db = new DBManager();
+		Connection con = db.getConnection();
 					
-					//get price from DB
-					PreparedStatement ps;
-					try {
-						ps = con.prepareStatement("select * from pricing");
-						ResultSet rs = ps.executeQuery();
-						while(rs.next()) {
-							Date date = rs.getDate("date");
-							Integer price = rs.getInt("price");
-							priceAndDate.put(date, price);
-						}
-						//System.out.println("ArrayList to send back: " + list);
-						
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+		//get price from DB
+		PreparedStatement ps;
+		try {
+			ps = con.prepareStatement("select * from pricing");
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				Date date = rs.getDate("date");
+				Integer price = rs.getInt("price");
+				priceAndDate.put(date, price);
+			}			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 					
-					//compare local price list with prices from DB to calculate a total
-					//lets check the list
-					int price = 0;
-				    for(int i = 0;i < dates.size(); i++) {
-				    	//fix
-				    	if(priceAndDate.containsKey(dates.get(i))) {
-				    		price += priceAndDate.get(dates.get(i));
-				    	}
-				    }
-		System.out.println("price before stripe reFORMATTING" + price);
+		int price = 0;
+		for(int i = 0;i < dates.size(); i++) {
+		   	//fix
+	    	if(priceAndDate.containsKey(dates.get(i))) {
+	    		price += priceAndDate.get(dates.get(i));
+	    	}
+		}
+		
 		price *= 100;
 		int disc = 0;
 		double discount = 0;
@@ -172,11 +153,8 @@ public class Process extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			System.out.println("disc: " + disc);
 			
 		    discount = (double)disc/100;
-		    
-		    System.out.println("DISCOUNT MULTIPLIER: " + discount);
 		}
 		
 		
@@ -188,8 +166,6 @@ public class Process extends HttpServlet {
 	    totalMath = (double)totalPrice - ((double)totalPrice * discount);
 	    totalPrice = (int)totalMath;
 	    
-	    System.out.println("TOTAL PRICE: " + totalPrice);
-		
 		// Set your secret key: remember to change this to your live secret key in production
 		// See your keys here: https://dashboard.stripe.com/account/apikeys
 		Stripe.apiKey = "sk_test_5sP8eowPH6zWy1KZUBC43Zmn";
@@ -218,30 +194,25 @@ public class Process extends HttpServlet {
 		}
 		
 		if(chargeWorked) {
-			//actually book dates
 			
-				
-		//email confirmation 
-		Mailer mailer = new Mailer();
-		mailer.sendMail("smtp.gmail.com", "587", "pdingilian@sartopartners.com", "pdingilian@sartopartners.com", "Sarto Partners", "pdingilian@sartopartners.com", "Payment Accepted!",
+			//email confirmation 
+			Mailer mailer = new Mailer();
+			mailer.sendMail("smtp.gmail.com", "587", "pdingilian@sartopartners.com", "pdingilian@sartopartners.com", "Sarto Partners", "pdingilian@sartopartners.com", "Payment Accepted!",
 						"You have payed for Ranch on the Rocks! Your payment code is now your cancellation code. Please visit https://ranchontherocks.com/jsp if you decide to cancel.");
-				
 			
-			
-			
-		//invalidate session
-		HttpSession session = request.getSession();  
-		session.invalidate();			
-		request.setAttribute("price", totalPrice/100);
-		request.setAttribute("startDate", startDate);
-		request.setAttribute("endDate", endDate);
-		request.getRequestDispatcher("success.jsp").forward(request, response);
+			//invalidate session
+			HttpSession session = request.getSession();  
+			session.invalidate();			
+			request.setAttribute("price", totalPrice/100);
+			request.setAttribute("startDate", startDate);
+			request.setAttribute("endDate", endDate);
+			request.getRequestDispatcher("success.jsp").forward(request, response);
 		}
 		else if(!chargeWorked) {
 			//remove from temp dates
 			PreparedStatement tsd;
 			try {
-				tsd = con.prepareStatement("delete from temp_dates where startDate = ? and endDate = ?");
+				tsd = con.prepareStatement("delete from dates where startDate = ? and endDate = ?");
 				java.sql.Date startDatesql = new java.sql.Date(startDate.getTime());
 				java.sql.Date endDatesql = new java.sql.Date(endDate.getTime());
 				tsd.setDate(1, startDatesql);
@@ -256,9 +227,6 @@ public class Process extends HttpServlet {
 			int errorCode = 1;
 			request.setAttribute("errorCode", errorCode);
 	    	request.getRequestDispatcher("error.jsp").forward(request, response);
-		}
-		
+		}	
 	}
-	
-
 }

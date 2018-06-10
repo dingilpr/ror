@@ -59,7 +59,7 @@ public class FulfillBookRequest extends HttpServlet {
 		String promo = null;
 		if(!request.getParameter("promo").isEmpty()) {
 			promo = request.getParameter("promo");
-			System.out.println("promo in FULFILL: " + promo);
+			
 		}
 		
 		//create a random Confirmation Id for this trip
@@ -74,7 +74,6 @@ public class FulfillBookRequest extends HttpServlet {
 			startDate = formatter4.parse(startDateStr);
 			endDate = formatter4.parse(endDateStr);
 		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
@@ -97,12 +96,6 @@ public class FulfillBookRequest extends HttpServlet {
 		//connect to DB
 		DBManager db = new DBManager();
 		Connection con = db.getConnection();
-		if(con == null){
-			System.out.println("failed");
-		}
-		else{
-			System.out.println("success ");
-		}
 		
 		//insert all into booking_req
 		PreparedStatement psd;
@@ -162,7 +155,7 @@ public class FulfillBookRequest extends HttpServlet {
 				Integer price = rs.getInt("price");
 				priceAndDate.put(date, price);
 			}
-			//System.out.println("ArrayList to send back: " + list);
+			
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -170,9 +163,6 @@ public class FulfillBookRequest extends HttpServlet {
 		}
 		
 		//compare local price list with prices from DB to calculate a total
-		//lets check the list
-		//initialize map
-		
 		int price = 0;
 	    for(int i = 0;i < dates.size(); i++) {
 	    	//fix
@@ -180,6 +170,7 @@ public class FulfillBookRequest extends HttpServlet {
 	    		price += priceAndDate.get(dates.get(i));
 	    	}
 	    }
+	    
 		//invalidate session
 		HttpSession session = request.getSession();  
 		session.invalidate();
@@ -188,7 +179,6 @@ public class FulfillBookRequest extends HttpServlet {
 		request.setAttribute("startDate", startDate);
 		request.setAttribute("endDate", endDate);
 		request.getRequestDispatcher("success.jsp").forward(request, response);
-	
 	}
 
 }
