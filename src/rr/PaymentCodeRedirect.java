@@ -54,7 +54,12 @@ public class PaymentCodeRedirect extends HttpServlet {
 		String pNumber = null;
 		String email = null;
 		String promo = null;
+		int priceWithoutPromo = 0;
+		int priceWithPromo = 0;
+		int deposit;
+		int paid = 0;
 		boolean expired = false;
+		boolean alreadyPaid = false;
 		String trimmedCode = id.substring(id.lastIndexOf("?")+1);
 		System.out.println("trimmedCode: " + trimmedCode);
 		Long timeStamp = Long.parseLong(trimmedCode);
@@ -65,8 +70,6 @@ public class PaymentCodeRedirect extends HttpServlet {
 			// interval is less than 24 hours
 			expired = false;
 		}
-		
-		
 		
 		//connect to db
 		DBManager db = new DBManager();
@@ -84,97 +87,27 @@ public class PaymentCodeRedirect extends HttpServlet {
 				pNumber = rs.getString("phone");
 				promo = rs.getString("promo");
 				email = rs.getString("email");
+				priceWithoutPromo = Integer.parseInt(rs.getString("priceWithoutPromo"));
+				priceWithPromo = Integer.parseInt(rs.getString("priceWithPromo"));
+				deposit = Integer.parseInt(rs.getString("deposit"));
+				paid = rs.getInt("paid");
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
-		System.out.println("PROMO in PCREDIRECT: " + promo);
-		//get all dates between start and end
-		 List<Date> currentDates = new ArrayList<Date>();
-		    Calendar calendar = new GregorianCalendar();
-		    calendar.setTime(startDate);
-		    java.util.Calendar addCalTh = java.util.Calendar.getInstance();
-			addCalTh.setTime(endDate);
-			addCalTh.add(java.util.Calendar.DATE, 1);  // number of days to add
-			Date realEnd = addCalTh.getTime();  // dt is now the new date
-			int dayCounter = 0;
-
-		    while (calendar.getTime().before(realEnd))
-		    {
-		    	dayCounter++;
-		        Date result = calendar.getTime();
-		        currentDates.add(result);
-		        calendar.add(Calendar.DATE, 1);
-		    }
-		    
-		
-		//calculate price
-		//initialize map of prices and dates
-		HashMap<Date, Integer> priceAndDate = new HashMap<>();
- 		//get price from DB
-		PreparedStatement ps;
-		try {
-			ps = con.prepareStatement("select * from pricing");
-			ResultSet rs = ps.executeQuery();
-			while(rs.next()) {
-				Date date = rs.getDate("date");
-				Integer price = rs.getInt("price");
-				priceAndDate.put(date, price);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-    	 
-		//compare currentDates list with prices from DB to calculate a total
-		int price = 0;
-	    for(int i = 0;i < currentDates.size(); i++) {
-	    	if(priceAndDate.containsKey(currentDates.get(i))) {
-	    		price += priceAndDate.get(currentDates.get(i));
-	    	}
-	    }
-	    
-	    int deposit = price/2;
-	    int cleaning = 100;
-	    
-	    int totalPrice = price + deposit + cleaning;
-	    
-	    int discount = 0;
-	    double discountMath = 0;
-	    double totalMath = 0;
-	    
-	    //if promo isnt't null, get discount
-	    if(promo != null) {
-	    	try {
-				PreparedStatement proPs = con.prepareStatement("select * from promos where code = ?");
-				System.out.println("promo: " + promo);
-				proPs.setString(1, promo);
-				ResultSet proRs = proPs.executeQuery();
-				while(proRs.next()) {
-					discount = proRs.getInt("discount");
-					System.out.println("discount: " + discount);
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-	    	discountMath = (double)discount/100;
-			totalMath = ((double)totalPrice - ((double)totalPrice * discountMath));
-			totalPrice = (int)totalMath;
-	    }
-	    
-	   
+		}   
+		   
 		//forward it all
-	    if(expired == false) {
+	    if((expired == false) && (priceWithPromo > 0) && (paid < 1)) {
 			request.setAttribute("startDate", startDate.toString());
 			request.setAttribute("endDate", endDate.toString());
 			request.setAttribute("firstName", firstName);
 			request.setAttribute("lastName", lastName);
 			request.setAttribute("pNumber", pNumber);
 			request.setAttribute("email", email);
-			request.setAttribute("price", totalPrice);
+			request.setAttribute("price", priceWithPromo);
 			request.setAttribute("promo", promo);
+			request.setAttribute("code", id);
 			request.getRequestDispatcher("payment.jsp").forward(request, response);
 	    }
 	    else {
@@ -186,7 +119,7 @@ public class PaymentCodeRedirect extends HttpServlet {
 			request.setAttribute("lastName", lastName);
 			request.setAttribute("pNumber", pNumber);
 			request.setAttribute("email", email);
-			request.setAttribute("price", totalPrice);
+			request.setAttribute("price", priceWithPromo);
 			request.setAttribute("promo", promo);
 			request.setAttribute("code", id);
 			request.getRequestDispatcher("/HandleExpiration").forward(request, response);

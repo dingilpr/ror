@@ -72,11 +72,15 @@ public class AcceptRequest extends HttpServlet {
 		String email = null;
 		String phone = null;
 		String promo = null;
+		String priceWithoutPromo = null;
+		String priceWithPromo = null;
+		String deposit = null;
+		
 		String confirmationId = UUID.randomUUID().toString().replaceAll("-", "");
 		java.sql.Date startDatesql = new java.sql.Date(startDate.getTime());
 		java.sql.Date endDatesql = new java.sql.Date(endDate.getTime());
 		String code = confirmationId + "?" + System.currentTimeMillis();
-		System.out.println("CODE WITH TIME: " + code);
+		
 		
 		try {
 			brps = con.prepareStatement("SELECT * FROM booking_req WHERE startDate=? AND endDate=?");
@@ -91,7 +95,9 @@ public class AcceptRequest extends HttpServlet {
 		    	if(brrs.getString("promo") != null) {
 		    		promo = brrs.getString("promo");
 		    	}
-		    	
+		    	priceWithoutPromo = brrs.getString("priceWithoutPromo");
+		    	priceWithPromo = brrs.getString("priceWithPromo");
+		    	deposit = brrs.getString("deposit");
 		    	
 		    }
 		} catch (SQLException e) {
@@ -103,7 +109,7 @@ public class AcceptRequest extends HttpServlet {
 		//add to dates
 		PreparedStatement psd;
 		try {
-			psd = con.prepareStatement("insert into dates(startDate, endDate, firstName, lastName, email, phone, confirmationId, promo)" + "values (?,?,?,?,?,?,?,?)");
+			psd = con.prepareStatement("insert into dates(startDate, endDate, firstName, lastName, email, phone, confirmationId, promo, priceWithoutPromo, priceWithPromo, deposit, paid)" + "values (?,?,?,?,?,?,?,?,?,?,?,?)");
 			startDatesql = new java.sql.Date(startDate.getTime());
 			endDatesql = new java.sql.Date(endDate.getTime());
 			psd.setDate(1, startDatesql);
@@ -113,9 +119,11 @@ public class AcceptRequest extends HttpServlet {
 			psd.setString(5, email);
 			psd.setString(6, phone);
 			psd.setString(7, code);
-			
 			psd.setString(8, promo);
-			
+			psd.setString(9, priceWithoutPromo);
+			psd.setString(10, priceWithPromo);
+			psd.setString(11, deposit);
+			psd.setInt(12, 0);
 			psd.execute();
 			
 			//email confirmation 

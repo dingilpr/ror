@@ -207,12 +207,26 @@ th, td {
 		</div>
 </div>
 
+<div class="w3-container w3-center w3-third">
+	<form name="Inquire" action="SendInquiry" method="post" style="padding-top: 25px;">
+		<input type="hidden" name="hiddenStartDateThree" id="hiddenStartDateThree"/>
+		<input type="hidden" name="hiddenEndDateThree" id="hiddenEndDateThree"/>
+		<input type="button" onclick="showText()" value="Inquire about these dates"/>
+		<input type="text" style="display: none;" id="message"/>
+		<input type="submit" style="display: none;" id="next" class="w3-button w3-round-large w3-green" onclick="insertDatesThree()" value="Reserve">		
+	</form>
+</div>
+
 <script>
 var myCalendar;
 var priceArr = new Array();
 var arrToServer;
 var arrayFromServer = new Array();
 
+function showText(){
+	document.getElementById("message").style.display = "block";
+	document.getElementById("next").style.display = "block";
+}
 
 function insertData(email, confId){
 	document.getElementById("confirmationId").value = confId;
@@ -541,6 +555,10 @@ var myCalendarTest;
 		document.getElementById("hiddenEndDateTest").value = endDateTwo;
 	}
 
+	function insertDatesThree(){
+		document.getElementById("hiddenStartDateThree").value = startDateTwo;
+		document.getElementById("hiddenEndDateThree").value = endDateTwo;
+	}
 </script>
 </body>
 </html>

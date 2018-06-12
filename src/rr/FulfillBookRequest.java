@@ -57,9 +57,10 @@ public class FulfillBookRequest extends HttpServlet {
 		String email = request.getParameter("email");
 		String people = request.getParameter("ppl");
 		String promo = null;
+		Boolean promot = false;
 		if(!request.getParameter("promo").isEmpty()) {
 			promo = request.getParameter("promo");
-			
+			promot = true;	
 		}
 		
 		//create a random Confirmation Id for this trip
@@ -97,10 +98,66 @@ public class FulfillBookRequest extends HttpServlet {
 		DBManager db = new DBManager();
 		Connection con = db.getConnection();
 		
+		HashMap<Date, Integer> priceAndDate = new HashMap<>();
+		//get price from DB
+		PreparedStatement ps;
+		try {
+			ps = con.prepareStatement("select * from pricing");
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				Date date = rs.getDate("date");
+				Integer price = rs.getInt("price");
+				priceAndDate.put(date, price);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		//compare local price list with prices from DB to calculate a total
+		int price = 0;
+		for(int i = 0;i < dates.size(); i++) {
+			//fix
+			if(priceAndDate.containsKey(dates.get(i))) {
+				price += priceAndDate.get(dates.get(i));
+			}
+		}
+		
+		//get discount
+		int disc = 0;
+		double discount = 0;
+		if(promot == true) {
+			//apply promo
+			try {
+				PreparedStatement pp = con.prepareStatement("SELECT * FROM promos WHERE code =?");
+				pp.setString(1, promo);
+				ResultSet rs = pp.executeQuery();
+				while(rs.next()) {
+					disc = rs.getInt("discount");
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		    discount = (double)disc/100;
+		}
+		
+		int deposit = price/2;
+	    int cleaning = 100;
+	    double totalMath = 0;
+	    
+	    int totalPrice = price + cleaning;
+	    //apply promo
+	    totalMath = (double)totalPrice - ((double)totalPrice * discount);
+	    totalPrice = (int)totalMath;
+		
 		//insert all into booking_req
 		PreparedStatement psd;
 		try {
-			psd = con.prepareStatement("insert into booking_req(startDate, endDate, firstName, lastName, email, phone, confirmationId, promo)" + "values (?,?,?,?,?,?,?,?)");
+			psd = con.prepareStatement("insert into booking_req(startDate, endDate, firstName, lastName, email, phone, confirmationId, promo, priceWithoutPromo, priceWithPromo, deposit)" + "values (?,?,?,?,?,?,?,?,?,?,?)");
 			java.sql.Date startDatesql = new java.sql.Date(startDate.getTime());
 			java.sql.Date endDatesql = new java.sql.Date(endDate.getTime());
 			psd.setDate(1, startDatesql);
@@ -116,13 +173,16 @@ public class FulfillBookRequest extends HttpServlet {
 			else {
 				psd.setString(8, null);
 			}
+			psd.setString(9, Integer.toString(price));
+			psd.setString(10, Integer.toString(totalPrice));
+			psd.setString(11, Integer.toString(deposit));
 			psd.execute();
 			
 			//email confirmation 
 			Mailer mailer = new Mailer();
 			mailer.sendMail("smtp.gmail.com", "587", "pdingilian@sartopartners.com", "pdingilian@sartopartners.com", "Sarto Partners", "pdingilian@sartopartners.com", "Booking Requested!",
 					"Your booking request is being reviewed! You will hear back shortly. Your cancellation code is: " + confirmationId + ". If you "
-							+ "decide to cancel, please visit https://ranchontherocks.com/cancel.jsp and enter your cancellation code.");
+							+ "decide to cancel, please visit https://ranchontherocks.com/cancelRequest.jsp and enter your cancellation code.");
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -144,38 +204,11 @@ public class FulfillBookRequest extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		HashMap<Date, Integer> priceAndDate = new HashMap<>();
-		//get price from DB
-		PreparedStatement ps;
-		try {
-			ps = con.prepareStatement("select * from pricing");
-			ResultSet rs = ps.executeQuery();
-			while(rs.next()) {
-				Date date = rs.getDate("date");
-				Integer price = rs.getInt("price");
-				priceAndDate.put(date, price);
-			}
-			
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		//compare local price list with prices from DB to calculate a total
-		int price = 0;
-	    for(int i = 0;i < dates.size(); i++) {
-	    	//fix
-	    	if(priceAndDate.containsKey(dates.get(i))) {
-	    		price += priceAndDate.get(dates.get(i));
-	    	}
-	    }
-	    
 		//invalidate session
 		HttpSession session = request.getSession();  
 		session.invalidate();
 		
-		request.setAttribute("price", price);
+		request.setAttribute("price", totalPrice);
 		request.setAttribute("startDate", startDate);
 		request.setAttribute("endDate", endDate);
 		request.getRequestDispatcher("success.jsp").forward(request, response);

@@ -87,6 +87,7 @@ body, html {
    <input type="hidden" name="hiddenpNumber" id="hiddenpNumber"/>
    <input type="hidden" name="hiddenEmail" id="hiddenEmail"/>
    <input type="hidden" name="hiddenPromo" id="hiddenPromo"/>
+   <input type="hidden" name="hiddenCode" id="hiddenCode"/>
 </form>
 <br>
 </div>
@@ -101,6 +102,7 @@ body, html {
 <div id="phone" style="display: none;">${pNumber}</div>
 <div id="email" style="display: none;">${email}</div>
 <div id="promo" style="display: none;">${promo}</div>
+<div id="code" style="display: none;">${code}</div>
 
 </div>
 <br><br>
@@ -114,6 +116,7 @@ var jsplName = document.getElementById("lastName").innerHTML;
 var jspPhone = document.getElementById("phone").innerHTML;
 var jspEmail = document.getElementById("email").innerHTML;
 var jspPromo = document.getElementById("promo").innerHTML;
+var jspCode = document.getElementById("code").innerHTML;
 
 document.getElementById("hiddenCancelStartDate").value = jspStart;
 document.getElementById("hiddenCancelEndDate").value = jspEnd;
@@ -124,6 +127,7 @@ document.getElementById("hiddenLastName").value = jsplName;
 document.getElementById("hiddenpNumber").value = jspPhone;
 document.getElementById("hiddenEmail").value = jspEmail;
 document.getElementById("hiddenPromo").value = jspPromo;
+document.getElementById("hiddenCode").value = jspCode;
 
 function startTimer(duration, display) {
     var timer = duration, minutes, seconds;

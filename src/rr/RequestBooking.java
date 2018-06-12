@@ -123,8 +123,7 @@ public class RequestBooking extends HttpServlet {
 				addCal.setTime(tempEnd);
 				addCal.add(java.util.Calendar.DATE, 1);  // number of days to add
 				Date realEnd = addCal.getTime();  // dt is now the new date
-						
-						
+									
 				Calendar calendar = new GregorianCalendar();
 				calendar.setTime(tempStart);
 
@@ -152,9 +151,7 @@ public class RequestBooking extends HttpServlet {
 			       dates.add(result);
 			       calendar.add(Calendar.DATE, 1);
 				}
-					
-					
-					
+						
 				//compare all days sent from JSP to all days in tempDates
 				for(int i = 0; i < dates.size(); i++) {
 					for(int j = 0; j < tempDates.size(); j++) {
@@ -396,6 +393,7 @@ public class RequestBooking extends HttpServlet {
 		  for(int i = 0;i < currentDates.size(); i++) {
 			  if(priceAndDate.containsKey(currentDates.get(i))) {
 				  price += priceAndDate.get(currentDates.get(i));
+				  //fix
 			  }
 		  }
 			    

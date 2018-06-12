@@ -72,6 +72,7 @@ public class Process extends HttpServlet {
 		String lastName = request.getParameter("hiddenLastName");
 		String phone = request.getParameter("hiddenpNumber");
 		String email = request.getParameter("hiddenEmail");
+		String id = request.getParameter("hiddenCode");
 		String promo = null;
 		if(!request.getParameter("hiddenPromo").isEmpty()) {
 			promo = request.getParameter("hiddenPromo");
@@ -89,83 +90,29 @@ public class Process extends HttpServlet {
 		} catch (ParseException e1) {
 			e1.printStackTrace();
 		}
-				
-		//give error code 2 if dates already exist in DB
-				
-		//get all dates between start and end
-		List<Date> dates = new ArrayList<Date>();
-		Calendar calendar = new GregorianCalendar();
-		calendar.setTime(startDate);
-		java.util.Calendar addCal = java.util.Calendar.getInstance();
-		addCal.setTime(endDate);
-		addCal.add(java.util.Calendar.DATE, 1);  // number of days to add
-		Date realEnd = addCal.getTime();  // dt is now the new date
-
-		while (calendar.getTime().before(realEnd))
-		{
-			Date result = calendar.getTime();
-			dates.add(result);
-			calendar.add(Calendar.DATE, 1);
-		}
-		
-		//initialize map
-		HashMap<Date, Integer> priceAndDate = new HashMap<>();
 					
 		//connect to DB
 		DBManager db = new DBManager();
 		Connection con = db.getConnection();
 					
 		//get price from DB
+		int price = 0;
+		int deposit = 0;
 		PreparedStatement ps;
 		try {
-			ps = con.prepareStatement("select * from pricing");
+			ps = con.prepareStatement("select * from dates where confirmationId = ?");
+			ps.setString(1, id);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
-				Date date = rs.getDate("date");
-				Integer price = rs.getInt("price");
-				priceAndDate.put(date, price);
+				price = Integer.parseInt(rs.getNString("priceWithPromo"));
+				deposit = Integer.parseInt(rs.getString("deposit"));
 			}			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 					
-		int price = 0;
-		for(int i = 0;i < dates.size(); i++) {
-		   	//fix
-	    	if(priceAndDate.containsKey(dates.get(i))) {
-	    		price += priceAndDate.get(dates.get(i));
-	    	}
-		}
-		
 		price *= 100;
-		int disc = 0;
-		double discount = 0;
-		if(promot == true) {
-			//apply promo
-			try {
-				PreparedStatement pp = con.prepareStatement("SELECT * FROM promos WHERE code =?");
-				pp.setString(1, promo);
-				ResultSet rs = pp.executeQuery();
-				while(rs.next()) {
-					disc = rs.getInt("discount");
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		    discount = (double)disc/100;
-		}
-		
-		
-		int deposit = price/2;
-	    int cleaning = 10000;
-	    double totalMath = 0;
-	    
-	    int totalPrice = price + deposit + cleaning;
-	    totalMath = (double)totalPrice - ((double)totalPrice * discount);
-	    totalPrice = (int)totalMath;
-	    
+    
 		// Set your secret key: remember to change this to your live secret key in production
 		// See your keys here: https://dashboard.stripe.com/account/apikeys
 		Stripe.apiKey = "sk_test_5sP8eowPH6zWy1KZUBC43Zmn";
@@ -176,12 +123,11 @@ public class Process extends HttpServlet {
 
 		// Charge the user's card:
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("amount", totalPrice);
+		params.put("amount", price);
 		params.put("currency", "usd");
 		params.put("description", "Example charge");
 		params.put("source", token);
 		
-	
 		boolean chargeWorked = true;
 		try {
 			//fixed?
@@ -199,11 +145,21 @@ public class Process extends HttpServlet {
 			Mailer mailer = new Mailer();
 			mailer.sendMail("smtp.gmail.com", "587", "pdingilian@sartopartners.com", "pdingilian@sartopartners.com", "Sarto Partners", "pdingilian@sartopartners.com", "Payment Accepted!",
 						"You have payed for Ranch on the Rocks! Your payment code is now your cancellation code. Please visit https://ranchontherocks.com/jsp if you decide to cancel.");
+			//set paid to true
+			try {
+				PreparedStatement paidS = con.prepareStatement("UPDATE dates SET paid = ? WHERE confirmationId = ?");
+				paidS.setInt(1, 1);
+				paidS.setString(2, id);
+				paidS.execute();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 			//invalidate session
 			HttpSession session = request.getSession();  
 			session.invalidate();			
-			request.setAttribute("price", totalPrice/100);
+			request.setAttribute("price", price/100);
 			request.setAttribute("startDate", startDate);
 			request.setAttribute("endDate", endDate);
 			request.getRequestDispatcher("success.jsp").forward(request, response);
