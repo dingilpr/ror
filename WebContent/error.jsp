@@ -81,5 +81,9 @@ if(errorCode == 10){
 	document.getElementById("error").innerHTML = "Your Trip Payment Code has expired. Your trip has been cancelled.";
 }
 
+if(errorCode == 11){
+	document.getElementById("error").innerHTML = "Your payment failed. Please revisit the payment code page and try again. If problems persist, email info@sartopartners.com.";
+}
+
 </script>
 </html>

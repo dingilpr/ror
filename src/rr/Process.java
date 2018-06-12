@@ -165,22 +165,8 @@ public class Process extends HttpServlet {
 			request.getRequestDispatcher("success.jsp").forward(request, response);
 		}
 		else if(!chargeWorked) {
-			//remove from temp dates
-			PreparedStatement tsd;
-			try {
-				tsd = con.prepareStatement("delete from dates where startDate = ? and endDate = ?");
-				java.sql.Date startDatesql = new java.sql.Date(startDate.getTime());
-				java.sql.Date endDatesql = new java.sql.Date(endDate.getTime());
-				tsd.setDate(1, startDatesql);
-				tsd.setDate(2, endDatesql);
-				tsd.execute();
-				
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 			//forward to error
-			int errorCode = 1;
+			int errorCode = 11;
 			request.setAttribute("errorCode", errorCode);
 	    	request.getRequestDispatcher("error.jsp").forward(request, response);
 		}	
