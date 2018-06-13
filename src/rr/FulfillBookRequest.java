@@ -145,7 +145,7 @@ public class FulfillBookRequest extends HttpServlet {
 		    discount = (double)disc/100;
 		}
 		
-		int deposit = price/2;
+		//int deposit = price/2;
 	    int cleaning = 100;
 	    double totalMath = 0;
 	    
@@ -157,7 +157,7 @@ public class FulfillBookRequest extends HttpServlet {
 		//insert all into booking_req
 		PreparedStatement psd;
 		try {
-			psd = con.prepareStatement("insert into booking_req(startDate, endDate, firstName, lastName, email, phone, confirmationId, promo, priceWithoutPromo, priceWithPromo, deposit)" + "values (?,?,?,?,?,?,?,?,?,?,?)");
+			psd = con.prepareStatement("insert into booking_req(startDate, endDate, firstName, lastName, email, phone, confirmationId, promo, priceWithoutPromo, priceWithPromo)" + "values (?,?,?,?,?,?,?,?,?,?)");
 			java.sql.Date startDatesql = new java.sql.Date(startDate.getTime());
 			java.sql.Date endDatesql = new java.sql.Date(endDate.getTime());
 			psd.setDate(1, startDatesql);
@@ -175,7 +175,6 @@ public class FulfillBookRequest extends HttpServlet {
 			}
 			psd.setString(9, Integer.toString(price));
 			psd.setString(10, Integer.toString(totalPrice));
-			psd.setString(11, Integer.toString(deposit));
 			psd.execute();
 			
 			//email confirmation 

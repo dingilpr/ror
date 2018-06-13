@@ -72,7 +72,6 @@ body, html {
 <p style="text-align: left; padding-left: 20%">Check out: <span id="checkoutd" style="padding-left: 41%"><b>${endDate}</b></span></p>
 <p style="text-align: left; padding-left: 20%">Total Nights: <span id="" style="padding-left: 40.5%"><b>${dayCounter}</b></span></p>
 <p style="text-align: left; padding-left: 20%">Price per Night: <span id="" style="padding-left: 37.5%"><b>x $${pricePerDay}</b></span></p>
-<p style="text-align: left; padding-left: 20%">Deposit: <span id="" style="padding-left: 44%"><b>+ $${deposit}</b></span></p>
 <p style="text-align: left; padding-left: 20%">Cleaning Fee: <span id="" style="padding-left: 37.5%"><b>+ $${cleaning}</b></span></p>
 <hr>
 <p style="text-align: left; padding-left: 20%"><b>Total Price: <b></b><span id="price" style="padding-left: 40.5%; font-size: 110%;"><b>= $${totalPrice}</b></span></p>

@@ -97,7 +97,6 @@ public class Process extends HttpServlet {
 					
 		//get price from DB
 		int price = 0;
-		int deposit = 0;
 		PreparedStatement ps;
 		try {
 			ps = con.prepareStatement("select * from dates where confirmationId = ?");
@@ -105,7 +104,6 @@ public class Process extends HttpServlet {
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				price = Integer.parseInt(rs.getNString("priceWithPromo"));
-				deposit = Integer.parseInt(rs.getString("deposit"));
 			}			
 		} catch (SQLException e) {
 			e.printStackTrace();

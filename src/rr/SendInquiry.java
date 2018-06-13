@@ -41,9 +41,10 @@ public class SendInquiry extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String startDateStr = request.getParameter("startDate");
-		String endDateStr = request.getParameter("endDate");
+		String startDateStr = request.getParameter("hiddenStartDateThree");
+		String endDateStr = request.getParameter("hiddenEndDateThree");
 		String message = request.getParameter("message");
+		String email = request.getParameter("email");
 		
 		SimpleDateFormat formatter4=new SimpleDateFormat("E MMM dd yyyy"); 
 		
@@ -63,17 +64,16 @@ public class SendInquiry extends HttpServlet {
 		Connection con = db.getConnection();
 		
 		try {
-			PreparedStatement ps = con.prepareStatement("insert into inquiries (startDate, endDate, message)" + "values(?,?,?)" );
+			PreparedStatement ps = con.prepareStatement("insert into inquiries (startDate, endDate, message, email)" + "values(?,?,?,?)" );
 			ps.setDate(1, new java.sql.Date(startDate.getTime()));
 			ps.setDate(2, new java.sql.Date(endDate.getTime()));
 			ps.setString(3, message);
+			ps.setString(4, email);
+			ps.execute();
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
-		
+		}	
 	}
-
 }

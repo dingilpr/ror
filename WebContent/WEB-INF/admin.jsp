@@ -207,13 +207,14 @@ th, td {
 		</div>
 </div>
 
-<div class="w3-container w3-center w3-third">
+<div class="w3-container w3-center">
 	<form name="Inquire" action="SendInquiry" method="post" style="padding-top: 25px;">
 		<input type="hidden" name="hiddenStartDateThree" id="hiddenStartDateThree"/>
 		<input type="hidden" name="hiddenEndDateThree" id="hiddenEndDateThree"/>
-		<input type="button" onclick="showText()" value="Inquire about these dates"/>
-		<input type="text" style="display: none;" id="message"/>
-		<input type="submit" style="display: none;" id="next" class="w3-button w3-round-large w3-green" onclick="insertDatesThree()" value="Reserve">		
+		<input type="button" class ="w3-button" onclick="showText()" value="Inquire about these dates"/>
+		Email: <input type="email" style="display: none; margin: auto;" size="30" name ="email" id="email"/>
+		Message: <input type="text" style="display: none; margin: auto;" size="60" name ="message" id="message"/>
+		<input type="submit" style="display: none;" id="sendIn" class="w3-button w3-round-large w3-green" onclick="insertDatesThree()" value="Send inquiry">		
 	</form>
 </div>
 
@@ -225,7 +226,8 @@ var arrayFromServer = new Array();
 
 function showText(){
 	document.getElementById("message").style.display = "block";
-	document.getElementById("next").style.display = "block";
+	document.getElementById("email").style.display = "block";
+	document.getElementById("sendIn").style.display = "inline-block";
 }
 
 function insertData(email, confId){

@@ -397,10 +397,9 @@ public class RequestBooking extends HttpServlet {
 			  }
 		  }
 			    
-		  int deposit = price/2;
-		  int cleaning = 100;
+		  int cleaning = 199;
 			    
-		  int totalPrice = price + deposit + cleaning;
+		  int totalPrice = price + cleaning;
 			    
 		  int pricePerDay = price/dayCounter;
 		  int discount = 0; 
@@ -425,7 +424,7 @@ public class RequestBooking extends HttpServlet {
 				request.setAttribute("price", price);
 				request.setAttribute("pricePerDay", pricePerDay);
 				request.setAttribute("dayCounter", dayCounter);
-				request.setAttribute("deposit", deposit);
+				//request.setAttribute("deposit", deposit);
 				request.setAttribute("cleaning", cleaning);
 				request.setAttribute("totalPrice", totalPrice);
 				request.getRequestDispatcher("requestStay.jsp").forward(request, response);
