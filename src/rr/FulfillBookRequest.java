@@ -65,6 +65,7 @@ public class FulfillBookRequest extends HttpServlet {
 		
 		//create a random Confirmation Id for this trip
 		String confirmationId = UUID.randomUUID().toString().replaceAll("-", "");
+		String code = confirmationId + "?" + System.currentTimeMillis();
 		
 		SimpleDateFormat formatter4=new SimpleDateFormat("E MMM dd HH:mm:ssz yyyy");
 		
@@ -166,7 +167,7 @@ public class FulfillBookRequest extends HttpServlet {
 			psd.setString(4, lastName);
 			psd.setString(5, email);
 			psd.setString(6, phone);
-			psd.setString(7, confirmationId);
+			psd.setString(7, code);
 			if(promo != null) {
 				psd.setString(8, promo);
 			}
