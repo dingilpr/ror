@@ -67,6 +67,7 @@ public class Pricing extends HttpServlet {
 		JSONArray cancelledDates=new JSONArray();
 		JSONArray heldDates=new JSONArray();
 		JSONArray bookingReqs=new JSONArray();
+		JSONArray inquiries=new JSONArray();
 		
 	    //connect to DB
 		DBManager db = new DBManager();
@@ -253,22 +254,22 @@ PreparedStatement rps;
 		//get inquiries
 		PreparedStatement inps;
 		try {
-			inps = con.prepareStatement("select * from booking_req");
+			inps = con.prepareStatement("select * from inquiries");
 			ResultSet inrs = inps.executeQuery();
 			while(inrs.next()) {
 				String email = inrs.getString("email");
 				Date startDate = inrs.getDate("startDate");
 				Date endDate = inrs.getDate("endDate");
-				String price = inrs.getString("priceWithPromo");
+				String message = inrs.getString("message");
 				
 				DateFormat ddf = new SimpleDateFormat("yyyy-MM-dd");
 				String stringStart = ddf.format(startDate);
 				String stringEnd = ddf.format(endDate);
 				
-				bookingReqs.add(email);
-				bookingReqs.add(stringStart);
-				bookingReqs.add(stringEnd);
-				bookingReqs.add(price);
+				inquiries.add(email);
+				inquiries.add(stringStart);
+				inquiries.add(stringEnd);
+				inquiries.add(message);
 			}
 			
 			
@@ -285,6 +286,7 @@ PreparedStatement rps;
 		request.setAttribute("cancelledDates", cancelledDates);
 		request.setAttribute("heldDates", heldDates);
 		request.setAttribute("bookingReqs", bookingReqs);
+		request.setAttribute("inquiries", inquiries);
 		HttpSession session = request.getSession(false);
 		String correctu = "admin";
 		

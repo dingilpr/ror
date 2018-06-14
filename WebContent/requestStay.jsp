@@ -66,22 +66,6 @@ body, html {
 </div>
 <br>
 <div style="border: 1px solid grey; border-radius: 10px; box-shadow: 1px 2px #888888;">
-<h2>Please review the following details for accuracy: </h2>
-<hr>
-<p style="text-align: right; padding-right: 5%">You have <span id="time">05:00</span> minutes left to check out!</p>
-<p style="text-align: left; padding-left: 20%">Check in: <span id="checkind" style="padding-left: 43%"><b>${startDate}</b></span></p>
-<p style="text-align: left; padding-left: 20%">Check out: <span id="checkoutd" style="padding-left: 41%"><b>${endDate}</b></span></p>
-<p style="text-align: left; padding-left: 20%">Total Nights: <span id="" style="padding-left: 40.5%"><b>${dayCounter}</b></span></p>
-<p style="text-align: left; padding-left: 20%">Price per Night: <span id="" style="padding-left: 37.5%"><b>x $${pricePerDay}</b></span></p>
-<p style="text-align: left; padding-left: 20%">Cleaning Fee: <span id="" style="padding-left: 37.5%"><b>+ $${cleaning}</b></span></p>
-<hr>
-<p style="text-align: left; padding-left: 20%"><b>Total Price: <b></b><span id="price" style="padding-left: 40.5%; font-size: 110%;"><b>= $${totalPrice}</b></span></p>
-<hr>
-<p style="text-align: left; padding-left: 1%; font-size: 80%;"><em>You will pay the property in the property's local currency (US$). The displayed amount (in USD) is indicative and based on the exchange rate at the time of booking. 
-Guests are required to show a photo ID and credit card upon check-in. Please note that all Special Requests are subject to availability and additional charges may apply. A damage deposit of USD 850 is required on arrival. This will be collected by credit card. You should be reimbursed within 7 days of check-out. Your deposit will be refunded in full by credit card, subject to an inspection of the property.</em></p>
-<hr>
-<br>
-
 <form action="FulfillBookRequest"  style="margin-left: 20%; margin-right: 20%; text-align: left;"method="POST">
 <label>First Name: </label>
 <input type="text" class="w3-input" name="fname" id="fname" required><br>
@@ -106,7 +90,23 @@ Guests are required to show a photo ID and credit card upon check-in. Please not
   <input type="hidden" name="hiddenEndDate" id="hiddenEndDate"/>
   <input type="hidden" name="hiddenPrice" id="hiddenPrice"/>
   
-  <input type="submit" value="Request Stay" class="w3-button w3-round w3-center w3-blue-grey">
+  <h2>Please review the following details for accuracy: </h2>
+<hr>
+<p style="text-align: right; padding-right: 5%">You have <span id="time">05:00</span> minutes left to check out!</p>
+<p style="text-align: left;">Check in: <span id="checkind" style="padding-left: 43%"><b>${startDate}</b></span></p>
+<p style="text-align: left;">Check out: <span id="checkoutd" style="padding-left: 41%"><b>${endDate}</b></span></p>
+<p style="text-align: left;">Total Nights: <span id="" style="padding-left: 40.5%"><b>${dayCounter}</b></span></p>
+<p style="text-align: left;">Price per Night: <span id="" style="padding-left: 37.5%"><b>x $${pricePerDay}</b></span></p>
+<p style="text-align: left;">Cleaning Fee: <span id="" style="padding-left: 37.5%"><b>+ $${cleaning}</b></span></p>
+<hr>
+<p style="text-align: left; padding-left: 20%"><b>Total Price: <b></b><span id="price" style="padding-left: 40.5%; font-size: 110%;"><b>= $${totalPrice}</b></span></p>
+<hr>
+<p style="text-align: left; padding-left: 1%; font-size: 80%;"><em>You will pay the property in the property's local currency (US$). The displayed amount (in USD) is indicative and based on the exchange rate at the time of booking. 
+Guests are required to show a photo ID and credit card upon check-in. Please note that all Special Requests are subject to availability and additional charges may apply. A damage deposit of USD 850 is required on arrival. This will be collected by credit card. You should be reimbursed within 7 days of check-out. Your deposit will be refunded in full by credit card, subject to an inspection of the property.</em></p>
+<hr>
+<br>
+  
+  <input type="submit" value="Request Stay" class="w3-button w3-round w3-center w3-blue-grey" style="margin-left: 40%; margin-bottom: 10px;">
 </form>
 <br>
 </div>

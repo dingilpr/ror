@@ -62,7 +62,7 @@ th, td {
 </head>
 <body style="padding-top: 10px;">
 
-<div class="w3-content w3-container" style="border: 1px solid grey; border-radius: 10px; padding-top: 10px">
+<div class="w3-content w3-container" style="border: 1px solid grey; border-radius: 10px; padding-top: 10px; max-width: 1500px;">
 <h1 style="text-align: center">Admin Calendar</h1>
 <hr>
 <p style="text-align: center">Click on a day to set the price.</p>
@@ -293,9 +293,13 @@ var heldFromServer = JSON.parse(heldDates);
 var bookingReqs = '${bookingReqs}';
 var bookingReqsFromServer = JSON.parse(bookingReqs);
 
+var inqList = '${inquiries}';
+var inqsFromServer = JSON.parse(inqList);
+
 
 var heldTable = "<table align=\"center\">";
 var reqTable = "<table align=\"center\">";
+var inqTable = "<table align=\"center\">";
 
 for(var i = 0; i < heldFromServer.length; i+=2){
 	heldTable += ("<tr>" + "<td>" + heldFromServer[i] +"</td>"
@@ -334,6 +338,17 @@ for(var i = 0; i < bookingReqsFromServer.length; i+=4){
 reqTable += "</table>";
 
 document.getElementById("bookingReqs").innerHTML = reqTable;
+
+for(var q = 0; q < inqsFromServer.length; q+=4){
+	inqTable += ("<tr>" + "<td>" + inqsFromServer[q] +"</td>"
+			+ "<td>" + inqsFromServer[q+1] + "</td>" 
+			+ "<td>" + inqsFromServer[q+2] + "</td>"
+			+ "<td>" + inqsFromServer[q+3] + "</td>"
+			+ "</tr>");
+}
+
+inqTable += "</table>";
+document.getElementById("inquiries").innerHTML = inqTable;
 
 for(var i = 0; i < jsemails.length; i++){
 	document.getElementById("maillist").innerHTML += (jsemails[i] + "<br>");
