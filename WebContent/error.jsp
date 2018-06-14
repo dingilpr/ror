@@ -85,5 +85,9 @@ if(errorCode == 11){
 	document.getElementById("error").innerHTML = "Your payment failed. Please revisit the payment code page and try again. If problems persist, email info@sartopartners.com.";
 }
 
+if(errorCode == 11){
+	document.getElementById("error").innerHTML = "We're sorry, the price for one or more of these days has not yet been finalized.";
+}
+
 </script>
 </html>

@@ -250,6 +250,33 @@ PreparedStatement rps;
 			e.printStackTrace();
 		}
 		
+		//get inquiries
+		PreparedStatement inps;
+		try {
+			inps = con.prepareStatement("select * from booking_req");
+			ResultSet inrs = inps.executeQuery();
+			while(inrs.next()) {
+				String email = inrs.getString("email");
+				Date startDate = inrs.getDate("startDate");
+				Date endDate = inrs.getDate("endDate");
+				String price = inrs.getString("priceWithPromo");
+				
+				DateFormat ddf = new SimpleDateFormat("yyyy-MM-dd");
+				String stringStart = ddf.format(startDate);
+				String stringEnd = ddf.format(endDate);
+				
+				bookingReqs.add(email);
+				bookingReqs.add(stringStart);
+				bookingReqs.add(stringEnd);
+				bookingReqs.add(price);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 		request.setAttribute("list", list);
 		request.setAttribute("emails", emails);

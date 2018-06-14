@@ -397,6 +397,7 @@ public class RequestBooking extends HttpServlet {
 			  }
 			  else if(!priceAndDate.containsKey(currentDates.get(i))) {
 				  missingPrice = true;
+				  errorCode = 15;
 			  }
 		  }
 			    
@@ -418,7 +419,7 @@ public class RequestBooking extends HttpServlet {
 		    	
 		  //reroute to new page with dates
 		  HttpSession session = request.getSession();  
-		  if(invalidDate == false) {
+		  if(invalidDate == false && missingPrice == false) {
 		    	session.setAttribute("startDate", startDateStr);
 		    	session.setAttribute("endDate", endDateStr);
 		    	session.setMaxInactiveInterval(60);

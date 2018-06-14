@@ -103,6 +103,12 @@ th, td {
 	<div style="padding-top: 10px;" id="bookingReqs"></div>
 </div>
 
+<div class="w3-content w3-container w3-center">
+<h1 style="text-align: center">Inquiries</h1><hr>
+
+	<div style="padding-top: 10px;" id="inquiries"></div>
+</div>
+
 
 <div class="w3-content w3-container w3-center">
 <h1 style="text-align: center">Hold dates</h1><hr>
@@ -213,12 +219,12 @@ th, td {
 </div>
 
 <div class="w3-container w3-center">
-	<form name="Inquire" action="SendInquiry" method="post" style="padding-top: 25px;">
+	<form name="Inquire" action="SendInquiry" method="post" style="padding: 25px;">
 		<input type="hidden" name="hiddenStartDateThree" id="hiddenStartDateThree"/>
 		<input type="hidden" name="hiddenEndDateThree" id="hiddenEndDateThree"/>
-		<input type="button" class ="w3-button" onclick="showText()" value="Inquire about these dates"/>
-		<input type="email" style="display: none; margin: auto;" name="email" id="emailV" value="Enter email"/>
-		<input type="text" style="display: none; margin: auto;" size="60" name ="message" id="message" value="Enter message"/>
+		<input type="button" class ="w3-button w3-blue w3-round" style="margin-bottom: 10px;" onclick="showText()" value="Inquire about these dates"/>
+		<input type="email" style="display: none; margin: auto; margin-bottom: 10px;" name="email" id="emailV" value="Enter email"/>
+		<input type="text" style="display: none; margin: auto; margin-bottom: 10px;" size="60" name ="message" id="message" value="Enter message"/>
 		<input type="submit" style="display: none;" id="sendIn" class="w3-button w3-round-large w3-green" onclick="insertDatesThree()" value="Send inquiry">		
 	</form>
 </div>
