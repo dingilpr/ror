@@ -103,7 +103,7 @@ public class Process extends HttpServlet {
 			ps.setString(1, id);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
-				price = Integer.parseInt(rs.getNString("priceWithPromo"));
+				price = Integer.parseInt(rs.getString("priceWithPromo"));
 			}			
 		} catch (SQLException e) {
 			e.printStackTrace();

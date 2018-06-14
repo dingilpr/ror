@@ -229,18 +229,19 @@ PreparedStatement rps;
 			brps = con.prepareStatement("select * from booking_req");
 			ResultSet brrs = brps.executeQuery();
 			while(brrs.next()) {
-				
+				String email = brrs.getString("email");
 				Date startDate = brrs.getDate("startDate");
 				Date endDate = brrs.getDate("endDate");
-				
+				String price = brrs.getString("priceWithPromo");
 				
 				DateFormat ddf = new SimpleDateFormat("yyyy-MM-dd");
 				String stringStart = ddf.format(startDate);
 				String stringEnd = ddf.format(endDate);
 				
+				bookingReqs.add(email);
 				bookingReqs.add(stringStart);
 				bookingReqs.add(stringEnd);
-				
+				bookingReqs.add(price);
 			}
 			
 			

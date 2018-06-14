@@ -18,6 +18,7 @@
 body,h1,h2,h3,h4,h5,h6 {font-family: "Poppins", sans-serif;}
 body, html {
     height: 100%;
+    
     color: #595959;
     line-height: 1.8;
     font-size: 106%;
@@ -100,8 +101,6 @@ Guests are required to show a photo ID and credit card upon check-in. Please not
 
 <label>Enter Promo Code: (Optional) </label>
 <input type="text" class="w3-input" name="promo" id="promo"><br>
-  
- 
   
   <input type="hidden" name="hiddenStartDate" id="hiddenStartDate"/>
   <input type="hidden" name="hiddenEndDate" id="hiddenEndDate"/>

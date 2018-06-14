@@ -172,6 +172,11 @@ th, td {
  <input type="hidden" name="reasonDeny" id="reasonDeny">
  </form>
  
+ <form name="updatePrices" id="updatePrices" action="UpdatePrices" method="post">
+ <input type="hidden" name="startChange" id="startChange">
+ <input type="hidden" name="endChange" id="endChange">
+ <input type="hidden" name="priceChange" id="priceChange">
+ </form>
  
  <!-- CHECKOUT TESTING -->
  
@@ -212,8 +217,8 @@ th, td {
 		<input type="hidden" name="hiddenStartDateThree" id="hiddenStartDateThree"/>
 		<input type="hidden" name="hiddenEndDateThree" id="hiddenEndDateThree"/>
 		<input type="button" class ="w3-button" onclick="showText()" value="Inquire about these dates"/>
-		Email: <input type="email" style="display: none; margin: auto;" size="30" name ="email" id="email"/>
-		Message: <input type="text" style="display: none; margin: auto;" size="60" name ="message" id="message"/>
+		<input type="email" style="display: none; margin: auto;" name="email" id="emailV" value="Enter email"/>
+		<input type="text" style="display: none; margin: auto;" size="60" name ="message" id="message" value="Enter message"/>
 		<input type="submit" style="display: none;" id="sendIn" class="w3-button w3-round-large w3-green" onclick="insertDatesThree()" value="Send inquiry">		
 	</form>
 </div>
@@ -226,7 +231,7 @@ var arrayFromServer = new Array();
 
 function showText(){
 	document.getElementById("message").style.display = "block";
-	document.getElementById("email").style.display = "block";
+	document.getElementById("emailV").style.display = "block";
 	document.getElementById("sendIn").style.display = "inline-block";
 }
 
@@ -299,13 +304,22 @@ heldTable += "</table>";
 document.getElementById("heldDates").innerHTML = heldTable;
 //
 
-for(var i = 0; i < bookingReqsFromServer.length; i+=2){
+for(var i = 0; i < bookingReqsFromServer.length; i+=4){
 	reqTable += ("<tr>" + "<td>" + bookingReqsFromServer[i] +"</td>"
-			+ "<td>" + bookingReqsFromServer[i+1] + "</td>" + "<td>" +
+			+ "<td>" + bookingReqsFromServer[i+1] + "</td>" 
+			+ "<td>" + bookingReqsFromServer[i+2] + "</td>"
+			+ "<td>$" + bookingReqsFromServer[i+3] + "</td>" 
+			+ "<td>" +
 			"<button id=\"acceptB\" class=\"w3-button w3-round-large w3-green\" " +
-		    "onclick=\"acceptB(\'" + bookingReqsFromServer[i] + "\',\'" + bookingReqsFromServer[i+1] + "\')\" value=\"Accept\">Accept</button>"
+		    "onclick=\"acceptB(\'" + bookingReqsFromServer[i+1] + "\',\'" + bookingReqsFromServer[i+2] + "\')\" value=\"Accept\">Accept</button>"
+		   //
+		    
+		    + "<button id=\"changeP\" class=\"w3-button w3-round-large w3-blue\" " +
+		    "onclick=\"changeP(\'" + bookingReqsFromServer[i+1] + "\',\'" + bookingReqsFromServer[i+2] + "\')\" value=\"Change Price\">Change Price</button>"
+		    
+		    //
 		    + "<button id=\"denyB\" class=\"w3-button w3-round-large w3-red\" " +
-		    "onclick=\"denyB(\'" + bookingReqsFromServer[i] + "\',\'" + bookingReqsFromServer[i+1] + "\')\" value=\"Deny\">Deny</button>" +
+		    "onclick=\"denyB(\'" + bookingReqsFromServer[i+1] + "\',\'" + bookingReqsFromServer[i+2] + "\')\" value=\"Deny\">Deny</button>" +
 		    "<br><textarea rows=\"4\" cols=\"50\" id=\"reason\">Reason for Denying...</textarea>"
 		    + "</td>"
 			+ "</tr>");
@@ -400,6 +414,18 @@ myDoubleCalendar.rightCalendar.attachEvent("onClick", function(date){
 function insertDates(){
 	document.getElementById("hiddenStartDate").value = startDate;
 	document.getElementById("hiddenEndDate").value = endDate;
+}
+
+function changeP(startDate, endDate){
+	var price = prompt("Please enter the new price in dollars (no cents):");
+	sendPriceChange(startDate, endDate, price);
+}
+
+function sendPriceChange(startDate, endDate, price){
+	document.getElementById("startChange").value = startDate;
+	document.getElementById("endChange").value = endDate;
+	document.getElementById("priceChange").value = price;
+	document.getElementById("updatePrices").submit();
 }
 
 

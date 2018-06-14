@@ -14,6 +14,7 @@
     type="text/javascript"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://checkout.stripe.com/checkout.js"></script>
 <style>
 body,h1,h2,h3,h4,h5,h6 {font-family: "Poppins", sans-serif;}
 body, html {
@@ -67,19 +68,10 @@ body, html {
 <p style="text-align: right; padding-right: 5%">You have <span id="time">05:00</span> minutes left to pay!</p>
 <h2 style="text-align: left; padding-left: 33%">Total Price: <span id="price" style="padding-left: 11%"><h2><b>$${price}</b></h2></span></h2>
 <br>
-<form action="Process" method="POST">
-  <script
-    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-    data-key="pk_test_fTbAto5ojlJIf7XgMTJGJA74"
-    data-amount=""
-    data-name="Ranch on the Rocks"
-    data-description="Widget"
-    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-    data-locale="auto"
-    data-zip-code="true"
-    data-billing-address="true">
-  </script>
-  
+<form action="Process" method="POST" id="toServ">
+   <input type="hidden" id="stripeToken" name="stripeToken" />
+   <input type="hidden" id="stripeEmail" name="stripeEmail" />
+   <input type="hidden" id="amountInCents" name="amountInCents" />
    <input type="hidden" name="hiddenStartDate" id="hiddenStartDate"/>
    <input type="hidden" name="hiddenEndDate" id="hiddenEndDate"/>
    <input type="hidden" name="hiddenFirstName" id="hiddenFirstName"/>
@@ -89,6 +81,9 @@ body, html {
    <input type="hidden" name="hiddenPromo" id="hiddenPromo"/>
    <input type="hidden" name="hiddenCode" id="hiddenCode"/>
 </form>
+
+<input type="button" class="w3-button w3-green w3-large" id="customButton" value="Pay Now!">
+
 <br>
 </div>
 </div>
@@ -128,6 +123,34 @@ document.getElementById("hiddenpNumber").value = jspPhone;
 document.getElementById("hiddenEmail").value = jspEmail;
 document.getElementById("hiddenPromo").value = jspPromo;
 document.getElementById("hiddenCode").value = jspCode;
+
+var sPrice = '${price}' * 100;
+
+var handler = StripeCheckout.configure({
+	  key: 'pk_test_fTbAto5ojlJIf7XgMTJGJA74',
+	  image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+	  token: function(token) {
+	    $("#stripeToken").val(token.id);
+	    $("#stripeEmail").val(token.email);
+	    $("#amountInCents").val(sPrice);
+	    $("#toServ").submit();
+	  }
+	});
+
+	$('#customButton').on('click', function(e) {
+	  // Open Checkout with further options
+	  handler.open({
+	    name: 'Ranch on the Rocks',
+	    description: 'Rental',
+	    amount: sPrice,
+	  });
+	  e.preventDefault();
+	});
+
+	// Close Checkout on page navigation
+	$(window).on('popstate', function() {
+	  handler.close();
+	});
 
 function startTimer(duration, display) {
     var timer = duration, minutes, seconds;

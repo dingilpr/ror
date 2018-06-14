@@ -89,7 +89,7 @@ public class PaymentCodeRedirect extends HttpServlet {
 				email = rs.getString("email");
 				priceWithoutPromo = Integer.parseInt(rs.getString("priceWithoutPromo"));
 				priceWithPromo = Integer.parseInt(rs.getString("priceWithPromo"));
-				deposit = Integer.parseInt(rs.getString("deposit"));
+				
 				paid = rs.getInt("paid");
 			}
 		} catch (SQLException e) {

@@ -147,7 +147,7 @@ public class FulfillBookRequest extends HttpServlet {
 		}
 		
 		//int deposit = price/2;
-	    int cleaning = 100;
+	    int cleaning = 199;
 	    double totalMath = 0;
 	    
 	    int totalPrice = price + cleaning;
@@ -184,6 +184,11 @@ public class FulfillBookRequest extends HttpServlet {
 					"Your booking request is being reviewed! You will hear back shortly. Your cancellation code is: " + confirmationId + ". If you "
 							+ "decide to cancel, please visit https://ranchontherocks.com/cancelRequest.jsp and enter your cancellation code.");
 			
+			//email confirmation 
+			Mailer mailerTwo = new Mailer();
+			mailerTwo.sendMail("smtp.gmail.com", "587", "pdingilian@sartopartners.com", "pdingilian@sartopartners.com", "Sarto Partners", "pdingilian@sartopartners.com", "Booking Request Received.",
+					"Someone has requested to book Ranch on the Rocks from " + startDateStr + " until " + endDateStr + " for $" + totalPrice + ". Please visit https://ranchontherocks.com.login.jsp and use Username: admin Password: jsarto to approve or deny.");
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -211,7 +216,7 @@ public class FulfillBookRequest extends HttpServlet {
 		request.setAttribute("price", totalPrice);
 		request.setAttribute("startDate", startDate);
 		request.setAttribute("endDate", endDate);
-		request.getRequestDispatcher("success.jsp").forward(request, response);
+		request.getRequestDispatcher("requestSuccess.jsp").forward(request, response);
 	}
 
 }
