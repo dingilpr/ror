@@ -74,6 +74,8 @@ public class UpdatePrices extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		request.getRequestDispatcher("/Pricing").forward(request, response);
 	}
 
 }

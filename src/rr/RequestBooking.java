@@ -370,7 +370,7 @@ public class RequestBooking extends HttpServlet {
 		  }
 		 		
 		 		
-		 		
+		 Boolean missingPrice = false;		
 				
 		  //initialize map of prices and dates
 		  HashMap<Date, Integer> priceAndDate = new HashMap<>();
@@ -394,6 +394,9 @@ public class RequestBooking extends HttpServlet {
 			  if(priceAndDate.containsKey(currentDates.get(i))) {
 				  price += priceAndDate.get(currentDates.get(i));
 				  //fix
+			  }
+			  else if(!priceAndDate.containsKey(currentDates.get(i))) {
+				  missingPrice = true;
 			  }
 		  }
 			    

@@ -106,6 +106,7 @@ public class DenyRequest extends HttpServlet {
 		mailer.sendMail("smtp.gmail.com", "587", "pdingilian@sartopartners.com", "pdingilian@sartopartners.com", "Sarto Partners", "pdingilian@sartopartners.com", "Booking Request Denied",
 				"Your booking request has been denied with the following message: " + reason);
 		
+		request.getRequestDispatcher("/Pricing").forward(request, response);
 		
 	}
 

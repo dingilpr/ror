@@ -108,6 +108,8 @@ public class FulfillCancellation extends HttpServlet {
 			e.printStackTrace();
 		}
 		
+		request.getRequestDispatcher("/Pricing").forward(request, response);
+		
 		
 	}
 

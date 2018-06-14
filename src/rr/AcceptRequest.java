@@ -162,6 +162,8 @@ public class AcceptRequest extends HttpServlet {
 			e.printStackTrace();
 		}
 		
+		request.getRequestDispatcher("/Pricing").forward(request, response);
+		
 	}
 
 }
