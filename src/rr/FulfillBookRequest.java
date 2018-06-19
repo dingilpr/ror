@@ -181,8 +181,8 @@ public class FulfillBookRequest extends HttpServlet {
 			//email confirmation 
 			Mailer mailer = new Mailer();
 			mailer.sendMail("smtp.gmail.com", "587", "pdingilian@sartopartners.com", "pdingilian@sartopartners.com", "Sarto Partners", "pdingilian@sartopartners.com", "Booking Requested!",
-					"Your booking request is being reviewed! You will hear back shortly. Your cancellation code is: " + confirmationId + ". If you "
-							+ "decide to cancel, please visit https://ranchontherocks.com/cancelRequest.jsp and enter your cancellation code.");
+					"Hi " + firstName + ", thanks for reaching out. We've recieved your reservation request for Ranch on the Rocks from " + startDateStr + " through " + endDateStr + " and will get back to you shortly with a confirmation. Please keep an eye out for the confirmation email as it wil have more details regarding your reservation. Your cancellation code is: " + confirmationId + ". If you "
+							+ "decide to cancel your request, please visit https://ranchontherocks.com/cancelRequest.jsp and enter your cancellation code. We look forward to hosting you! ");
 			
 			//email confirmation 
 			Mailer mailerTwo = new Mailer();
