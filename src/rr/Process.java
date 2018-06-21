@@ -141,8 +141,9 @@ public class Process extends HttpServlet {
 			
 			//email confirmation 
 			Mailer mailer = new Mailer();
+			String newline = "<br/>";
 			mailer.sendMail("smtp.gmail.com", "587", "pdingilian@sartopartners.com", "pdingilian@sartopartners.com", "Sarto Partners", "pdingilian@sartopartners.com", "Ranch on the Rocks Payment Confirmed",
-						"Hi " + firstName + ", thank you for your payment of $"+price/100+"! Your payment code is now your cancellation code. Please visit https://ranchontherocks.com/cancel.jsp if you decide to cancel.");
+						"Hi " + firstName + "," + newline + "thank you for your payment of $"+price/100+"! Your payment code is now your cancellation code. Please visit https://ranchontherocks.com/cancel.jsp if you decide to cancel.");
 			//set paid to true
 			try {
 				PreparedStatement paidS = con.prepareStatement("UPDATE dates SET paid = ? WHERE confirmationId = ?");

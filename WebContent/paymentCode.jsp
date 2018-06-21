@@ -80,6 +80,7 @@ body, html {
 	  		  
 			  <input type="submit" value="Continue" class="w3-button w3-round w3-center w3-blue-grey">
 		</form>
+		<br>
 	</div>
 </div>
 

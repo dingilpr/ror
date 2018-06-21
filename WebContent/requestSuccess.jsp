@@ -52,11 +52,11 @@ body, html {
 <div style="border: 1px solid grey; border-radius: 10px">
 <h2> Booking Request Submitted! </h2>
 <hr>
-<p>Check in: <span id="checkin">${startDate}</span></p>
-<p>Check out: <span id="checkout">${endDate}</span></p>
+<p>Check in: <span id="checkind">${startDate}</span></p>
+<p>Check out: <span id="checkoutd">${endDate}</span></p>
 <p>Price: <span id="checkout">${price}</span></p>
 
-<p><a href="/Index">Return Home</a></p>
+<a href="/Index"><button class="w3-center w3-button w3-large w3-large w3-blue-grey" style="text-align: center">Return home</button></a>
 
 <br>
 
@@ -64,4 +64,12 @@ body, html {
 </div>
 </div>
 </body>
+<script>
+var checkin = document.getElementById("checkind").innerHTML;
+var checkout = document.getElementById("checkoutd").innerHTML;
+var trimmedCheckin = checkin.slice(0,14) + checkin.slice(31,35);
+var trimmedCheckout = checkout.slice(0,14) + checkout.slice(31,35);
+document.getElementById("checkind").innerHTML = trimmedCheckin;
+document.getElementById("checkoutd").innerHTML = trimmedCheckout;
+</script>
 </html>

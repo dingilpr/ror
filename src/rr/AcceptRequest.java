@@ -136,8 +136,9 @@ public class AcceptRequest extends HttpServlet {
 			
 			//email confirmation 
 			Mailer mailer = new Mailer();
+			String newline = "<br/>";
 			mailer.sendMail("smtp.gmail.com", "587", "pdingilian@sartopartners.com", "pdingilian@sartopartners.com", "Sarto Partners", "pdingilian@sartopartners.com", "Booking Confirmation",
-					"Hi " + firstName + ", \r\n Thanks for choosing Ranch on the Rocks! Your request has been approved, and you have an upcoming reservation on " + startMonth+"/"+startDay+"/"+startYear + " until " + endMonth+"/"+endDay+"/"+endYear + ". You have 24 hours to pay, or else your trip will be cancelled! Your Trip Payment Code is: " + code + ". Please https://ranchontherocks.com/paymentCode.jsp#" + code + " to pay.");
+					"Hi " + firstName + "," + newline + "Thanks for choosing Ranch on the Rocks! Your request has been approved, and you have an upcoming reservation on " + startMonth+"/"+startDay+"/"+startYear + " until " + endMonth+"/"+endDay+"/"+endYear + ". You have 24 hours to pay, or else your trip will be cancelled!" + newline + "Your Trip Payment Code is: " + code + "." + newline + "Please visit https://ranchontherocks.com/paymentCode.jsp#" + code + " to pay. Your code will already be filled in for you!");
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

@@ -58,6 +58,7 @@ body, html {
 <p class="w3-spin"><i class="fa fa-suitcase fa-5x"></i></p>
 <br>
 <a href="/Index"><button class="w3-center w3-button w3-large w3-large w3-blue-grey" style="text-align: center">Return home</button></a>
+<br>
 
 <br>
 
