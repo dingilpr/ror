@@ -131,6 +131,8 @@ public class FulfillBookRequest extends HttpServlet {
 		//get discount
 		int disc = 0;
 		double discount = 0;
+		int memCheck = 0;
+		ArrayList<String> emailAddresses = new ArrayList<String>();
 		if(promot == true) {
 			//apply promo
 			try {
@@ -139,13 +141,38 @@ public class FulfillBookRequest extends HttpServlet {
 				ResultSet rs = pp.executeQuery();
 				while(rs.next()) {
 					disc = rs.getInt("discount");
+					memCheck = rs.getInt("members");
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
-		    discount = (double)disc/100;
+			if(memCheck == 0) {
+				discount = (double)disc/100;
+			}
+			
+			//else check member email
+			if(memCheck == 1) {
+				try {
+					PreparedStatement eps = con.prepareStatement("select * from emails");
+					ResultSet ers = eps.executeQuery();
+					while(ers.next()) {
+						String emailDB = ers.getString("email");
+						emailAddresses.add(emailDB);
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				for(int x = 0; x < emailAddresses.size(); x++) {
+					if(emailAddresses.get(x).equals(email)) {
+						discount = (double)disc/100;
+					}
+				}
+				
+			}
 		}
 		
 		//int deposit = price/2;
