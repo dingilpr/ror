@@ -93,11 +93,11 @@ body, html {
   <h2>Please review the following details for accuracy: </h2>
 <hr>
 <p style="text-align: right; padding-right: 5%">You have <span id="time">05:00</span> minutes left to check out!</p>
-<p style="text-align: left;">Check in: <span id="checkind" style="padding-left: 43%"><b>${startDate}</b></span></p>
-<p style="text-align: left;">Check out: <span id="checkoutd" style="padding-left: 41%"><b>${endDate}</b></span></p>
-<p style="text-align: left;">Total Nights: <span id="" style="padding-left: 40.5%"><b>${dayCounter}</b></span></p>
-<p style="text-align: left;">Price per Night: <span id="" style="padding-left: 37.5%"><b>x $${pricePerDay}</b></span></p>
-<p style="text-align: left;">Cleaning Fee: <span id="" style="padding-left: 37.5%"><b>+ $${cleaning}</b></span></p>
+<p style="text-align: left;">Check in: <span id="checkind" style="float: right;"><b>${startDate}</b></span></p>
+<p style="text-align: left;">Check out: <span id="checkoutd" style="float: right;"><b>${endDate}</b></span></p>
+<p style="text-align: left;">Total Nights: <span id="" style="float: right;"><b>${dayCounter}</b></span></p>
+<p style="text-align: left;">Price per Night: <span id="" style="float: right;"><b>x $${pricePerDay}</b></span></p>
+<p style="text-align: left;">Cleaning Fee: <span id="" style="float: right;"><b>+ $${cleaning}</b></span></p>
 <hr>
 <p style="text-align: left; padding-left: 20%"><b>Total Price: <b></b><span id="price" style="padding-left: 40.5%; font-size: 110%;"><b>= $${totalPrice}</b></span></p>
 <hr>

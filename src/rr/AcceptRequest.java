@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.UUID;
 
@@ -122,10 +124,20 @@ public class AcceptRequest extends HttpServlet {
 			psd.setInt(11, 0);
 			psd.execute();
 			
+			LocalDate localDate = startDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+			int startYear  = localDate.getYear();
+			int startMonth = localDate.getMonthValue();
+			int startDay   = localDate.getDayOfMonth();
+			
+			LocalDate localEnd = endDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+			int endYear  = localEnd.getYear();
+			int endMonth = localEnd.getMonthValue();
+			int endDay   = localEnd.getDayOfMonth();
+			
 			//email confirmation 
 			Mailer mailer = new Mailer();
 			mailer.sendMail("smtp.gmail.com", "587", "pdingilian@sartopartners.com", "pdingilian@sartopartners.com", "Sarto Partners", "pdingilian@sartopartners.com", "Booking Confirmation",
-					"Hi " + firstName + ", Thanks for choosing Ranch on the Rocks! Your request has been approved, and you have an upcoming reservation on " + startDate.toString() + " until " + endDate.toString() + "You have 24 hours to pay, or else your trip will be cancelled! Your Trip Payment Code is: " + code + ". Please https://ranchontherocks.com/paymentCode.jsp#" + code + " to pay.");
+					"Hi " + firstName + ", \r\n Thanks for choosing Ranch on the Rocks! Your request has been approved, and you have an upcoming reservation on " + startMonth+"/"+startDay+"/"+startYear + " until " + endMonth+"/"+endDay+"/"+endYear + ". You have 24 hours to pay, or else your trip will be cancelled! Your Trip Payment Code is: " + code + ". Please https://ranchontherocks.com/paymentCode.jsp#" + code + " to pay.");
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

@@ -45,6 +45,7 @@ public class QuartzJob implements Job{
 		List<String> emails = new ArrayList<String>();
 		Date startDate = null;
 		Date endDate = null;
+		int id = 0;
 		
 		//query DB for checkins 7 days from now
 		try {
@@ -52,22 +53,26 @@ public class QuartzJob implements Job{
 			ps.setDate(1, startDatesql);
 			ResultSet rs = ps.executeQuery();
 			
-			
 			while(rs.next()) {
 				emails.add(rs.getString("email"));
 				startDate = rs.getDate("startDate");
 				endDate = rs.getDate("endDate");
+				id = rs.getInt("id");
+				System.out.println("ID: " + rs.getInt("id"));
+				System.out.println("RESULT email: " + rs.getString("email"));
+				System.out.println("RESULT SD: " + rs.getString("startDate"));
+				System.out.println("RESULT ED: " + rs.getString("endDate"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		if(!emails.isEmpty() && (startDate.getTime() == dt.getTime())) {
+		if(!emails.isEmpty()) {
 			//email confirmation 
 			Mailer mailer = new Mailer();
 			mailer.sendMail("smtp.gmail.com", "587", "pdingilian@sartopartners.com", "pdingilian@sartopartners.com", "Sarto Partners", "pdingilian@sartopartners.com", "Pack your bags!",
-					"Your trip to Ranch on the Rocks begins a week from today!. Start Date: " + startDate + " End Date: " + endDate);
+					"Your trip to Ranch on the Rocks begins a week from today!. Start Date: " + startDate + " End Date: " + endDate + "...." + emails.toString() +" .. "+id);
 		}
 		
 	}

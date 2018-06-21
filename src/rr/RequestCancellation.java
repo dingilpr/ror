@@ -50,7 +50,7 @@ public class RequestCancellation extends HttpServlet {
 		//check confirmationId for 14 day limit
 		String trimmedCode = id.substring(id.lastIndexOf("?")+1);
 		Long timeStamp = Long.parseLong(trimmedCode);
-		if ((System.currentTimeMillis() - timeStamp) >= (60*60*14*1000)) { //add 24 between 60 and 1000
+		if ((System.currentTimeMillis() - timeStamp) >= (60*60*24*14*1000)) { //add 24 between 60 and 1000
 			// interval is over 24 hours
 			expired = true;
 		} else {

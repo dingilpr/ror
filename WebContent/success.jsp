@@ -50,14 +50,14 @@ body, html {
 <div class="w3-content w3-container w3-padding-64" id="checkout" style="text-align:center">
 
 <div style="border: 1px solid grey; border-radius: 10px">
-<h2> Success! </h2>
+<h2> Thank you for your payment! </h2>
 <hr>
 <p>Check in: <span id="checkin">${startDate}</span></p>
 <p>Check out: <span id="checkout">${endDate}</span></p>
 
 <p class="w3-spin"><i class="fa fa-suitcase fa-5x"></i></p>
-
-<p><a href="/Index">Return Home</a></p>
+<br>
+<a href="/Index"><button class="w3-center w3-button w3-large w3-large w3-blue-grey" style="text-align: center">Return home</button></a>
 
 <br>
 

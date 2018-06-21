@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -178,16 +180,29 @@ public class FulfillBookRequest extends HttpServlet {
 			psd.setString(10, Integer.toString(totalPrice));
 			psd.execute();
 			
+			LocalDate localDate = startDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+			int startYear  = localDate.getYear();
+			int startMonth = localDate.getMonthValue();
+			int startDay   = localDate.getDayOfMonth();
+			
+			LocalDate localEnd = endDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+			int endYear  = localEnd.getYear();
+			int endMonth = localEnd.getMonthValue();
+			int endDay   = localEnd.getDayOfMonth();
+			
 			//email confirmation 
 			Mailer mailer = new Mailer();
+			String newline = System.getProperty("line.separator");
 			mailer.sendMail("smtp.gmail.com", "587", "pdingilian@sartopartners.com", "pdingilian@sartopartners.com", "Sarto Partners", "pdingilian@sartopartners.com", "Booking Requested!",
-					"Hi " + firstName + ", thanks for reaching out. We've recieved your reservation request for Ranch on the Rocks from " + startDateStr + " through " + endDateStr + " and will get back to you shortly with a confirmation. Please keep an eye out for the confirmation email as it wil have more details regarding your reservation. Your cancellation code is: " + confirmationId + ". If you "
+					"Hi " + firstName + "," + newline + "Thanks for reaching out. We've recieved your reservation request for Ranch on the Rocks from " + startMonth+"/"+startDay+"/"+startYear + 
+					" through " + endMonth+"/"+endDay+"/"+endYear + " and will get back to you shortly with a confirmation. Please keep an eye out for the confirmation email as it will have more details regarding your reservation."+ newline + "Your cancellation code is: " 
+							+ confirmationId + newline + "If you "
 							+ "decide to cancel your request, please visit https://ranchontherocks.com/cancelRequest.jsp and enter your cancellation code. We look forward to hosting you! ");
 			
 			//email confirmation 
 			Mailer mailerTwo = new Mailer();
 			mailerTwo.sendMail("smtp.gmail.com", "587", "pdingilian@sartopartners.com", "pdingilian@sartopartners.com", "Sarto Partners", "pdingilian@sartopartners.com", "Booking Request Received.",
-					"Someone has requested to book Ranch on the Rocks from " + startDateStr + " until " + endDateStr + " for $" + totalPrice + ". Please visit https://ranchontherocks.com.login.jsp and use Username: admin Password: jsarto to approve or deny.");
+					"Someone has requested to book Ranch on the Rocks from " + emailStart + " until " + emailEnd + " for $" + totalPrice + ". Please visit https://ranchontherocks.com.login.jsp and use Username: admin Password: jsarto to approve or deny.");
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

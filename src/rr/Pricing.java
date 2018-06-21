@@ -347,6 +347,7 @@ PreparedStatement rps;
 		//get jsonArray from hidden input field
 		if(request.getParameter("hiddenArrayField") != null) {
 			json = request.getParameter("hiddenArrayField");
+			System.out.println(json);
 			
 			System.out.println("STRING-" + json);
 			//convert jsonArray to ArrayList
@@ -364,9 +365,9 @@ PreparedStatement rps;
 					System.out.println(list.get(i));
 					StringBuilder str = new StringBuilder(list.get(i));
 					String price = str.substring(44,47);
-					//System.out.println("PRICE: " + price);
+					System.out.println("PRICE: " + price);
 					String date = str.substring(60,70);
-					//System.out.println("DATE: " + date);
+					System.out.println("DATE: " + date);
 					formattedList.add(date);
 					formattedList.add(price);
 				}

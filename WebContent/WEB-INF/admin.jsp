@@ -66,7 +66,7 @@ th, td {
 <h1 style="text-align: center">Admin Calendar</h1>
 <hr>
 <p style="text-align: center">Click on a day to set the price.</p>
- <div id="calendarHere" style="position:relative;height:250px; margin-left: 37%; display: inline-block; padding-top: 10px;"></div>
+ <div id="calendarHere" style="position:relative;height:250px; margin-left: 41%; display: inline-block; padding-top: 10px;"></div>
  <h3 id="price" style="text-align: center; padding-top: 10px;"> hover over day to see price</h1>
  <div class="w3-container w3-row">
  <div class="w3-container w3-half">
