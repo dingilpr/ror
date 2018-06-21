@@ -225,7 +225,7 @@ public class FulfillBookRequest extends HttpServlet {
 					" through " + endMonth+"/"+endDay+"/"+endYear + " and will get back to you shortly with a confirmation. Please keep an eye out for the confirmation email as it will have more details regarding your reservation."+ newline + "Your cancellation code is: " 
 							+ confirmationId + newline + "If you "
 							+ "decide to cancel your request, please visit https://ranchontherocks.com/cancelRequest.jsp and enter your cancellation code. We look forward to hosting you!"
-							+ newline + "Best," + "Joe and Crystal");
+							+ newline + "Best," + newline + "Joe and Crystal");
 			
 			//email confirmation 
 			Mailer mailerTwo = new Mailer();

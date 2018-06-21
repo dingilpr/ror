@@ -82,7 +82,7 @@ body, html {
    <input type="hidden" name="hiddenCode" id="hiddenCode"/>
 </form>
 
-<input type="button" class="w3-button w3-green w3-round w3-large" id="customButton" value="Pay Now!">
+<input type="button" class="w3-button w3-green w3-round w3-large" id="customButton" style="text-align: center; margin-bottom: 10px;" value="Pay Now!">
 
 <br>
 </div>
@@ -143,6 +143,7 @@ var handler = StripeCheckout.configure({
 	    name: 'Ranch on the Rocks',
 	    description: 'Rental',
 	    amount: sPrice,
+	    zipCode: true,
 	  });
 	  e.preventDefault();
 	});

@@ -54,9 +54,10 @@ body, html {
 <hr>
 <p>Check in: <span id="checkind">${startDate}</span></p>
 <p>Check out: <span id="checkoutd">${endDate}</span></p>
-<p>Price: <span id="checkout">${price}</span></p>
+<p>Price: <span id="checkout">$${price}</span></p>
+<p><b>Please check your email for more information!</b></p>
 
-<a href="/Index"><button class="w3-center w3-button w3-large w3-large w3-blue-grey" style="text-align: center">Return home</button></a>
+<a href="/Index"><button class="w3-center w3-button w3-round w3-large w3-large w3-blue-grey" style="text-align: center; margin-bottom: 10px;">Return home</button></a>
 
 <br>
 
@@ -67,8 +68,8 @@ body, html {
 <script>
 var checkin = document.getElementById("checkind").innerHTML;
 var checkout = document.getElementById("checkoutd").innerHTML;
-var trimmedCheckin = checkin.slice(0,14) + checkin.slice(31,35);
-var trimmedCheckout = checkout.slice(0,14) + checkout.slice(31,35);
+var trimmedCheckin = checkin.slice(0,8);
+var trimmedCheckout = checkout.slice(0,8);
 document.getElementById("checkind").innerHTML = trimmedCheckin;
 document.getElementById("checkoutd").innerHTML = trimmedCheckout;
 </script>
