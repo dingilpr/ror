@@ -52,8 +52,9 @@ body, html {
 <div style="border: 1px solid grey; border-radius: 10px">
 <h2> Thank you for your payment! </h2>
 <hr>
-<p>Check in: <span id="checkin">${startDate}</span></p>
-<p>Check out: <span id="checkout">${endDate}</span></p>
+<p>Check in: <span id="checkind">${startDate}</span></p>
+<p>Check out: <span id="checkoutd">${endDate}</span></p>
+<p><b>We will be contacting you with further information via email!</b></p>
 
 <p class="w3-spin"><i class="fa fa-suitcase fa-5x"></i></p>
 <br>
@@ -66,4 +67,12 @@ body, html {
 </div>
 </div>
 </body>
+<script>
+var checkin = document.getElementById("checkind").innerHTML;
+var checkout = document.getElementById("checkoutd").innerHTML;
+var trimmedCheckin = checkin.slice(0,11);
+var trimmedCheckout = checkout.slice(0,11);
+document.getElementById("checkind").innerHTML = trimmedCheckin;
+document.getElementById("checkoutd").innerHTML = trimmedCheckout;
+</script>
 </html>

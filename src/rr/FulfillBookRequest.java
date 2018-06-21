@@ -230,7 +230,7 @@ public class FulfillBookRequest extends HttpServlet {
 			//email confirmation 
 			Mailer mailerTwo = new Mailer();
 			mailerTwo.sendMail("smtp.gmail.com", "587", "pdingilian@sartopartners.com", "pdingilian@sartopartners.com", "Sarto Partners", "pdingilian@sartopartners.com", "Booking Request Received.",
-					"Someone has requested to book Ranch on the Rocks from " + startMonth+"/"+startDay+"/"+startYear + " until " + endMonth+"/"+endDay+"/"+endYear + " for $" + totalPrice + ". Please visit https://ranchontherocks.com.login.jsp and use Username: admin Password: jsarto to approve or deny.");
+					"Someone has requested to book Ranch on the Rocks from " + startMonth+"/"+startDay+"/"+startYear + " until " + endMonth+"/"+endDay+"/"+endYear + " for $" + totalPrice + ". Please visit https://ranchontherocks.com/login.jsp and use Username: admin Password: jsarto to approve or deny.");
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

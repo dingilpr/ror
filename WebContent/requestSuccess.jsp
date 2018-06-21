@@ -68,8 +68,8 @@ body, html {
 <script>
 var checkin = document.getElementById("checkind").innerHTML;
 var checkout = document.getElementById("checkoutd").innerHTML;
-var trimmedCheckin = checkin.slice(0,8);
-var trimmedCheckout = checkout.slice(0,8);
+var trimmedCheckin = checkin.slice(0,11);
+var trimmedCheckout = checkout.slice(0,11);
 document.getElementById("checkind").innerHTML = trimmedCheckin;
 document.getElementById("checkoutd").innerHTML = trimmedCheckout;
 </script>
