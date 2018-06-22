@@ -48,7 +48,7 @@ public class Login extends HttpServlet {
 		}
 		
 		if(correct == true) {
-			HttpSession session = request.getSession();
+			HttpSession session = request.getSession(true);
 			session.setAttribute("username", uname);
 			response.sendRedirect("/Pricing");
 		}

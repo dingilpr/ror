@@ -111,8 +111,9 @@ th, td {
 
 
 <div class="w3-content w3-container w3-center">
-<h1 style="text-align: center">Hold dates</h1><hr>
-<div id="calendarHereThree" style="position:relative;height:350px;margin-left: 22%"></div>
+<h1 style="text-align: center">Hold dates<span style="float: right;"><i class="fa fa-sort-down" id="changeClassF" onclick="showHold()"></i></span></h1><hr>
+<div id="holdHS" style="visibility: hidden;">
+<div id="calendarHereThree" style="position:relative;height:0px;margin-left: 22%"></div>
 
 	<form name="sendToHold" action="HoldDates" method="post">
 		<input type="hidden" name="hiddenStartDate" id="hiddenStartDate"/>
@@ -122,15 +123,18 @@ th, td {
 	
 	<div style="padding-top: 10px;" id="heldDates"></div>
 </div>
+</div>
  
  <hr>
- <h1 style="text-align: center">Promo Codes</h1><hr>
+ <h1 style="text-align: center">Promo Codes<span style="float: right;"><i class="fa fa-sort-down" id="changeClassE" onclick="showProm()"></i></span></h1><hr>
+ <div id="promoHS" style="display: none">
  <form name="promoCodeEntry" action="GeneratePromo" method="post">
  	Code: <input type="text" name="promoCode"/>
  	Percent discount: <input type="text" name="percentOff"/> %
  	Members Only? <input type="checkbox" name="mo"/>
  	<input type="submit" class="w3-button w3-round-large w3-green" value="Generate"/>
  </form>
+ </div>
  <hr>
  <h1 style="text-align: center">Email List<span style="float: right;"><i class="fa fa-sort-down" id="changeClassD" onclick="showMail()"></i></span></h1><hr>
  <p style= "text-align: center; display: none;" id="maillist"></p>
@@ -281,6 +285,34 @@ function hideMail(){
 	document.getElementById("maillist").style.display = "none";
 	document.getElementById("changeClassD").className = "fa fa-sort-down";
 	document.getElementById("changeClassD").onclick = showMail;
+}
+
+function showProm(){
+	document.getElementById("promoHS").style.display = "block";
+	document.getElementById("changeClassE").className = "fa fa-sort-up";
+	document.getElementById("changeClassE").onclick = hideProm;
+}
+
+function hideProm(){
+	document.getElementById("promoHS").style.display = "none";
+	document.getElementById("changeClassE").className = "fa fa-sort-down";
+	document.getElementById("changeClassE").onclick = showProm;
+}
+
+function showHold(){
+	document.getElementById("holdHS").style.visibility = "visible";
+	document.getElementById("changeClassF").className = "fa fa-sort-up";
+	document.getElementById("changeClassF").onclick = hideHold;
+	myDoubleCalendar.show();
+	document.getElementById("calendarHereThree").style.height = "350px";
+}
+
+function hideHold(){
+	document.getElementById("holdHS").style.visibility = "hidden";
+	document.getElementById("changeClassF").className = "fa fa-sort-down";
+	document.getElementById("changeClassF").onclick = showHold;
+	myDoubleCalendar.hide();
+	document.getElementById("calendarHereThree").style.height = "0px";
 }
 
 function showText(){
@@ -470,7 +502,7 @@ var myDoubleCalendar;
 
 myDoubleCalendar = new dhtmlXDoubleCalendar("calendarHereThree");
 
-myDoubleCalendar.show();
+//myDoubleCalendar.show();
 
 myDoubleCalendar.leftCalendar.attachEvent("onClick", function(date){
 	startDate = date;
