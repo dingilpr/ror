@@ -98,15 +98,15 @@ th, td {
 
 
 <div class="w3-content w3-container w3-center">
-<h1 style="text-align: center">Booking Requests</h1><hr>
+<h1 style="text-align: center">Booking Requests <span style="float: right;"><i class="fa fa-sort-down"></i></span></h1><hr>
 
 	<div style="padding-top: 10px;" id="bookingReqs"></div>
 </div>
 
 <div class="w3-content w3-container w3-center">
-<h1 style="text-align: center">Inquiries</h1><hr>
+<h1 style="text-align: center">Inquiries<span style="float: right;"><i class="fa fa-sort-down" id="changeClass" onclick="showInqs()"></i></span></h1><hr>
 
-	<div style="padding-top: 10px;" id="inquiries"></div>
+	<div style="padding-top: 10px; display: none" id="inquiries"></div>
 </div>
 
 
@@ -234,6 +234,18 @@ var myCalendar;
 var priceArr = new Array();
 var arrToServer;
 var arrayFromServer = new Array();
+
+function showInqs(){
+	document.getElementById("inquiries").style.display = "block";
+	document.getElementById("changeClass").className = "fa fa-sort-up";
+	document.getElementById("changeClass").onclick = hideInqs;
+}
+
+function hideInqs(){
+	document.getElementById("inquiries").style.display = "none";
+	document.getElementById("changeClass").className = "fa fa-sort-down";
+	document.getElementById("changeClass").onclick = showInqs;
+}
 
 function showText(){
 	document.getElementById("message").style.display = "block";
