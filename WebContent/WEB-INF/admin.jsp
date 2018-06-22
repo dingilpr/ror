@@ -98,9 +98,9 @@ th, td {
 
 
 <div class="w3-content w3-container w3-center">
-<h1 style="text-align: center">Booking Requests <span style="float: right;"><i class="fa fa-sort-down"></i></span></h1><hr>
+<h1 style="text-align: center">Booking Requests <span style="float: right;"><i class="fa fa-sort-down" id="changeClassB" onclick="showReqs()"></i></span></h1><hr>
 
-	<div style="padding-top: 10px;" id="bookingReqs"></div>
+	<div style="padding-top: 10px; display: none"" id="bookingReqs"></div>
 </div>
 
 <div class="w3-content w3-container w3-center">
@@ -132,11 +132,11 @@ th, td {
  	<input type="submit" class="w3-button w3-round-large w3-green" value="Generate"/>
  </form>
  <hr>
- <h1 style="text-align: center">Email List</h1><hr>
- <p  style= "text-align: center"id="maillist"></p>
+ <h1 style="text-align: center">Email List<span style="float: right;"><i class="fa fa-sort-down" id="changeClassD" onclick="showMail()"></i></span></h1><hr>
+ <p style= "text-align: center; display: none;" id="maillist"></p>
  <hr>
- <h1 style="text-align: center">Bookings</h1><hr>
- <div id="bookingtable"></div>
+ <h1 style="text-align: center">Bookings<span style="float: right;"><i class="fa fa-sort-down" id="changeClassC" onclick="showBooks()"></i></span></h1><hr>
+ <div id="bookingtable" style="display: none;"></div>
  <hr>
  <div style="text-align: center;">
  <button class="w3-button w3-round w3-blue w3-center" onclick="showCancels()">View Cancelled Trips</button>
@@ -245,6 +245,42 @@ function hideInqs(){
 	document.getElementById("inquiries").style.display = "none";
 	document.getElementById("changeClass").className = "fa fa-sort-down";
 	document.getElementById("changeClass").onclick = showInqs;
+}
+
+function showReqs(){
+	document.getElementById("bookingReqs").style.display = "block";
+	document.getElementById("changeClassB").className = "fa fa-sort-up";
+	document.getElementById("changeClassB").onclick = hideReqs;
+}
+
+function hideReqs(){
+	document.getElementById("bookingReqs").style.display = "none";
+	document.getElementById("changeClassB").className = "fa fa-sort-down";
+	document.getElementById("changeClassB").onclick = showReqs;
+}
+
+function showBooks(){
+	document.getElementById("bookingtable").style.display = "block";
+	document.getElementById("changeClassC").className = "fa fa-sort-up";
+	document.getElementById("changeClassC").onclick = hideBooks;
+}
+
+function hideBooks(){
+	document.getElementById("bookingtable").style.display = "none";
+	document.getElementById("changeClassC").className = "fa fa-sort-down";
+	document.getElementById("changeClassC").onclick = showBooks;
+}
+
+function showMail(){
+	document.getElementById("maillist").style.display = "block";
+	document.getElementById("changeClassD").className = "fa fa-sort-up";
+	document.getElementById("changeClassD").onclick = hideMail;
+}
+
+function hideMail(){
+	document.getElementById("maillist").style.display = "none";
+	document.getElementById("changeClassD").className = "fa fa-sort-down";
+	document.getElementById("changeClassD").onclick = showMail;
 }
 
 function showText(){
