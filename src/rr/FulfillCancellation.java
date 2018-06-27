@@ -93,7 +93,7 @@ public class FulfillCancellation extends HttpServlet {
 			
 			//email cancel confirmation
 			Mailer mailer = new Mailer();
-			mailer.sendMail("smtp.gmail.com", "587", "pdingilian@sartopartners.com", "pdingilian@sartopartners.com", "Sarto Partners", "pdingilian@sartopartners.com", "Cancellation Fulfilled",
+			mailer.sendMail("smtp.gmail.com", "587", "info@sartopartners.com", "info@sartopartners.com", "Sarto Partners", "pdingilian@sartopartners.com", "Cancellation Fulfilled",
 					"Your tripe has been succcesfully cancelled. A refund will post to your account within 5-10 days. Please email info@sartopartners.com with any further questions.");
 			
 			//delete from dates

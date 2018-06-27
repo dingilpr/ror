@@ -71,7 +71,7 @@ public class QuartzJob implements Job{
 		if(!emails.isEmpty()) {
 			//email confirmation 
 			Mailer mailer = new Mailer();
-			mailer.sendMail("smtp.gmail.com", "587", "pdingilian@sartopartners.com", "pdingilian@sartopartners.com", "Sarto Partners", "pdingilian@sartopartners.com", "Pack your bags!",
+			mailer.sendMail("smtp.gmail.com", "587", "info@sartopartners.com", "info@sartopartners.com", "Sarto Partners", "pdingilian@sartopartners.com", "Pack your bags!",
 					"Your trip to Ranch on the Rocks begins a week from today!. Start Date: " + startDate + " End Date: " + endDate + "...." + emails.toString() +" .. "+id);
 		}
 		

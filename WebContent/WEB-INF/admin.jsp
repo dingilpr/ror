@@ -85,32 +85,40 @@ th, td {
  </div>
  <br>
  
- <div class="w3-content w3-container-w3-center" style="margin-left: 60%">
- <h3>Import external iCal file</h3>
- <form action="ImportCal" method="post" enctype="multipart/form-data">
+ <div class="w3-container w3-half">
+ <form action ="BulkPrice" method="post">
+ 	<input type="month" name="month"/>
+ 	<input type="text" name="amount" value="Amount in dollars(no cents)" size="50"/>
+ 	<input type="submit" value="Submit Price"/>
+ </form>
+ </div>
+ 
+ <div class="w3-container w3-half">
+ <h3 style="margin-left: 25%;">Import external iCal file</h3>
+ <form action="ImportCal" method="post" enctype="multipart/form-data" style="margin-left: 25%;">
     <input type="text" name="description"/>
     <input type="file" name="file" />
     <input type="submit" />
 </form>
 </div>
 <br>
-<hr>
 
 
-<div class="w3-content w3-container w3-center">
+
+<div class="w3-container w3-center">
 <h1 style="text-align: center">Booking Requests <span style="float: right;"><i class="fa fa-sort-down" id="changeClassB" onclick="showReqs()"></i></span></h1><hr>
 
 	<div style="padding-top: 10px; display: none"" id="bookingReqs"></div>
 </div>
 
-<div class="w3-content w3-container w3-center">
+<div class="w3-container w3-center">
 <h1 style="text-align: center">Inquiries<span style="float: right;"><i class="fa fa-sort-down" id="changeClass" onclick="showInqs()"></i></span></h1><hr>
 
 	<div style="padding-top: 10px; display: none" id="inquiries"></div>
 </div>
 
 
-<div class="w3-content w3-container w3-center">
+<div class="w3-container w3-center">
 <h1 style="text-align: center">Hold dates<span style="float: right;"><i class="fa fa-sort-down" id="changeClassF" onclick="showHold()"></i></span></h1><hr>
 <div id="holdHS" style="visibility: hidden;">
 <div id="calendarHereThree" style="position:relative;height:0px;margin-left: 22%"></div>

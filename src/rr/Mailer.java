@@ -24,9 +24,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class Mailer {
 	 void sendMail(String smtpServerHost, String smtpServerPort,  String smtpUserName, String fromUserEmail, String fromUserFullName, String toEmail, String subject, String body) {
 	     String accessToken = "";
-	     String refreshToken = "1/q7MVRalVXh3S8r9fLtb2ylc-qLQHmeTVEpPuJiD5MG4";
+	     String refreshToken = "1/7ldR1TaZalF2pm0leG4wjk2Pw5gW5OlSBmy8-FbOHFE";
 	     String oauthClientId = "739945999556-22118sccgpu7b43rt0t43759ej4gou3d.apps.googleusercontent.com";
-	     String oauthSecret = "YdnGVH7VAVGlmFQRZF782hUp";
+	     String oauthSecret = "";
 	     final String TOKEN_URL = "https://www.googleapis.com/oauth2/v4/token";
 	     
 	     try {

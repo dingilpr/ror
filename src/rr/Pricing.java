@@ -287,10 +287,10 @@ PreparedStatement rps;
 		request.setAttribute("heldDates", heldDates);
 		request.setAttribute("bookingReqs", bookingReqs);
 		request.setAttribute("inquiries", inquiries);
-		HttpSession session = request.getSession(false);
+		HttpSession session = request.getSession(true);
 		String correctu = "admin";
 		
-		if(session.getAttribute("username").equals(null)) {
+		if(session.getAttribute("username") == null) {
 			request.getRequestDispatcher("login.jsp").forward(request, response);
 		}
 		
@@ -381,6 +381,7 @@ PreparedStatement rps;
 			json = "nuthin here";
 		}
 		
+		System.out.println("FORMATTED LIST: " + formattedList);
 				
                 //send new dates and prices to DB
 				PreparedStatement psT;
@@ -393,13 +394,13 @@ PreparedStatement rps;
 						date = formatter.parse(formattedList.get(i));
 						//check if date already exists
 						if(priceAndDate.containsKey(date)) {
+							System.out.println("Updating new Price!");
 							PreparedStatement psX = con.prepareStatement("UPDATE pricing SET date = ?, price = ? WHERE  date = ?");
 							java.sql.Date sqlDate = new java.sql.Date(date.getTime());
 							int price = Integer.parseInt(formattedList.get(i + 1));
 							psX.setDate(1, sqlDate);
 							psX.setInt(2, price);
 							psX.setDate(3, sqlDate);
-							
 							psX.execute();
 						}
 						
