@@ -73,6 +73,7 @@ public class Process extends HttpServlet {
 		String phone = request.getParameter("hiddenpNumber");
 		String email = request.getParameter("hiddenEmail");
 		String id = request.getParameter("hiddenCode");
+		String depositCheck = request.getParameter("hiddenDepositCheck");
 		String promo = null;
 		if(!request.getParameter("hiddenPromo").isEmpty()) {
 			promo = request.getParameter("hiddenPromo");
@@ -94,22 +95,47 @@ public class Process extends HttpServlet {
 		//connect to DB
 		DBManager db = new DBManager();
 		Connection con = db.getConnection();
-					
-		//get price from DB
-		int price = 0;
-		PreparedStatement ps;
-		try {
-			ps = con.prepareStatement("select * from dates where confirmationId = ?");
-			ps.setString(1, id);
-			ResultSet rs = ps.executeQuery();
-			while(rs.next()) {
-				price = Integer.parseInt(rs.getString("priceWithPromo"));
-			}			
-		} catch (SQLException e) {
-			e.printStackTrace();
+		
+		int deposit = 0;
+		boolean dep = false;
+		
+		if(depositCheck.equals("true")) {
+			deposit = 0;
+			PreparedStatement pd;
+			//get deposit price from DB
+			try {
+				pd = con.prepareStatement("select * from dates where confirmationId = ?");
+				pd.setString(1, id);
+				ResultSet rd = pd.executeQuery();
+				while(rd.next()) {
+					deposit = Integer.parseInt(rd.getString("deposit"));
+				}
+				
+				dep = true;
+				deposit *= 100;
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		}
-					
-		price *= 100;
+		int price = 0;
+		if(dep == false) {
+			//get price from DB
+			PreparedStatement ps;
+			try {
+				ps = con.prepareStatement("select * from dates where confirmationId = ?");
+				ps.setString(1, id);
+				ResultSet rs = ps.executeQuery();
+				while(rs.next()) {
+					price = Integer.parseInt(rs.getString("priceWithPromo"));
+				}			
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+						
+			price *= 100;
+		}
     
 		// Set your secret key: remember to change this to your live secret key in production
 		// See your keys here: https://dashboard.stripe.com/account/apikeys
@@ -118,23 +144,62 @@ public class Process extends HttpServlet {
 		// Token is created using Checkout or Elements!
 		// Get the payment token ID submitted by the form:
 		String token = request.getParameter("stripeToken");
-
-		// Charge the user's card:
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("amount", price);
-		params.put("currency", "usd");
-		params.put("description", "Example charge");
-		params.put("source", token);
 		
 		boolean chargeWorked = true;
-		try {
-			//fixed?
-			Charge charge = Charge.create(params);
-		} catch (AuthenticationException | InvalidRequestException | APIConnectionException | CardException
-				| APIException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			chargeWorked = false;
+		
+		if(dep == false) {
+			// Charge the user's card:
+			Map<String, Object> params = new HashMap<String, Object>();
+			params.put("amount", price);
+			params.put("currency", "usd");
+			params.put("description", "Example charge");
+			params.put("source", token);
+			
+			try {
+				//fixed?
+				Charge charge = Charge.create(params);
+			} catch (AuthenticationException | InvalidRequestException | APIConnectionException | CardException
+					| APIException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				chargeWorked = false;
+			}
+		}
+		else if(dep == true) {
+			// Charge the user's card:
+			Map<String, Object> params = new HashMap<String, Object>();
+			params.put("amount", deposit);
+			params.put("currency", "usd");
+			params.put("description", "Example charge");
+			params.put("source", token);
+						
+			try {
+				//fixed?
+				Charge charge = Charge.create(params);
+			} catch (AuthenticationException | InvalidRequestException | APIConnectionException | CardException
+					| APIException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				chargeWorked = false;
+			}
+			
+			PreparedStatement pfd;
+			try {
+				pfd = con.prepareStatement("UPDATE dates SET depositPaid = ? WHERE  confirmationId = ?");
+				pfd.setInt(1, 1);
+				pfd.setString(2, id);
+				pfd.execute();
+				
+				Mailer mailerTwo = new Mailer();
+				String newline = "<br/>";
+				mailerTwo.sendMail("smtp.gmail.com", "587", "info@sartopartners.com", "info@sartopartners.com", "Sarto Partners", "pdingilian@sartopartners.com", "Deposit Received",
+							firstName + lastName + " has paid their deposit." );
+				//set paid to true
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		}
 		
 		if(chargeWorked) {

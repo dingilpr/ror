@@ -80,6 +80,7 @@ body, html {
    <input type="hidden" name="hiddenEmail" id="hiddenEmail"/>
    <input type="hidden" name="hiddenPromo" id="hiddenPromo"/>
    <input type="hidden" name="hiddenCode" id="hiddenCode"/>
+   <input type="hidden" name="hiddenDepositCheck" id="hiddenDepositCheck"/>
 </form>
 
 <input type="button" class="w3-button w3-green w3-round w3-large" id="customButton" style="text-align: center; margin-bottom: 10px;" value="Pay Now!">
@@ -98,6 +99,7 @@ body, html {
 <div id="email" style="display: none;">${email}</div>
 <div id="promo" style="display: none;">${promo}</div>
 <div id="code" style="display: none;">${code}</div>
+<div id="depositCheck" style="display: none;">${deposit}</div>
 
 </div>
 <br><br>
@@ -112,6 +114,7 @@ var jspPhone = document.getElementById("phone").innerHTML;
 var jspEmail = document.getElementById("email").innerHTML;
 var jspPromo = document.getElementById("promo").innerHTML;
 var jspCode = document.getElementById("code").innerHTML;
+var jspDepositCheck = document.getElementById("depositCheck").innerHTML;
 
 document.getElementById("hiddenCancelStartDate").value = jspStart;
 document.getElementById("hiddenCancelEndDate").value = jspEnd;
@@ -123,6 +126,7 @@ document.getElementById("hiddenpNumber").value = jspPhone;
 document.getElementById("hiddenEmail").value = jspEmail;
 document.getElementById("hiddenPromo").value = jspPromo;
 document.getElementById("hiddenCode").value = jspCode;
+document.getElementById("hiddenDepositCheck").value = jspDepositCheck;
 
 var sPrice = '${price}' * 100;
 

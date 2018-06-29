@@ -56,10 +56,12 @@ public class PaymentCodeRedirect extends HttpServlet {
 		String promo = null;
 		int priceWithoutPromo = 0;
 		int priceWithPromo = 0;
-		int deposit;
+		int deposit = 0;
 		int paid = 0;
+		int dPaid = 0;
 		boolean expired = false;
 		boolean alreadyPaid = false;
+		boolean alreadyDPaid = false;
 		String trimmedCode = id.substring(id.lastIndexOf("?")+1);
 		System.out.println("trimmedCode: " + trimmedCode);
 		Long timeStamp = Long.parseLong(trimmedCode);
@@ -89,8 +91,9 @@ public class PaymentCodeRedirect extends HttpServlet {
 				email = rs.getString("email");
 				priceWithoutPromo = Integer.parseInt(rs.getString("priceWithoutPromo"));
 				priceWithPromo = Integer.parseInt(rs.getString("priceWithPromo"));
-				
+				deposit = Integer.parseInt(rs.getString("deposit"));
 				paid = rs.getInt("paid");
+				dPaid = rs.getInt("depositPaid");
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -108,6 +111,19 @@ public class PaymentCodeRedirect extends HttpServlet {
 			request.setAttribute("price", priceWithPromo);
 			request.setAttribute("promo", promo);
 			request.setAttribute("code", id);
+			request.getRequestDispatcher("payment.jsp").forward(request, response);
+	    }
+	    else if(paid == 1 && dPaid == 0) {
+	    	request.setAttribute("startDate", startDate.toString());
+			request.setAttribute("endDate", endDate.toString());
+			request.setAttribute("firstName", firstName);
+			request.setAttribute("lastName", lastName);
+			request.setAttribute("pNumber", pNumber);
+			request.setAttribute("email", email);
+			request.setAttribute("price", deposit);
+			request.setAttribute("promo", promo);
+			request.setAttribute("code", id);
+			request.setAttribute("deposit", "true");
 			request.getRequestDispatcher("payment.jsp").forward(request, response);
 	    }
 	    else {

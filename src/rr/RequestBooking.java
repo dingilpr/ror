@@ -368,9 +368,8 @@ public class RequestBooking extends HttpServlet {
 				  e.printStackTrace();
 			  }
 		  }
-		 		
-		 		
-		 Boolean missingPrice = false;		
+		 				
+		  Boolean missingPrice = false;		
 				
 		  //initialize map of prices and dates
 		  HashMap<Date, Integer> priceAndDate = new HashMap<>();
@@ -390,10 +389,10 @@ public class RequestBooking extends HttpServlet {
 		    	 
 		  //compare currentDates list with prices from DB to calculate a total
 		  int price = 0;
-		  for(int i = 0;i < currentDates.size(); i++) {
+		  for(int i = 0;i < currentDates.size() - 1; i++) {
 			  if(priceAndDate.containsKey(currentDates.get(i))) {
 				  price += priceAndDate.get(currentDates.get(i));
-				  //fix
+				  
 			  }
 			  else if(!priceAndDate.containsKey(currentDates.get(i))) {
 				  missingPrice = true;
@@ -405,7 +404,7 @@ public class RequestBooking extends HttpServlet {
 			    
 		  int totalPrice = price + cleaning;
 			    
-		  int pricePerDay = price/dayCounter;
+		  int pricePerDay = price/(dayCounter - 1);
 		  int discount = 0; 
 		  double discountMath = 0;
 		  double totalMath = 0;
@@ -427,7 +426,7 @@ public class RequestBooking extends HttpServlet {
 				request.setAttribute("endDate", endDate);
 				request.setAttribute("price", price);
 				request.setAttribute("pricePerDay", pricePerDay);
-				request.setAttribute("dayCounter", dayCounter);
+				request.setAttribute("dayCounter", dayCounter - 1);
 				//request.setAttribute("deposit", deposit);
 				request.setAttribute("cleaning", cleaning);
 				request.setAttribute("totalPrice", totalPrice);

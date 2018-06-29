@@ -86,6 +86,7 @@ th, td {
  <br>
  
  <div class="w3-container w3-half">
+ <p>Set price by month</p>
  <form action ="BulkPrice" method="post">
  	<input type="month" name="month"/>
  	<input type="text" name="amount" value="Amount in dollars(no cents)" size="50"/>
@@ -142,6 +143,8 @@ th, td {
  	Members Only? <input type="checkbox" name="mo"/>
  	<input type="submit" class="w3-button w3-round-large w3-green" value="Generate"/>
  </form>
+ 
+ <div id="promotable" style="display: none;"></div>
  </div>
  <hr>
  <h1 style="text-align: center">Email List<span style="float: right;"><i class="fa fa-sort-down" id="changeClassD" onclick="showMail()"></i></span></h1><hr>
@@ -384,10 +387,14 @@ var bookingReqsFromServer = JSON.parse(bookingReqs);
 var inqList = '${inquiries}';
 var inqsFromServer = JSON.parse(inqList);
 
+var promos = '${promos}';
+var promosFromServer = JSON.parse(promos);
+
 
 var heldTable = "<table align=\"center\">";
 var reqTable = "<table align=\"center\">";
 var inqTable = "<table align=\"center\">";
+var promoTable = "<table align=\"center\">";
 
 for(var i = 0; i < heldFromServer.length; i+=2){
 	heldTable += ("<tr>" + "<td>" + heldFromServer[i] +"</td>"

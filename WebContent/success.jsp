@@ -54,7 +54,7 @@ body, html {
 <hr>
 <p>Check in: <span id="checkind">${startDate}</span></p>
 <p>Check out: <span id="checkoutd">${endDate}</span></p>
-<p><b>We will be contacting you with further information via email!</b></p>
+<p><b>A confirmation email is being sent!</b></p>
 
 <p class="w3-spin"><i class="fa fa-suitcase fa-5x"></i></p>
 <br>

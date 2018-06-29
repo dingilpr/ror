@@ -68,6 +68,7 @@ public class Pricing extends HttpServlet {
 		JSONArray heldDates=new JSONArray();
 		JSONArray bookingReqs=new JSONArray();
 		JSONArray inquiries=new JSONArray();
+		JSONArray promos=new JSONArray();
 		
 	    //connect to DB
 		DBManager db = new DBManager();
@@ -278,6 +279,27 @@ PreparedStatement rps;
 			e.printStackTrace();
 		}
 		
+		//get promos
+				PreparedStatement pps;
+				try {
+					pps = con.prepareStatement("select * from promos");
+					ResultSet prs = pps.executeQuery();
+					while(prs.next()) {
+						String code = prs.getString("code");
+						int discount = prs.getInt("discount");
+						int members = prs.getInt("members");
+						
+						promos.add(code);
+						promos.add(discount);
+						promos.add(members);
+					}
+					
+					
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		
 		
 		request.setAttribute("list", list);
 		request.setAttribute("emails", emails);
@@ -287,7 +309,8 @@ PreparedStatement rps;
 		request.setAttribute("heldDates", heldDates);
 		request.setAttribute("bookingReqs", bookingReqs);
 		request.setAttribute("inquiries", inquiries);
-		HttpSession session = request.getSession(true);
+		request.setAttribute("promos", promos);
+		HttpSession session = request.getSession(false);
 		String correctu = "admin";
 		
 		if(session.getAttribute("username") == null) {

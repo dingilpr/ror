@@ -50,7 +50,7 @@ public class Login extends HttpServlet {
 		if(correct == true) {
 			HttpSession session = request.getSession(true);
 			session.setAttribute("username", uname);
-			response.sendRedirect("/Pricing");
+			response.sendRedirect(response.encodeRedirectURL("/Pricing"));
 		}
 		else {
 			response.sendRedirect("login.jsp");

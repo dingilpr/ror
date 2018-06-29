@@ -187,7 +187,7 @@ public class FulfillBookRequest extends HttpServlet {
 		//insert all into booking_req
 		PreparedStatement psd;
 		try {
-			psd = con.prepareStatement("insert into booking_req(startDate, endDate, firstName, lastName, email, phone, confirmationId, promo, priceWithoutPromo, priceWithPromo)" + "values (?,?,?,?,?,?,?,?,?,?)");
+			psd = con.prepareStatement("insert into booking_req(startDate, endDate, firstName, lastName, email, phone, confirmationId, promo, priceWithoutPromo, priceWithPromo, deposit)" + "values (?,?,?,?,?,?,?,?,?,?,?)");
 			java.sql.Date startDatesql = new java.sql.Date(startDate.getTime());
 			java.sql.Date endDatesql = new java.sql.Date(endDate.getTime());
 			psd.setDate(1, startDatesql);
@@ -205,6 +205,7 @@ public class FulfillBookRequest extends HttpServlet {
 			}
 			psd.setString(9, Integer.toString(price));
 			psd.setString(10, Integer.toString(totalPrice));
+			psd.setInt(11, totalPrice/2);
 			psd.execute();
 			
 			LocalDate localDate = startDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();

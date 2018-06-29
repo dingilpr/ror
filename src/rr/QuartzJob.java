@@ -46,6 +46,8 @@ public class QuartzJob implements Job{
 		Date startDate = null;
 		Date endDate = null;
 		int id = 0;
+		String firstName = null;
+		
 		
 		//query DB for checkins 7 days from now
 		try {
@@ -58,6 +60,7 @@ public class QuartzJob implements Job{
 				startDate = rs.getDate("startDate");
 				endDate = rs.getDate("endDate");
 				id = rs.getInt("id");
+				firstName = rs.getString("firstName");
 				System.out.println("ID: " + rs.getInt("id"));
 				System.out.println("RESULT email: " + rs.getString("email"));
 				System.out.println("RESULT SD: " + rs.getString("startDate"));
@@ -70,9 +73,21 @@ public class QuartzJob implements Job{
 		
 		if(!emails.isEmpty()) {
 			//email confirmation 
+			String newline = "<br/>";
 			Mailer mailer = new Mailer();
 			mailer.sendMail("smtp.gmail.com", "587", "info@sartopartners.com", "info@sartopartners.com", "Sarto Partners", "pdingilian@sartopartners.com", "Pack your bags!",
-					"Your trip to Ranch on the Rocks begins a week from today!. Start Date: " + startDate + " End Date: " + endDate + "...." + emails.toString() +" .. "+id);
+					"Hi " + firstName +  ", " + newline + "Your trip is almost here! Ranch on the Rocks can be a bit tricky to get to so please consult the " + 
+							"directions below before your arrival and as usual, Please don’t hesitate to contact Joe or " + 
+							"Crystal if you have trouble finding it." + newline + "When you turn onto Alameda Parkway from Morrison Road you will notice that Alameda Pkwy is " + 
+									"also Entrance 1 for Red Rocks Amphitheater." 
+							  + newline + "Take Alameda Pkwy for .5 mi. Pass the Dinosaur Ridge Discovery Center on the right. After " + 
+							  		"passing the Discovery Center continue to go straight on Alameda Pkwy, and take note of two " + 
+							  		"dirt roads on the right to follow." + newline + 
+							  		"As you approach the beautiful red rocks, you will turn on the second dirt road on the right. " + 
+							  		"There is no street sign. There is a green dumpster on this road (see photo). If you get to the " + 
+							  		"scenic view turn off or Red Rocks Amphitheater you have gone too far." + "After turning right on this dirt road continue to stay to the right and take it ALL THE WAY TO " + 
+							  				"THE END. You will go over the hill and pass a few houses, but continue on until the road dead " + 
+							  				"ends. Once you hit the dead need you are at Ranch on the Rocks, 17971 Alameda Pkwy.");
 		}
 		
 	}

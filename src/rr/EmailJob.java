@@ -72,7 +72,7 @@ public class EmailJob extends HttpServlet {
            Trigger trigger = newTrigger()
         		    .withIdentity("trigger7", "group1")
         		    .withSchedule(simpleSchedule()
-        		        .withIntervalInMinutes(2)
+        		        .withIntervalInMinutes(1440)
         		        .repeatForever())
         		    .build();
            
@@ -113,12 +113,14 @@ public class EmailJob extends HttpServlet {
 
            
            // shut down the scheduler
+           /**
            try {
 				sched.shutdown(true);
 			} catch (SchedulerException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			**/
 			
 	}
 

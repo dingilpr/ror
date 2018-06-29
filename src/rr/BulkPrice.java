@@ -54,6 +54,8 @@ public class BulkPrice extends HttpServlet {
 		int year = Integer.parseInt(yearStr);
 		int month = Integer.parseInt(monthStr);
 		
+		int amount = Integer.parseInt(passedAmount);
+		
 		List<Date> dates = new ArrayList<Date>();
 		
 		//get all days of month
@@ -106,9 +108,43 @@ public class BulkPrice extends HttpServlet {
       	}
         
         //add each day to DB, replace if needed
+      //send new dates and prices to DB
+		PreparedStatement psT;
       	for(int j = 0; j < dates.size(); j++) {
-      		
-      		
+    		try {
+				psT = con.prepareStatement("insert into pricing(date,price)" + "values (?,?)");
+				Date date = new Date();
+				
+				//format date and price for the last time
+				date = dates.get(j);
+				
+				//check if date already exists
+				if(priceAndDate.containsKey(date)) {
+					System.out.println("Updating new Price!");
+					PreparedStatement psX = con.prepareStatement("UPDATE pricing SET date = ?, price = ? WHERE  date = ?");
+					java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+					int price = amount;
+					psX.setDate(1, sqlDate);
+					psX.setInt(2, price);
+					psX.setDate(3, sqlDate);
+					psX.execute();
+				}
+				
+				else if(!priceAndDate.containsKey(date)) {
+					java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+					int price = amount;
+					
+					//send over
+					psT.setDate(1, sqlDate);
+					psT.setInt(2,  price);
+					
+					psT.execute();
+				}
+			      
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 	
       	}
 
 	}
