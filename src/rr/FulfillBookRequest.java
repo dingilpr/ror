@@ -221,18 +221,20 @@ public class FulfillBookRequest extends HttpServlet {
 			//email confirmation 
 			Mailer mailer = new Mailer();
 			String newline = "<br/>";
-			mailer.sendMail("smtp.gmail.com", "587", "info@sartopartners.com", "info@sartopartners.com", "Sarto Partners", "pdingilian@sartopartners.com", "Booking Requested!",
+			/**
+			mailer.sendMail("smtp.gmail.com", "587", "info@sartopartners.com", "info@sartopartners.com", "Sarto Partners", "info@sartopartners.com", "Booking Requested!",
 					"Hi " + firstName + "," + newline + newline +  "Thanks for reaching out. We've recieved your reservation request for Ranch on the Rocks from " + startMonth+"/"+startDay+"/"+startYear + 
 					" through " + endMonth+"/"+endDay+"/"+endYear + " and will get back to you shortly with a confirmation. Please keep an eye out for the confirmation email as it will have more details regarding your reservation."+ newline + "Your cancellation code is: " 
 							+ confirmationId + newline + "If you "
 							+ "decide to cancel your request, please visit https://ranchontherocks.com/cancelRequest.jsp and enter your cancellation code. We look forward to hosting you!"
 							+ newline + newline + "Best," + newline + "Joe and Crystal");
-			
+			**/
 			//email confirmation 
 			Mailer mailerTwo = new Mailer();
+			/**
 			mailerTwo.sendMail("smtp.gmail.com", "587", "info@sartopartners.com", "info@sartopartners.com", "Sarto Partners", "pdingilian@sartopartners.com", "Booking Request Received.",
 					"Someone has requested to book Ranch on the Rocks from " + startMonth+"/"+startDay+"/"+startYear + " until " + endMonth+"/"+endDay+"/"+endYear + " for $" + totalPrice + ". Please visit https://ranchontherocks.com/login.jsp and use Username: admin Password: jsarto to approve or deny.");
-			
+			**/
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

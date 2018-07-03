@@ -55,6 +55,9 @@ body, html {
 <div style="text-align: center" class="w3-panel w3-red w3-round">Please use the 'Cancel Trip' button rather than navigating away from the page.</div>
 <br>
 <div id="jsPPrice" style="display: none;">${totalPrice}</div>
+<div id="jsPStart" style="display: none;">${startDate}</div>
+<div id="jsPEnd" style="display: none;">${endDate}</div>
+<div id="jsPFirstName" style="display: none;">${firstName}</div>
 <div id="formdiv" style="text-align: center">
 
 <form action="CancelTrip" name="cancelTrip" id="cancelTrip" method="POST">
@@ -66,34 +69,39 @@ body, html {
 </div>
 <br>
 <div style="border: 1px solid grey; border-radius: 10px; box-shadow: 1px 2px #888888;">
-<form action="Calculate"  style="margin-left: 20%; margin-right: 20%; text-align: left;"method="POST">
-<label>First Name: </label>
-<input type="text" class="w3-input" name="fname" id="fname" required><br>
+ <h2>Please review the following details for accuracy: </h2>
+<hr>
+<p style="text-align: right; padding-right: 5%; color: red;">You have <span id="time" style="color: red;">05:00</span> minutes left to check out!</p>
+<p style="text-align: left;">Check in: <span id="checkind" style="float: right;"><b>${startDate}</b></span></p>
+<p style="text-align: left;">Check out: <span id="checkoutd" style="float: right;"><b>${endDate}</b></span></p>
+<p style="text-align: left;">Total Nights: <span id="" style="float: right;"><b>${dayCounter}</b></span></p>
+<p style="text-align: left;">Price per Night: <span id="" style="float: right;"><b>x $${pricePerDay}</b></span></p>
+<p style="text-align: left;">Cleaning Fee: <span id="" style="float: right;"><b>+ $${cleaning}</b></span></p>
+<p style="text-align: left;">Deposit: <span id="" style="float: right;"><b>($${deposit})</b></span></p>
+<hr>
+<p style="text-align: left; padding-left: 20%"><b>Total Price: <b></b><span id="price" style="padding-left: 40.5%; font-size: 110%;"><b>= $${totalPrice}</b></span></p>
+<hr>
+<p style="text-align: left; padding-left: 1%; font-size: 80%;"><em>You will pay the property in the property's local currency (US$). The displayed amount (in USD) is indicative and based on the exchange rate at the time of booking. 
+Guests are required to show a photo ID and credit card upon check-in. Please note that all Special Requests are subject to availability and additional charges may apply. A damage deposit of USD 850 is required on arrival. This will be collected by credit card. You should be reimbursed within 7 days of check-out. Your deposit will be refunded in full by credit card, subject to an inspection of the property.</em></p>
+<hr>
 
-<label>Last Name: </label>
-<input type="text" class="w3-input" name="lname" id="lname" required><br>
-
-<label>Phone Number: </label>
-<input type="text" class="w3-input" name="phone" id="phone" required><br>
-
-
-<label>Enter Email: </label>
-<input type="email" class="w3-input" name="email" id="email" required><br>
-
-<label>Number of People (Max 8): </label>
-<input type="text" class="w3-input" name="ppl" id="ppl" required><br>
-
-<label>Enter Promo Code: (Optional) </label>
-<input type="text" class="w3-input" name="promo" id="promo"><br>
-  
-  <input type="hidden" name="hiddenStartDate" id="hiddenStartDate"/>
-  <input type="hidden" name="hiddenEndDate" id="hiddenEndDate"/>
-  <input type="hidden" name="hiddenPrice" id="hiddenPrice"/>
-  
-
-  
-  <input type="submit" value="Request Stay" class="w3-button w3-round w3-center w3-blue-grey" style="margin-left: 40%; margin-bottom: 10px;">
+<form action="Process" method="POST" id="toServ">
+   <input type="hidden" id="stripeToken" name="stripeToken" />
+   <input type="hidden" id="stripeEmail" name="stripeEmail" />
+   <input type="hidden" id="amountInCents" name="amountInCents" />
+   <input type="hidden" name="hiddenStartDate" id="hiddenStartDate"/>
+   <input type="hidden" name="hiddenEndDate" id="hiddenEndDate"/>
+   <input type="hidden" name="hiddenFirstName" id="hiddenFirstName"/>
+   <input type="hidden" name="hiddenLastName" id="hiddenLastName"/>
+   <input type="hidden" name="hiddenpNumber" id="hiddenpNumber"/>
+   <input type="hidden" name="hiddenEmail" id="hiddenEmail"/>
+   <input type="hidden" name="hiddenPromo" id="hiddenPromo"/>
+   <input type="hidden" name="hiddenCode" id="hiddenCode"/>
+   <input type="hidden" name="hiddenDepositCheck" id="hiddenDepositCheck"/>
 </form>
+
+<input type="button" class="w3-button w3-green w3-round w3-large" id="customButton" style="text-align: center; margin-bottom: 10px;" value="Pay Now!">
+
 <br>
 </div>
 </div>
@@ -150,6 +158,35 @@ document.pagehide = cancel;
 function cancel(){
 	document.getElementById("cancelTrip").submit();
 }
+
+var handler = StripeCheckout.configure({
+	  key: 'pk_test_fTbAto5ojlJIf7XgMTJGJA74',
+	  image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+	  token: function(token) {
+	    $("#stripeToken").val(token.id);
+	    $("#stripeEmail").val(token.email);
+	    $("#amountInCents").val(sPrice);
+	    $("#toServ").submit();
+	  }
+	});
+
+	$('#customButton').on('click', function(e) {
+	  // Open Checkout with further options
+	  handler.open({
+	    name: 'Ranch on the Rocks',
+	    description: 'Rental',
+	    amount: sPrice,
+	    zipCode: true,
+	    capture: false,
+	  });
+	  e.preventDefault();
+	});
+
+	// Close Checkout on page navigation
+	$(window).on('popstate', function() {
+	  handler.close();
+	});
+
 
 </script>
 </html>

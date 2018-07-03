@@ -199,6 +199,11 @@ th, td {
  <input type="hidden" name="priceChange" id="priceChange">
  </form>
  
+  <form name="deletePromo" id="deletePromo" action="DeletePromo" method="post">
+ <input type="hidden" name="pName" id="pName">
+ <input type="hidden" name="pPercent" id="pPercent">
+ </form>
+ 
  <!-- CHECKOUT TESTING -->
  
  <div class="w3-row">
@@ -302,6 +307,7 @@ function showProm(){
 	document.getElementById("promoHS").style.display = "block";
 	document.getElementById("changeClassE").className = "fa fa-sort-up";
 	document.getElementById("changeClassE").onclick = hideProm;
+	document.getElementById("promotable").style.display = "block";
 }
 
 function hideProm(){
@@ -395,6 +401,7 @@ var heldTable = "<table align=\"center\">";
 var reqTable = "<table align=\"center\">";
 var inqTable = "<table align=\"center\">";
 var promoTable = "<table align=\"center\">";
+promoTable += "<tr><td><b>Name</b></td><td><b>Discount</b></td><td><b>Members</b></td><td><b>Delete</b></td></tr>"
 
 for(var i = 0; i < heldFromServer.length; i+=2){
 	heldTable += ("<tr>" + "<td>" + heldFromServer[i] +"</td>"
@@ -444,6 +451,25 @@ for(var q = 0; q < inqsFromServer.length; q+=4){
 
 inqTable += "</table>";
 document.getElementById("inquiries").innerHTML = inqTable;
+
+for(var y = 0; y < promosFromServer.length; y+=3){
+	promoTable += ("<tr>" + "<td>" + promosFromServer[y] +"</td>"
+			+ "<td>" + promosFromServer[y+1] + "</td>" 
+			+ "<td>" + promosFromServer[y+2] + "</td>" 
+			+ "<td>" + 
+			"<button id=\"deleteP\" class=\"w3-button w3-round-large w3-red\" " +
+		    "onclick=\"deletePromoFunc(\'" + promosFromServer[y] + "\',\'" + promosFromServer[y+1] + "\')\" value=\"Delete\">Delete</button></td>"
+			+ "</tr>");
+}
+
+promoTable += "</table>";
+document.getElementById("promotable").innerHTML = promoTable;
+
+function deletePromoFunc(name, discount){
+	document.getElementById("pName").value = name;
+	document.getElementById("pPercent").value = discount;
+	document.getElementById("deletePromo").submit();
+}
 
 for(var i = 0; i < jsemails.length; i++){
 	document.getElementById("maillist").innerHTML += (jsemails[i] + "<br>");
