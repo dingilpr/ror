@@ -59,6 +59,8 @@ public class DeletePromo extends HttpServlet {
 			e.printStackTrace();
 		}
 		
+		response.sendRedirect("/Pricing");
+		
 	}
 
 }

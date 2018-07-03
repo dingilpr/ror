@@ -119,10 +119,11 @@ public class Calculate extends HttpServlet {
 
 		// compare local price list with prices from DB to calculate a total
 		int price = 0;
-		for (int i = 0; i < dates.size(); i++) {
+		for (int i = 0; i < dates.size() - 1; i++) {
 			// fix
 			if (priceAndDate.containsKey(dates.get(i))) {
 				price += priceAndDate.get(dates.get(i));
+				System.out.println("DATE: " + (dates.get(i) + "PRICE: " + priceAndDate.get(dates.get(i))));
 			}
 		}
 
@@ -176,46 +177,48 @@ public class Calculate extends HttpServlet {
 		int deposit = price/2;
 		int cleaning = 199;
 		double totalMath = 0;
+		int pricePerDay = price/(dayCounter - 1);
 		price += cleaning;
 
 		int totalPrice = price;
 		// apply promo
 		totalMath = (double) totalPrice - ((double) totalPrice * discount);
 		totalPrice = (int) totalMath;
-		int pricePerDay = price/(dayCounter - 1);
+		
 		
 		//create a random Confirmation Id for this trip
-				String confirmationId = UUID.randomUUID().toString().replaceAll("-", "");
-				String code = confirmationId + "?" + System.currentTimeMillis();
+		String confirmationId = UUID.randomUUID().toString().replaceAll("-", "");
+		String code = confirmationId + "?" + System.currentTimeMillis();
 		
-		//insert all into booking_req
-				PreparedStatement psd;
-				try {
-					psd = con.prepareStatement("insert into booking_req(startDate, endDate, firstName, lastName, email, phone, confirmationId, promo, priceWithoutPromo, priceWithPromo, deposit)" + "values (?,?,?,?,?,?,?,?,?,?,?)");
-					java.sql.Date startDatesql = new java.sql.Date(startDate.getTime());
-					java.sql.Date endDatesql = new java.sql.Date(endDate.getTime());
-					psd.setDate(1, startDatesql);
-					psd.setDate(2, endDatesql);
-					psd.setString(3, firstName);
-					psd.setString(4, lastName);
-					psd.setString(5, email);
-					psd.setString(6, phone);
-					psd.setString(7, code);
-					if(promo != null) {
-						psd.setString(8, promo);
-					}
-					else {
-						psd.setString(8, null);
-					}
-					psd.setString(9, Integer.toString(price));
-					psd.setString(10, Integer.toString(totalPrice));
-					psd.setInt(11, totalPrice/2);
-					psd.execute();
-				
-	} catch (SQLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
+		// insert all into booking_req
+		PreparedStatement psd;
+		try {
+			psd = con.prepareStatement(
+					"insert into booking_req(startDate, endDate, firstName, lastName, email, phone, confirmationId, promo, priceWithoutPromo, priceWithPromo, deposit)"
+							+ "values (?,?,?,?,?,?,?,?,?,?,?)");
+			java.sql.Date startDatesql = new java.sql.Date(startDate.getTime());
+			java.sql.Date endDatesql = new java.sql.Date(endDate.getTime());
+			psd.setDate(1, startDatesql);
+			psd.setDate(2, endDatesql);
+			psd.setString(3, firstName);
+			psd.setString(4, lastName);
+			psd.setString(5, email);
+			psd.setString(6, phone);
+			psd.setString(7, code);
+			if (promo != null) {
+				psd.setString(8, promo);
+			} else {
+				psd.setString(8, null);
+			}
+			psd.setString(9, Integer.toString(price));
+			psd.setString(10, Integer.toString(totalPrice));
+			psd.setInt(11, totalPrice / 2);
+			psd.execute();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		HttpSession session = request.getSession(); 
 		session.setAttribute("startDate", startDateStr);
@@ -229,6 +232,7 @@ public class Calculate extends HttpServlet {
 		request.setAttribute("deposit", deposit);
 		request.setAttribute("cleaning", cleaning);
 		request.setAttribute("totalPrice", totalPrice);
+		request.setAttribute("code", code);
 		request.getRequestDispatcher("confirmDetails.jsp").forward(request, response);
 	}
 

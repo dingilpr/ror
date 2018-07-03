@@ -14,6 +14,7 @@
     type="text/javascript"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://checkout.stripe.com/checkout.js"></script>
 <style>
 body,h1,h2,h3,h4,h5,h6 {font-family: "Poppins", sans-serif;}
 body, html {
@@ -58,6 +59,15 @@ body, html {
 <div id="jsPStart" style="display: none;">${startDate}</div>
 <div id="jsPEnd" style="display: none;">${endDate}</div>
 <div id="jsPFirstName" style="display: none;">${firstName}</div>
+<div id="checkind" style="display: none;">${startDate}</div>
+<div id="checkoutd" style="display: none;">${endDate}</div>
+<div id="firstName" style="display: none;">${firstName}</div>
+<div id="lastName" style="display: none;">${lastName}</div>
+<div id="phone" style="display: none;">${pNumber}</div>
+<div id="email" style="display: none;">${email}</div>
+<div id="promo" style="display: none;">${promo}</div>
+<div id="code" style="display: none;">${code}</div>
+<div id="depositCheck" style="display: none;">${deposit}</div>
 <div id="formdiv" style="text-align: center">
 
 <form action="CancelTrip" name="cancelTrip" id="cancelTrip" method="POST">
@@ -72,12 +82,14 @@ body, html {
  <h2>Please review the following details for accuracy: </h2>
 <hr>
 <p style="text-align: right; padding-right: 5%; color: red;">You have <span id="time" style="color: red;">05:00</span> minutes left to check out!</p>
+<div style="padding-left: 5%; padding-right: 5%;">
 <p style="text-align: left;">Check in: <span id="checkind" style="float: right;"><b>${startDate}</b></span></p>
 <p style="text-align: left;">Check out: <span id="checkoutd" style="float: right;"><b>${endDate}</b></span></p>
 <p style="text-align: left;">Total Nights: <span id="" style="float: right;"><b>${dayCounter}</b></span></p>
 <p style="text-align: left;">Price per Night: <span id="" style="float: right;"><b>x $${pricePerDay}</b></span></p>
 <p style="text-align: left;">Cleaning Fee: <span id="" style="float: right;"><b>+ $${cleaning}</b></span></p>
 <p style="text-align: left;">Deposit: <span id="" style="float: right;"><b>($${deposit})</b></span></p>
+</div>
 <hr>
 <p style="text-align: left; padding-left: 20%"><b>Total Price: <b></b><span id="price" style="padding-left: 40.5%; font-size: 110%;"><b>= $${totalPrice}</b></span></p>
 <hr>
@@ -97,7 +109,6 @@ Guests are required to show a photo ID and credit card upon check-in. Please not
    <input type="hidden" name="hiddenEmail" id="hiddenEmail"/>
    <input type="hidden" name="hiddenPromo" id="hiddenPromo"/>
    <input type="hidden" name="hiddenCode" id="hiddenCode"/>
-   <input type="hidden" name="hiddenDepositCheck" id="hiddenDepositCheck"/>
 </form>
 
 <input type="button" class="w3-button w3-green w3-round w3-large" id="customButton" style="text-align: center; margin-bottom: 10px;" value="Pay Now!">
@@ -148,7 +159,29 @@ document.getElementById("hiddenStartDate").value=checkin.slice(3,31);
 document.getElementById("hiddenEndDate").value=checkout.slice(3,31);
 document.getElementById("hiddenCancelStartDate").value=checkin.slice(3,31);
 document.getElementById("hiddenCancelEndDate").value=checkout.slice(3,31);
-document.getElementById("hiddenPrice").value = price;
+
+var jspStart = document.getElementById("checkind").innerHTML;
+var jspEnd = document.getElementById("checkoutd").innerHTML;
+var jspfName = document.getElementById("firstName").innerHTML;
+var jsplName = document.getElementById("lastName").innerHTML;
+var jspPhone = document.getElementById("phone").innerHTML;
+var jspEmail = document.getElementById("email").innerHTML;
+var jspPromo = document.getElementById("promo").innerHTML;
+var jspCode = document.getElementById("code").innerHTML;
+var jspDepositCheck = document.getElementById("depositCheck").innerHTML;
+
+document.getElementById("hiddenCancelStartDate").value = jspStart;
+document.getElementById("hiddenCancelEndDate").value = jspEnd;
+document.getElementById("hiddenStartDate").value = jspStart;
+document.getElementById("hiddenEndDate").value = jspEnd;
+document.getElementById("hiddenFirstName").value = jspfName;
+document.getElementById("hiddenLastName").value = jsplName;
+document.getElementById("hiddenpNumber").value = jspPhone;
+document.getElementById("hiddenEmail").value = jspEmail;
+document.getElementById("hiddenPromo").value = jspPromo;
+document.getElementById("hiddenCode").value = jspCode;
+
+var sPrice = '${totalPrice}' * 100;
 
 setTimeout(function(){document.getElementById("cancelTrip").submit();},300000);
 window.onbeforeunload = cancel;
@@ -177,7 +210,6 @@ var handler = StripeCheckout.configure({
 	    description: 'Rental',
 	    amount: sPrice,
 	    zipCode: true,
-	    capture: false,
 	  });
 	  e.preventDefault();
 	});

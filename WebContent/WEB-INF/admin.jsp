@@ -137,13 +137,13 @@ th, td {
  <hr>
  <h1 style="text-align: center">Promo Codes<span style="float: right;"><i class="fa fa-sort-down" id="changeClassE" onclick="showProm()"></i></span></h1><hr>
  <div id="promoHS" style="display: none">
- <form name="promoCodeEntry" action="GeneratePromo" method="post">
+ <form name="promoCodeEntry" action="GeneratePromo" method="post" style="text-align: center; padding: 5px;">
  	Code: <input type="text" name="promoCode"/>
  	Percent discount: <input type="text" name="percentOff"/> %
  	Members Only? <input type="checkbox" name="mo"/>
  	<input type="submit" class="w3-button w3-round-large w3-green" value="Generate"/>
  </form>
- 
+ <br>
  <div id="promotable" style="display: none;"></div>
  </div>
  <hr>

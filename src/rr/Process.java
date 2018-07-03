@@ -73,7 +73,10 @@ public class Process extends HttpServlet {
 		String phone = request.getParameter("hiddenpNumber");
 		String email = request.getParameter("hiddenEmail");
 		String id = request.getParameter("hiddenCode");
-		String depositCheck = request.getParameter("hiddenDepositCheck");
+		String depositCheck = "false";
+		if(request.getParameter("hiddenDepositCheck") != null) {
+			depositCheck = request.getParameter("hiddenDepositCheck");
+		}
 		String promo = null;
 		if(!request.getParameter("hiddenPromo").isEmpty()) {
 			promo = request.getParameter("hiddenPromo");
@@ -124,13 +127,28 @@ public class Process extends HttpServlet {
 			//get price from DB
 			PreparedStatement ps;
 			try {
-				ps = con.prepareStatement("select * from dates where confirmationId = ?");
+				ps = con.prepareStatement("select * from booking_req where confirmationId = ?");
 				ps.setString(1, id);
 				ResultSet rs = ps.executeQuery();
 				while(rs.next()) {
 					price = Integer.parseInt(rs.getString("priceWithPromo"));
 				}			
 			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			
+			//remove from temp_dates
+			PreparedStatement tsd;
+			try {
+				tsd = con.prepareStatement("delete from temp_dates where startDate = ? and endDate = ?");
+				java.sql.Date startDatesql = new java.sql.Date(startDate.getTime());
+				java.sql.Date endDatesql = new java.sql.Date(endDate.getTime());
+				tsd.setDate(1, startDatesql);
+				tsd.setDate(2, endDatesql);
+				tsd.execute();
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 						
@@ -154,7 +172,7 @@ public class Process extends HttpServlet {
 			params.put("currency", "usd");
 			params.put("description", "Example charge");
 			params.put("source", token);
-			
+			params.put("capture", false);
 			try {
 				//fixed?
 				Charge charge = Charge.create(params);
