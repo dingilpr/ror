@@ -83,7 +83,7 @@ public class Process extends HttpServlet {
 			promot = true;
 		}
 		
-		SimpleDateFormat formatter4=new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat formatter4=new SimpleDateFormat("EEE MMM dd yyyy");
 		
 		//reformat dates sent from JSP
 		Date startDate = null;
@@ -176,6 +176,8 @@ public class Process extends HttpServlet {
 			try {
 				//fixed?
 				Charge charge = Charge.create(params);
+				String StripeCode = charge.getId();
+				System.out.println(StripeCode);
 			} catch (AuthenticationException | InvalidRequestException | APIConnectionException | CardException
 					| APIException e) {
 				// TODO Auto-generated catch block

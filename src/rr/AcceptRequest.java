@@ -18,6 +18,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.stripe.Stripe;
+import com.stripe.exception.APIConnectionException;
+import com.stripe.exception.APIException;
+import com.stripe.exception.AuthenticationException;
+import com.stripe.exception.CardException;
+import com.stripe.exception.InvalidRequestException;
+import com.stripe.model.Charge;
+
 /**
  * Servlet implementation class AcceptRequest
  */
@@ -48,6 +56,7 @@ public class AcceptRequest extends HttpServlet {
 		//Collect vars
 		String start = request.getParameter("startAccept");
 		String end = request.getParameter("endAccept");
+		String stripe = request.getParameter("StripeID");
 		
 		SimpleDateFormat formatter4=new SimpleDateFormat("yyyy-MM-dd"); 
 		
@@ -137,9 +146,10 @@ public class AcceptRequest extends HttpServlet {
 			//email confirmation 
 			Mailer mailer = new Mailer();
 			String newline = "<br/>";
+			/**
 			mailer.sendMail("smtp.gmail.com", "587", "info@sartopartners.com", "info@sartopartners.com", "Sarto Partners", "info@sartopartners.com", "Booking Confirmation",
 					"Hi " + firstName + "," + newline + "Thanks for choosing Ranch on the Rocks! Your request has been approved, and you have an upcoming reservation on " + startMonth+"/"+startDay+"/"+startYear + " until " + endMonth+"/"+endDay+"/"+endYear + ". You have 24 hours to pay, or else your trip will be cancelled!" + newline + "Your Trip Payment Code is: " + code + "." + newline + "Please visit https://ranchontherocks.com/paymentCode.jsp#" + code + " to pay. Your code will already be filled in for you!");
-			
+			**/
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -175,7 +185,21 @@ public class AcceptRequest extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		request.getRequestDispatcher("/Pricing").forward(request, response);
+		//run the charge
+		Stripe.apiKey = "sk_test_5sP8eowPH6zWy1KZUBC43Zmn";
+
+		Charge charge;
+		try {
+			charge = Charge.retrieve(stripe);
+			charge.capture();
+		} catch (AuthenticationException | InvalidRequestException | APIConnectionException | CardException
+				| APIException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		response.sendRedirect("/Pricing");
 		
 	}
 

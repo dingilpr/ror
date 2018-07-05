@@ -185,12 +185,14 @@ th, td {
   <form name="accept" id="accept" action="AcceptRequest" method="post">
  <input type="hidden" name="startAccept" id="startAccept">
  <input type="hidden" name="endAccept" id="endAccept">
+ <input type="hidden" name="StripeID" id="StripeID">
  </form>
  
   <form name="deny" id="deny" action="DenyRequest" method="post">
  <input type="hidden" name="startDeny" id="startDeny">
  <input type="hidden" name="endDeny" id="endDeny">
  <input type="hidden" name="reasonDeny" id="reasonDeny">
+ <input type="hidden" name="StripeIDd" id="StripeIDd">
  </form>
  
  <form name="updatePrices" id="updatePrices" action="UpdatePrices" method="post">
@@ -359,6 +361,7 @@ function undoHold(start, end){
 function acceptB(start, end){
 	document.getElementById("startAccept").value = start;
 	document.getElementById("endAccept").value = end;
+	document.getElementById("StripeID").value = document.getElementById("stripeID").value;
 	document.getElementById("accept").submit();
 }
 
@@ -366,6 +369,7 @@ function denyB(start, end){
 	document.getElementById("startDeny").value = start;
 	document.getElementById("endDeny").value = end;
 	document.getElementById("reasonDeny").value = document.getElementById("reason").value;
+	document.getElementById("StripeIDd").value = document.getElementById("stripeID").value;
 	document.getElementById("deny").submit();
 }
 
@@ -424,6 +428,7 @@ for(var i = 0; i < bookingReqsFromServer.length; i+=4){
 			+ "<td>" +
 			"<button id=\"acceptB\" class=\"w3-button w3-round-large w3-green\" " +
 		    "onclick=\"acceptB(\'" + bookingReqsFromServer[i+1] + "\',\'" + bookingReqsFromServer[i+2] + "\')\" value=\"Accept\">Accept</button>"
+		    +  "<br><textarea rows=\"4\" cols=\"50\" id=\"stripeID\">Stripe ID</textarea>"
 		   //
 		    
 		    + "<button id=\"changeP\" class=\"w3-button w3-round-large w3-blue\" " +

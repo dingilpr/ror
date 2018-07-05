@@ -56,7 +56,7 @@ body, html {
 <p>Check out: <span id="checkoutd">${endDate}</span></p>
 <p><b>A confirmation email is being sent!</b></p>
 
-<p class="w3-spin"><i class="fa fa-suitcase fa-5x"></i></p>
+<p class=""><i class="fa fa-suitcase fa-5x"></i></p>
 <br>
 <a href="/Index"><button class="w3-center w3-button w3-large w3-round w3-blue-grey" style="text-align: center">Return home</button></a>
 <br>

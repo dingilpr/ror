@@ -8,12 +8,22 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.stripe.Stripe;
+import com.stripe.exception.APIConnectionException;
+import com.stripe.exception.APIException;
+import com.stripe.exception.AuthenticationException;
+import com.stripe.exception.CardException;
+import com.stripe.exception.InvalidRequestException;
+import com.stripe.model.Refund;
 
 /**
  * Servlet implementation class DenyRequest
@@ -46,6 +56,7 @@ public class DenyRequest extends HttpServlet {
 		String start = request.getParameter("startDeny");
 		String end = request.getParameter("endDeny");
 		String reason = request.getParameter("reasonDeny");
+		String stripe = request.getParameter("StripeIDd");
 		
 	    SimpleDateFormat formatter4=new SimpleDateFormat("yyyy-MM-dd"); 
 		
@@ -108,6 +119,20 @@ public class DenyRequest extends HttpServlet {
 				"Your booking request has been denied with the following message: " + reason);
 		**/
 		request.getRequestDispatcher("/Pricing").forward(request, response);
+		
+		//refund
+		Stripe.apiKey = "sk_test_5sP8eowPH6zWy1KZUBC43Zmn";
+
+		Map<String, Object> refundParams = new HashMap<String, Object>();
+		refundParams.put("charge", stripe);
+
+		try {
+			Refund.create(refundParams);
+		} catch (AuthenticationException | InvalidRequestException | APIConnectionException | CardException
+				| APIException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 

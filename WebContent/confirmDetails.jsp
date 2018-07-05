@@ -148,8 +148,8 @@ window.onload = function () {
 //set timer for session timeout, redirect to servlet that deletes startdate and enddate from temp dates
 var checkin = document.getElementById("checkind").innerHTML;
 var checkout = document.getElementById("checkoutd").innerHTML;
-var trimmedCheckin = checkin.slice(0,14) + checkin.slice(31,35);
-var trimmedCheckout = checkout.slice(0,14) + checkout.slice(31,35);
+var trimmedCheckin = checkin.slice(0,11) + checkin.slice(24,29);
+var trimmedCheckout = checkout.slice(0,11) + checkout.slice(24,29);
 document.getElementById("checkind").innerHTML = trimmedCheckin;
 document.getElementById("checkoutd").innerHTML = trimmedCheckout;
 
