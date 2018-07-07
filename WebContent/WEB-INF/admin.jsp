@@ -104,12 +104,17 @@ th, td {
 </div>
 <br>
 
+<div class="w3-container w3-center">
+<h1 style="text-align: center">Prices <span style="float: right;"><i class="fa fa-sort-down" id="changeClassP" onclick="showPrices()"></i></span></h1><hr>
+
+	<div style="padding-top: 10px; display: none" id="priceL"></div>
+</div>
 
 
 <div class="w3-container w3-center">
 <h1 style="text-align: center">Booking Requests <span style="float: right;"><i class="fa fa-sort-down" id="changeClassB" onclick="showReqs()"></i></span></h1><hr>
 
-	<div style="padding-top: 10px; display: none"" id="bookingReqs"></div>
+	<div style="padding-top: 10px; display: none" id="bookingReqs"></div>
 </div>
 
 <div class="w3-container w3-center">
@@ -122,7 +127,7 @@ th, td {
 <div class="w3-container w3-center">
 <h1 style="text-align: center">Hold dates<span style="float: right;"><i class="fa fa-sort-down" id="changeClassF" onclick="showHold()"></i></span></h1><hr>
 <div id="holdHS" style="visibility: hidden;">
-<div id="calendarHereThree" style="position:relative;height:0px;margin-left: 22%"></div>
+<div id="calendarHereThree" style="position:relative;height:0px;margin-left: 32%"></div>
 
 	<form name="sendToHold" action="HoldDates" method="post">
 		<input type="hidden" name="hiddenStartDate" id="hiddenStartDate"/>
@@ -185,14 +190,14 @@ th, td {
   <form name="accept" id="accept" action="AcceptRequest" method="post">
  <input type="hidden" name="startAccept" id="startAccept">
  <input type="hidden" name="endAccept" id="endAccept">
- <input type="hidden" name="StripeID" id="StripeID">
+ 
  </form>
  
   <form name="deny" id="deny" action="DenyRequest" method="post">
  <input type="hidden" name="startDeny" id="startDeny">
  <input type="hidden" name="endDeny" id="endDeny">
  <input type="hidden" name="reasonDeny" id="reasonDeny">
- <input type="hidden" name="StripeIDd" id="StripeIDd">
+ 
  </form>
  
  <form name="updatePrices" id="updatePrices" action="UpdatePrices" method="post">
@@ -334,6 +339,19 @@ function hideHold(){
 	document.getElementById("calendarHereThree").style.height = "0px";
 }
 
+function showPrices(){
+	document.getElementById("priceL").style.display = "block";
+	document.getElementById("changeClassP").className = "fa fa-sort-up";
+	document.getElementById("changeClassP").onclick = hidePrices;
+	
+}
+
+function hidePrices(){
+	document.getElementById("priceL").style.display = "none";
+	document.getElementById("changeClassP").className = "fa fa-sort-down";
+	document.getElementById("changeClassP").onclick = showPrices;
+}
+
 function showText(){
 	document.getElementById("message").style.display = "block";
 	document.getElementById("emailV").style.display = "block";
@@ -361,7 +379,7 @@ function undoHold(start, end){
 function acceptB(start, end){
 	document.getElementById("startAccept").value = start;
 	document.getElementById("endAccept").value = end;
-	document.getElementById("StripeID").value = document.getElementById("stripeID").value;
+	
 	document.getElementById("accept").submit();
 }
 
@@ -369,13 +387,15 @@ function denyB(start, end){
 	document.getElementById("startDeny").value = start;
 	document.getElementById("endDeny").value = end;
 	document.getElementById("reasonDeny").value = document.getElementById("reason").value;
-	document.getElementById("StripeIDd").value = document.getElementById("stripeID").value;
+	
 	document.getElementById("deny").submit();
 }
 
 //get pricelist sent from server
 var priceList = '${list}';
-//console.log("js list: " + priceList);
+var priceListFS = JSON.parse(priceList);
+
+
 var emails = '${emails}';
 var jsemails = JSON.parse(emails);
 
@@ -406,6 +426,16 @@ var reqTable = "<table align=\"center\">";
 var inqTable = "<table align=\"center\">";
 var promoTable = "<table align=\"center\">";
 promoTable += "<tr><td><b>Name</b></td><td><b>Discount</b></td><td><b>Members</b></td><td><b>Delete</b></td></tr>"
+var priceTable = "<table align=\"center\">";
+
+for(var i = 0; i < priceListFS.length; i+=2){
+	priceTable += ("<tr>" + "<td>" + priceListFS[i] +"</td>"
+			+ "<td>" + priceListFS[i+1] + "</td>" + 
+			 "</tr>");
+}
+priceTable += "</table>";
+document.getElementById("priceL").innerHTML = priceTable;
+
 
 for(var i = 0; i < heldFromServer.length; i+=2){
 	heldTable += ("<tr>" + "<td>" + heldFromServer[i] +"</td>"
@@ -428,7 +458,7 @@ for(var i = 0; i < bookingReqsFromServer.length; i+=4){
 			+ "<td>" +
 			"<button id=\"acceptB\" class=\"w3-button w3-round-large w3-green\" " +
 		    "onclick=\"acceptB(\'" + bookingReqsFromServer[i+1] + "\',\'" + bookingReqsFromServer[i+2] + "\')\" value=\"Accept\">Accept</button>"
-		    +  "<br><textarea rows=\"4\" cols=\"50\" id=\"stripeID\">Stripe ID</textarea>"
+		   
 		   //
 		    
 		    + "<button id=\"changeP\" class=\"w3-button w3-round-large w3-blue\" " +
@@ -625,7 +655,9 @@ for(var i = 0; i < datesFromServer.length; i+=7){
 		    + "<td>" + datesFromServer[i + 3] + "</td>"
 		    + "<td>" + datesFromServer[i + 4] + "</td>"
 		    + "<td>" + datesFromServer[i + 5] + "</td>"
-		    + "<td>" + datesFromServer[i + 6] + "</td>"
+		    + "<td>" + datesFromServer[i + 6] + "<button id=\"cancelB\" class=\"w3-button w3-round-large w3-blue\" " +
+		    "onclick=\"insertData(\'" + datesFromServer[i + 5] + "\',\'" + datesFromServer[i + 6] + "\')\" value=\"Cancel\">Cancel</button>" + 
+		    "</td>"
 		    + "</tr>");
 	    }
 	    if(canceled == true){

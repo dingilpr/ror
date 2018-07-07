@@ -56,7 +56,7 @@ public class AcceptRequest extends HttpServlet {
 		//Collect vars
 		String start = request.getParameter("startAccept");
 		String end = request.getParameter("endAccept");
-		String stripe = request.getParameter("StripeID");
+		String stripe = null;
 		
 		SimpleDateFormat formatter4=new SimpleDateFormat("yyyy-MM-dd"); 
 		
@@ -107,6 +107,7 @@ public class AcceptRequest extends HttpServlet {
 		    	}
 		    	priceWithoutPromo = brrs.getString("priceWithoutPromo");
 		    	priceWithPromo = brrs.getString("priceWithPromo");
+		    	stripe = brrs.getString("sCode");
 		    }
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -117,7 +118,7 @@ public class AcceptRequest extends HttpServlet {
 		//add to dates
 		PreparedStatement psd;
 		try {
-			psd = con.prepareStatement("insert into dates(startDate, endDate, firstName, lastName, email, phone, confirmationId, promo, priceWithoutPromo, priceWithPromo, paid)" + "values (?,?,?,?,?,?,?,?,?,?,?)");
+			psd = con.prepareStatement("insert into dates(startDate, endDate, firstName, lastName, email, phone, confirmationId, promo, priceWithoutPromo, priceWithPromo, paid, sCode)" + "values (?,?,?,?,?,?,?,?,?,?,?,?)");
 			startDatesql = new java.sql.Date(startDate.getTime());
 			endDatesql = new java.sql.Date(endDate.getTime());
 			psd.setDate(1, startDatesql);
@@ -131,6 +132,7 @@ public class AcceptRequest extends HttpServlet {
 			psd.setString(9, priceWithoutPromo);
 			psd.setString(10, priceWithPromo);
 			psd.setInt(11, 0);
+			psd.setString(12, stripe);
 			psd.execute();
 			
 			LocalDate localDate = startDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();

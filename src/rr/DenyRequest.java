@@ -56,7 +56,7 @@ public class DenyRequest extends HttpServlet {
 		String start = request.getParameter("startDeny");
 		String end = request.getParameter("endDeny");
 		String reason = request.getParameter("reasonDeny");
-		String stripe = request.getParameter("StripeIDd");
+		String stripe = null;
 		
 	    SimpleDateFormat formatter4=new SimpleDateFormat("yyyy-MM-dd"); 
 		
@@ -91,6 +91,7 @@ public class DenyRequest extends HttpServlet {
 				email = rsd.getString("email");
 				firstName = rsd.getString("firstName");
 				lastName = rsd.getString("lastName");
+				stripe = rsd.getString("sCode");
 			}			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -112,14 +113,6 @@ public class DenyRequest extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		//Email
-		Mailer mailer = new Mailer();
-		/**
-		mailer.sendMail("smtp.gmail.com", "587", "info@sartopartners.com", "info@sartopartners.com", "Sarto Partners", "info@sartopartners.com", "Booking Request Denied",
-				"Your booking request has been denied with the following message: " + reason);
-		**/
-		request.getRequestDispatcher("/Pricing").forward(request, response);
-		
 		//refund
 		Stripe.apiKey = "sk_test_5sP8eowPH6zWy1KZUBC43Zmn";
 
@@ -133,6 +126,16 @@ public class DenyRequest extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+				
+		
+		//Email
+		Mailer mailer = new Mailer();
+		/**
+		mailer.sendMail("smtp.gmail.com", "587", "info@sartopartners.com", "info@sartopartners.com", "Sarto Partners", "info@sartopartners.com", "Booking Request Denied",
+				"Your booking request has been denied with the following message: " + reason);
+		**/
+		response.sendRedirect("/Pricing");
+		
 		
 	}
 

@@ -177,12 +177,20 @@ public class Process extends HttpServlet {
 				//fixed?
 				Charge charge = Charge.create(params);
 				String StripeCode = charge.getId();
-				System.out.println(StripeCode);
+				//insert stripe code into DB
+				PreparedStatement ss = con.prepareStatement("UPDATE booking_req SET sCode = ? WHERE confirmationId = ?");
+				ss.setString(1, StripeCode);
+				ss.setString(2, id);
+				ss.execute();
+				
 			} catch (AuthenticationException | InvalidRequestException | APIConnectionException | CardException
 					| APIException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				chargeWorked = false;
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 		else if(dep == true) {
