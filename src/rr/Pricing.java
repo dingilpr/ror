@@ -83,7 +83,7 @@ public class Pricing extends HttpServlet {
 		//get data from DB
 		PreparedStatement ps;
 		try {
-			ps = con.prepareStatement("select * from pricing");
+			ps = con.prepareStatement("select * from pricing order by date asc");
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				Date date = rs.getDate("date");

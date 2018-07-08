@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -182,6 +184,27 @@ public class Process extends HttpServlet {
 				ss.setString(1, StripeCode);
 				ss.setString(2, id);
 				ss.execute();
+				
+				LocalDate localDate = startDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+				int startYear  = localDate.getYear();
+				int startMonth = localDate.getMonthValue();
+				int startDay   = localDate.getDayOfMonth();
+				
+				LocalDate localEnd = endDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+				int endYear  = localEnd.getYear();
+				int endMonth = localEnd.getMonthValue();
+				int endDay   = localEnd.getDayOfMonth();
+				
+				String newline = "<br/>";
+				Mailer mailerThree = new Mailer();
+				/**
+				mailerThree.sendMail("smtp.gmail.com", "587", "info@sartopartners.com", "info@sartopartners.com", "Sarto Partners", "info@sartopartners.com", "Booking Requested!",
+						"Hi " + firstName + "," + newline + newline +  "Thanks for reaching out. We've recieved your reservation request for Ranch on the Rocks from " + startMonth+"/"+startDay+"/"+startYear + 
+						" through " + endMonth+"/"+endDay+"/"+endYear + " and will get back to you shortly with a confirmation. We have held the funds on your card but will not charge you until your trip has been approved. Please keep an eye out for the confirmation email as it will have more details regarding your reservation."+ newline + "Your cancellation code is: " 
+								+ id + newline + "If you "
+								+ "decide to cancel your request, please visit https://ranchontherocks.com/cancelRequest.jsp and enter your cancellation code. We look forward to hosting you!"
+								+ newline + newline + "Best," + newline + "Joe and Crystal");
+				**/
 				
 			} catch (AuthenticationException | InvalidRequestException | APIConnectionException | CardException
 					| APIException e) {

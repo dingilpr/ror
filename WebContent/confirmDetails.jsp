@@ -83,12 +83,13 @@ body, html {
 <hr>
 <p style="text-align: right; padding-right: 5%; color: red;">You have <span id="time" style="color: red;">05:00</span> minutes left to check out!</p>
 <div style="padding-left: 5%; padding-right: 5%;">
-<p style="text-align: left;">Check in: <span id="checkind" style="float: right;"><b>${startDate}</b></span></p>
-<p style="text-align: left;">Check out: <span id="checkoutd" style="float: right;"><b>${endDate}</b></span></p>
+<p style="text-align: left;">Check in: <span id="checkindt" style="float: right;"><b></b></span></p>
+<p style="text-align: left;">Check out: <span id="checkoutdt" style="float: right;"><b></b></span></p>
 <p style="text-align: left;">Total Nights: <span id="" style="float: right;"><b>${dayCounter}</b></span></p>
 <p style="text-align: left;">Price per Night: <span id="" style="float: right;"><b>x $${pricePerDay}</b></span></p>
 <p style="text-align: left;">Cleaning Fee: <span id="" style="float: right;"><b>+ $${cleaning}</b></span></p>
 <p style="text-align: left;">Deposit: <span id="" style="float: right;"><b>($${deposit})</b></span></p>
+<p style="text-align: left; display: none" id="showDisc">Discount: <span id="showDsc" style="float: right; display: none;"><b>- ${promo}%</b></span></p>
 </div>
 <hr>
 <p style="text-align: left; padding-left: 20%"><b>Total Price: <b></b><span id="price" style="padding-left: 40.5%; font-size: 110%;"><b>= $${totalPrice}</b></span></p>
@@ -121,6 +122,10 @@ Guests are required to show a photo ID and credit card upon check-in. Please not
 
 </body>
 <script>
+var checkin;
+var checkout;
+var trimmedCheckin;
+var trimmedCheckout;
 //checkout timer
 function startTimer(duration, display) {
     var timer = duration, minutes, seconds;
@@ -143,22 +148,23 @@ window.onload = function () {
     var fiveMinutes = 60 * 5,
         display = document.querySelector('#time');
     startTimer(fiveMinutes, display);
+    checkin = document.getElementById("checkind").innerHTML;
+	checkout = document.getElementById("checkoutd").innerHTML;
+	trimmedCheckin = checkin.slice(0,11) + checkin.slice(24,29);
+	trimmedCheckout = checkout.slice(0,11) + checkout.slice(24,29);
+	document.getElementById("checkindt").innerHTML = "<b>" + trimmedCheckin + "</b>";
+	document.getElementById("checkoutdt").innerHTML = "<b>" + trimmedCheckout + "</b>";
+	document.getElementById("checkind").innerHTML = trimmedCheckin;
+	document.getElementById("checkoutd").innerHTML = trimmedCheckout;
+	
 };
 
 //set timer for session timeout, redirect to servlet that deletes startdate and enddate from temp dates
-var checkin = document.getElementById("checkind").innerHTML;
-var checkout = document.getElementById("checkoutd").innerHTML;
-var trimmedCheckin = checkin.slice(0,11) + checkin.slice(24,29);
-var trimmedCheckout = checkout.slice(0,11) + checkout.slice(24,29);
-document.getElementById("checkind").innerHTML = trimmedCheckin;
-document.getElementById("checkoutd").innerHTML = trimmedCheckout;
+
 
 var price = document.getElementById("jsPPrice").innerHTML;
 
-document.getElementById("hiddenStartDate").value=checkin.slice(3,31);
-document.getElementById("hiddenEndDate").value=checkout.slice(3,31);
-document.getElementById("hiddenCancelStartDate").value=checkin.slice(3,31);
-document.getElementById("hiddenCancelEndDate").value=checkout.slice(3,31);
+
 
 var jspStart = document.getElementById("checkind").innerHTML;
 var jspEnd = document.getElementById("checkoutd").innerHTML;
@@ -190,6 +196,13 @@ document.pagehide = cancel;
 
 function cancel(){
 	document.getElementById("cancelTrip").submit();
+}
+
+var disc = '${promo}';
+
+if(disc != ""){
+	document.getElementById("showDisc").style.display = "block";
+	document.getElementById("showDsc").style.display = "block";
 }
 
 var handler = StripeCheckout.configure({

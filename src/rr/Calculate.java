@@ -233,6 +233,9 @@ public class Calculate extends HttpServlet {
 		request.setAttribute("cleaning", cleaning);
 		request.setAttribute("totalPrice", totalPrice);
 		request.setAttribute("code", code);
+		if(promot == true) {
+			request.setAttribute("promo", disc);
+		}
 		request.getRequestDispatcher("confirmDetails.jsp").forward(request, response);
 	}
 

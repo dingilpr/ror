@@ -44,7 +44,7 @@ public class CancelTrip extends HttpServlet {
 		String startDateStr = request.getParameter("hiddenCancelStartDate");
 		String endDateStr = request.getParameter("hiddenCancelEndDate");
 		
-        SimpleDateFormat formatter4=new SimpleDateFormat("E MMM dd HH:mm:ssz yyyy");
+        SimpleDateFormat formatter4=new SimpleDateFormat("EEE MMM dd yyyy");
 		
 		//reformat dates sent from JSP
 				Date startDate = null;

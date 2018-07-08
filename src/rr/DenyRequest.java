@@ -130,9 +130,11 @@ public class DenyRequest extends HttpServlet {
 		
 		//Email
 		Mailer mailer = new Mailer();
+		
+		String newline = "<br/>";
 		/**
 		mailer.sendMail("smtp.gmail.com", "587", "info@sartopartners.com", "info@sartopartners.com", "Sarto Partners", "info@sartopartners.com", "Booking Request Denied",
-				"Your booking request has been denied with the following message: " + reason);
+				"Your booking request has been denied with the following message: " + reason + newline + "You have been refunded.");
 		**/
 		response.sendRedirect("/Pricing");
 		
