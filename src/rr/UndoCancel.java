@@ -101,12 +101,18 @@ public class UndoCancel extends HttpServlet {
 				ps.setString(1, confirmationId);
 				ps.setString(2, email);
 				ps.execute();
+				
+				//delete from dates
+				PreparedStatement irs = con.prepareStatement("delete from  cancel_req where confirmationId = ? and email = ?");
+				irs.setString(1, confirmationId);
+				irs.setString(2, email);
+				irs.execute();
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		response.sendRedirect("/Pricing");
 		}
 		//return to booked
 	

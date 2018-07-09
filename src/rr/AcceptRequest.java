@@ -85,6 +85,7 @@ public class AcceptRequest extends HttpServlet {
 		String promo = null;
 		String priceWithoutPromo = null;
 		String priceWithPromo = null;
+		String people = null;
 		
 		String confirmationId = UUID.randomUUID().toString().replaceAll("-", "");
 		java.sql.Date startDatesql = new java.sql.Date(startDate.getTime());
@@ -108,6 +109,7 @@ public class AcceptRequest extends HttpServlet {
 		    	priceWithoutPromo = brrs.getString("priceWithoutPromo");
 		    	priceWithPromo = brrs.getString("priceWithPromo");
 		    	stripe = brrs.getString("sCode");
+		    	people = brrs.getString("people");
 		    }
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -118,7 +120,7 @@ public class AcceptRequest extends HttpServlet {
 		//add to dates
 		PreparedStatement psd;
 		try {
-			psd = con.prepareStatement("insert into dates(startDate, endDate, firstName, lastName, email, phone, confirmationId, promo, priceWithoutPromo, priceWithPromo, paid, sCode)" + "values (?,?,?,?,?,?,?,?,?,?,?,?)");
+			psd = con.prepareStatement("insert into dates(startDate, endDate, firstName, lastName, email, phone, confirmationId, promo, priceWithoutPromo, priceWithPromo, paid, sCode, people)" + "values (?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			startDatesql = new java.sql.Date(startDate.getTime());
 			endDatesql = new java.sql.Date(endDate.getTime());
 			psd.setDate(1, startDatesql);
@@ -133,6 +135,7 @@ public class AcceptRequest extends HttpServlet {
 			psd.setString(10, priceWithPromo);
 			psd.setInt(11, 0);
 			psd.setString(12, stripe);
+			psd.setString(13, people);
 			psd.execute();
 			
 			LocalDate localDate = startDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
@@ -148,10 +151,14 @@ public class AcceptRequest extends HttpServlet {
 			//email confirmation 
 			Mailer mailer = new Mailer();
 			String newline = "<br/>";
-			/**
+			
 			mailer.sendMail("smtp.gmail.com", "587", "info@sartopartners.com", "info@sartopartners.com", "Sarto Partners", "info@sartopartners.com", "Booking Confirmation",
-					"Hi " + firstName + "," + newline + "Thanks for choosing Ranch on the Rocks! Your request has been approved, and you have an upcoming reservation on " + startMonth+"/"+startDay+"/"+startYear + " until " + endMonth+"/"+endDay+"/"+endYear + ". " + newline + "");
-			**/
+					"Hi " + firstName + "," + newline + "Thanks for choosing Ranch on the Rocks! Your request has been approved, and you have an upcoming reservation on " + startMonth+"/"+startDay+"/"+startYear + " until " + endMonth+"/"+endDay+"/"+endYear + ". " + newline +
+					 newline + "Address: 17971 Alameda Pkwy" + newline + 
+					 		"Golden, CO 80401" + newline + newline + "If you have to change your reservation for any reason, We have an 100 percent refund" + 
+					 				"cancellation policy up to 14 days. Your cancellation code is " + code + ". Visit https://ranchontherocks.com/cancel.jsp to cancel. We’ll be in touch shortly with directions and more info. but in the meantime, we look forward to" + 
+					 				"hosting you and please don’t hesitate to reach out with any questions or concerns." + newline + newline + "Happy Travels!");
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

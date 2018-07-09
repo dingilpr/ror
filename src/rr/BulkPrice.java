@@ -147,6 +147,7 @@ public class BulkPrice extends HttpServlet {
 			} 	
       	}
 
+      	response.sendRedirect("/Pricing");
 	}
 
 }

@@ -69,6 +69,7 @@ public class Pricing extends HttpServlet {
 		JSONArray bookingReqs=new JSONArray();
 		JSONArray inquiries=new JSONArray();
 		JSONArray promos=new JSONArray();
+		JSONArray months=new JSONArray();
 		
 	    //connect to DB
 		DBManager db = new DBManager();
@@ -88,8 +89,14 @@ public class Pricing extends HttpServlet {
 			while(rs.next()) {
 				Date date = rs.getDate("date");
 				DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+				int month = date.getMonth();
+				int year = date.getYear();
+				String monthYear = Integer.toString(month) +"/" + Integer.toString(year);
 				String dateString = df.format(date);
 				String price = Integer.toString(rs.getInt("price"));
+				if(!months.contains(monthYear)) {
+					months.add(monthYear);
+				}
 				list.add(dateString);
 				list.add(price);
 			}
@@ -310,6 +317,7 @@ PreparedStatement rps;
 		request.setAttribute("bookingReqs", bookingReqs);
 		request.setAttribute("inquiries", inquiries);
 		request.setAttribute("promos", promos);
+		request.setAttribute("months", months);
 		HttpSession session = request.getSession(false);
 		String correctu = "admin";
 		

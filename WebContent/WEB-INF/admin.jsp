@@ -420,6 +420,9 @@ var inqsFromServer = JSON.parse(inqList);
 var promos = '${promos}';
 var promosFromServer = JSON.parse(promos);
 
+var months = '${months}';
+var monthsFromServer = JSON.parse(months);
+
 
 var heldTable = "<table align=\"center\">";
 var reqTable = "<table align=\"center\">";
