@@ -194,8 +194,8 @@ public class Calculate extends HttpServlet {
 		PreparedStatement psd;
 		try {
 			psd = con.prepareStatement(
-					"insert into booking_req(startDate, endDate, firstName, lastName, email, phone, confirmationId, promo, priceWithoutPromo, priceWithPromo, deposit)"
-							+ "values (?,?,?,?,?,?,?,?,?,?,?)");
+					"insert into booking_req(startDate, endDate, firstName, lastName, email, phone, confirmationId, promo, priceWithoutPromo, priceWithPromo, deposit, people)"
+							+ "values (?,?,?,?,?,?,?,?,?,?,?,?)");
 			java.sql.Date startDatesql = new java.sql.Date(startDate.getTime());
 			java.sql.Date endDatesql = new java.sql.Date(endDate.getTime());
 			psd.setDate(1, startDatesql);
@@ -213,6 +213,7 @@ public class Calculate extends HttpServlet {
 			psd.setString(9, Integer.toString(price));
 			psd.setString(10, Integer.toString(totalPrice));
 			psd.setInt(11, totalPrice / 2);
+			psd.setString(12, people);
 			psd.execute();
 
 		} catch (SQLException e) {

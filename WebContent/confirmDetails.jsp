@@ -70,11 +70,7 @@ body, html {
 <div id="depositCheck" style="display: none;">${deposit}</div>
 <div id="formdiv" style="text-align: center">
 
-<form action="CancelTrip" name="cancelTrip" id="cancelTrip" method="POST">
-<input type="hidden" name="hiddenCancelStartDate" id="hiddenCancelStartDate"/>
-<input type="hidden" name="hiddenCancelEndDate" id="hiddenCancelEndDate"/>
-<input type="submit" value="Cancel Trip" class="w3-button w3-round w3-center w3-red">
-</form>
+
 
 </div>
 <br>
@@ -116,6 +112,12 @@ Guests are required to show a photo ID and credit card upon check-in. Please not
 
 <br>
 </div>
+<br>
+<form action="CancelTrip" name="cancelTrip" id="cancelTrip" method="POST">
+<input type="hidden" name="hiddenCancelStartDate" id="hiddenCancelStartDate"/>
+<input type="hidden" name="hiddenCancelEndDate" id="hiddenCancelEndDate"/>
+<input type="submit" value="Cancel Trip" class="w3-button w3-round w3-center w3-red">
+</form>
 </div>
 
 <br><br>

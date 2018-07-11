@@ -90,13 +90,14 @@ public class Pricing extends HttpServlet {
 				Date date = rs.getDate("date");
 				DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 				int month = date.getMonth();
-				int year = date.getYear();
+				int year = date.getYear()+1900;
 				String monthYear = Integer.toString(month) +"/" + Integer.toString(year);
 				String dateString = df.format(date);
 				String price = Integer.toString(rs.getInt("price"));
 				if(!months.contains(monthYear)) {
 					months.add(monthYear);
 				}
+				list.add(monthYear);
 				list.add(dateString);
 				list.add(price);
 			}

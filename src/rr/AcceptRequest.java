@@ -86,6 +86,7 @@ public class AcceptRequest extends HttpServlet {
 		String priceWithoutPromo = null;
 		String priceWithPromo = null;
 		String people = null;
+		String deposit = "0";
 		
 		String confirmationId = UUID.randomUUID().toString().replaceAll("-", "");
 		java.sql.Date startDatesql = new java.sql.Date(startDate.getTime());
@@ -110,6 +111,7 @@ public class AcceptRequest extends HttpServlet {
 		    	priceWithPromo = brrs.getString("priceWithPromo");
 		    	stripe = brrs.getString("sCode");
 		    	people = brrs.getString("people");
+		    	deposit = brrs.getString("deposit");
 		    }
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -120,7 +122,7 @@ public class AcceptRequest extends HttpServlet {
 		//add to dates
 		PreparedStatement psd;
 		try {
-			psd = con.prepareStatement("insert into dates(startDate, endDate, firstName, lastName, email, phone, confirmationId, promo, priceWithoutPromo, priceWithPromo, paid, sCode, people)" + "values (?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			psd = con.prepareStatement("insert into dates(startDate, endDate, firstName, lastName, email, phone, confirmationId, promo, priceWithoutPromo, priceWithPromo, paid, sCode, people, deposit, depositPaid)" + "values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			startDatesql = new java.sql.Date(startDate.getTime());
 			endDatesql = new java.sql.Date(endDate.getTime());
 			psd.setDate(1, startDatesql);
@@ -133,9 +135,11 @@ public class AcceptRequest extends HttpServlet {
 			psd.setString(8, promo);
 			psd.setString(9, priceWithoutPromo);
 			psd.setString(10, priceWithPromo);
-			psd.setInt(11, 0);
+			psd.setInt(11, 1);
 			psd.setString(12, stripe);
 			psd.setString(13, people);
+			psd.setString(14, deposit);
+			psd.setInt(15, 0);
 			psd.execute();
 			
 			LocalDate localDate = startDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();

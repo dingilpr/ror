@@ -243,8 +243,8 @@ public class Process extends HttpServlet {
 				
 				Mailer mailerTwo = new Mailer();
 				String newline = "<br/>";
-				mailerTwo.sendMail("smtp.gmail.com", "587", "info@sartopartners.com", "info@sartopartners.com", "Sarto Partners", "pdingilian@sartopartners.com", "Deposit Received",
-							firstName + lastName + " has paid their deposit." );
+				mailerTwo.sendMail("smtp.gmail.com", "587", "info@sartopartners.com", "info@sartopartners.com", "Sarto Partners", "info@sartopartners.com", "Deposit Received",
+							firstName + " " + lastName + " has paid their deposit." );
 				//set paid to true
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -258,8 +258,14 @@ public class Process extends HttpServlet {
 			//email confirmation 
 			Mailer mailer = new Mailer();
 			String newline = "<br/>";
-			mailer.sendMail("smtp.gmail.com", "587", "info@sartopartners.com", "info@sartopartners.com", "Sarto Partners", "pdingilian@sartopartners.com", "Ranch on the Rocks Payment Confirmed",
+			if(dep == false) {
+			mailer.sendMail("smtp.gmail.com", "587", "info@sartopartners.com", "info@sartopartners.com", "Sarto Partners", "info@sartopartners.com", "Ranch on the Rocks Payment Confirmed",
 						"Hi " + firstName + "," + newline + "Thank you for your payment of $"+price/100+"! Your payment code is now your cancellation code. Please visit https://ranchontherocks.com/cancel.jsp if you decide to cancel.");
+			}
+			else if(dep == true) {
+				mailer.sendMail("smtp.gmail.com", "587", "info@sartopartners.com", "info@sartopartners.com", "Sarto Partners", "info@sartopartners.com", "Ranch on the Rocks Payment Confirmed",
+						"Hi " + firstName + "," + newline + "Thank you for your payment of $"+deposit/100+"! You will be refunded upon inspection of the property.");
+			}
 			//set paid to true
 			try {
 				PreparedStatement paidS = con.prepareStatement("UPDATE dates SET paid = ? WHERE confirmationId = ?");

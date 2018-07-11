@@ -43,8 +43,9 @@ public class CancelTrip extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String startDateStr = request.getParameter("hiddenCancelStartDate");
 		String endDateStr = request.getParameter("hiddenCancelEndDate");
+		System.out.println("SDS: " + startDateStr);
 		
-        SimpleDateFormat formatter4=new SimpleDateFormat("EEE MMM dd yyyy");
+        SimpleDateFormat formatter4=new SimpleDateFormat("E MMM dd HH:mm:ssz yyyy");
 		
 		//reformat dates sent from JSP
 				Date startDate = null;
@@ -56,6 +57,9 @@ public class CancelTrip extends HttpServlet {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				
+				System.out.println("Start date: " + startDate);
+				System.out.println("End date: " + endDate);
 				
 				//connect to DB
 				DBManager db = new DBManager();
@@ -69,13 +73,21 @@ public class CancelTrip extends HttpServlet {
 				
 				//remove from temp_dates
 				PreparedStatement tsd;
+				PreparedStatement rsd;
 				try {
 					tsd = con.prepareStatement("delete from temp_dates where startDate = ? and endDate = ?");
 					java.sql.Date startDatesql = new java.sql.Date(startDate.getTime());
 					java.sql.Date endDatesql = new java.sql.Date(endDate.getTime());
 					tsd.setDate(1, startDatesql);
 					tsd.setDate(2, endDatesql);
+					System.out.println("sdSq: " + startDatesql);
 					tsd.execute();
+					
+					rsd = con.prepareStatement("delete from booking_req where startDate = ? and endDate = ?");
+					
+					rsd.setDate(1, startDatesql);
+					rsd.setDate(2, endDatesql);
+					rsd.execute();
 					
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
