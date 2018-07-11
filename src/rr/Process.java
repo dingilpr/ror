@@ -164,6 +164,7 @@ public class Process extends HttpServlet {
 		// Token is created using Checkout or Elements!
 		// Get the payment token ID submitted by the form:
 		String token = request.getParameter("stripeToken");
+		String chargeCode = "";
 		
 		boolean chargeWorked = true;
 		
@@ -216,6 +217,7 @@ public class Process extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
+		
 		else if(dep == true) {
 			// Charge the user's card:
 			Map<String, Object> params = new HashMap<String, Object>();
@@ -227,6 +229,7 @@ public class Process extends HttpServlet {
 			try {
 				//fixed?
 				Charge charge = Charge.create(params);
+				chargeCode = charge.getId();
 			} catch (AuthenticationException | InvalidRequestException | APIConnectionException | CardException
 					| APIException e) {
 				// TODO Auto-generated catch block
@@ -235,11 +238,17 @@ public class Process extends HttpServlet {
 			}
 			
 			PreparedStatement pfd;
+			PreparedStatement depC;
 			try {
 				pfd = con.prepareStatement("UPDATE dates SET depositPaid = ? WHERE  confirmationId = ?");
 				pfd.setInt(1, 1);
 				pfd.setString(2, id);
 				pfd.execute();
+				
+				depC = con.prepareStatement("UPDATE dates SET depositCode = ? WHERE  confirmationId = ?");
+				depC.setString(1, chargeCode);
+				depC.setString(2, id);
+				depC.execute();
 				
 				Mailer mailerTwo = new Mailer();
 				String newline = "<br/>";

@@ -39,7 +39,7 @@ public class QuartzJob implements Job{
 			System.out.println("failed");
 		}
 		else{ 
-			System.out.println("success ");
+			System.out.println("success in qrtzJ");
 		}
 		
 		//to store emails

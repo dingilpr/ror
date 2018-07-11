@@ -37,8 +37,42 @@ table, th, td {
 }
 
 th, td {
-	padding: 5px;
-	text-align: left;
+	 border: 1px solid #ddd;
+    padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2;}
+tr:hover {background-color: #ddd;}
+
+th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
+
+
+#customers {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#customers td, #customers th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
 }
 
 @media only screen and (min-width: 845px) {
@@ -132,7 +166,7 @@ th, td {
 				</h1>
 				<hr>
 				
-					<select onchange="datesHideFunc()"id="mySelect" size="8" style="display: none; margin-left: 42%;">
+					<select onchange="datesHideFunc()"id="mySelect" size="8" style="display: none; margin-left: 44%;">
 						
 					</select>
 				
@@ -555,7 +589,7 @@ th, td {
 				row.style.display = "none";
 				for(var propt in objM){
 				    if ((selector == objM[propt]) && (row.id == propt)){
-				    	row.style.display = "block";
+				    	row.style.display = "";
 				    }
 				}
 			}
@@ -825,7 +859,7 @@ th, td {
 						});
 
 		//print out booking table
-		var myTable = "<table align=\"center\"><tr><th>Check In</th><th>Check Out</th><th>First Name</th><th>Last Name</th><th>Phone</th><th>Email</th><th>Confirmation Id</th></tr>";
+		var myTable = "<table id=\"customers\" align=\"center\"><tr><th>Check In</th><th>Check Out</th><th>First Name</th><th>Last Name</th><th>Phone</th><th>Email</th><th>Confirmation Id</th></tr>";
 		var email;
 		var confId;
 		for (var i = 0; i < datesFromServer.length; i += 7) {
@@ -860,7 +894,7 @@ th, td {
 						+ "</td>"
 						+ "<td>"
 						+ datesFromServer[i + 6]
-						+ "<button id=\"cancelB\" class=\"w3-button w3-round-large w3-blue\" "
+						+ "<button id=\"cancelB\" class=\"w3-button w3-right w3-round-large w3-blue\" "
 						+ "onclick=\"insertData(\'" + datesFromServer[i + 5]
 						+ "\',\'" + datesFromServer[i + 6]
 						+ "\')\" value=\"Cancel\">Cancel</button>" + "</td>" + "</tr>");

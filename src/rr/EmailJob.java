@@ -72,7 +72,7 @@ public class EmailJob extends HttpServlet {
            Trigger trigger = newTrigger()
         		    .withIdentity("trigger7", "group1")
         		    .withSchedule(simpleSchedule()
-        		        .withIntervalInMinutes(1440)
+        		        .withIntervalInMinutes(10)
         		        .repeatForever())
         		    .build();
            
