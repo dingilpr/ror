@@ -362,21 +362,14 @@ th {
 	</div>
 
 	<div class="w3-container w3-center">
-		<form name="Inquire" action="SendInquiry" method="post"
+		<form name="Inquire" action="InquireRedirect" id="inqForm" method="post"
 			style="padding: 25px;">
 			<input type="hidden" name="hiddenStartDateThree"
 				id="hiddenStartDateThree" /> <input type="hidden"
 				name="hiddenEndDateThree" id="hiddenEndDateThree" /> <input
 				type="button" class="w3-button w3-blue w3-round"
-				style="margin-bottom: 10px;" onclick="showText()"
-				value="Inquire about these dates" /> <input type="email"
-				style="display: none; margin: auto; margin-bottom: 10px;"
-				name="email" id="emailV" value="Enter email" /> <input type="text"
-				style="display: none; margin: auto; margin-bottom: 10px;" size="60"
-				name="message" id="message" value="Enter message" /> <input
-				type="submit" style="display: none;" id="sendIn"
-				class="w3-button w3-round-large w3-green"
-				onclick="insertDatesThree()" value="Send inquiry">
+				style="margin-bottom: 10px;" onclick="insertDatesThree()"
+				value="Inquire about these dates" /> 
 		</form>
 	</div>
 
@@ -862,7 +855,7 @@ th {
 		var myTable = "<table id=\"customers\" align=\"center\"><tr><th>Check In</th><th>Check Out</th><th>First Name</th><th>Last Name</th><th>Phone</th><th>Email</th><th>Confirmation Id</th></tr>";
 		var email;
 		var confId;
-		for (var i = 0; i < datesFromServer.length; i += 7) {
+		for (var i = 0; i < datesFromServer.length; i += 8) {
 			var canceled = false;
 			//check to see if info is in dates and cancel_req -- if so, make row RED
 			for (var j = 0; j < cancelsFromServer.length; j += 2) {
@@ -874,7 +867,17 @@ th {
 				}
 			}
 			if (canceled == false) {
-				myTable += ("<tr>" + "<td>"
+				var dp = false;
+				if(datesFromServer[i + 7] == 1){
+					dp = true;
+				}
+				if(dp){
+					myTable += "<tr style=\"background-color: PeachPuff\">";
+				}
+				else{
+					myTable += "<tr>";
+				}
+				myTable += ("<td>"
 						+ datesFromServer[i]
 						+ "</td>"
 						+ "<td>"
@@ -1020,6 +1023,7 @@ th {
 		function insertDatesThree() {
 			document.getElementById("hiddenStartDateThree").value = startDateTwo;
 			document.getElementById("hiddenEndDateThree").value = endDateTwo;
+			document.getElementById("inqForm").submit();
 		}
 	</script>
 </body>

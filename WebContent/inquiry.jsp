@@ -52,7 +52,7 @@ body, html {
 
 <div class="w3-content w3-container w3-padding-64" id="checkout" style="text-align:center">
 
-<div style="text-align: center" class="w3-panel w3-red w3-round">Please use the 'Cancel Trip' button rather than navigating away from the page.</div>
+
 <br>
 <div id="jsPPrice" style="display: none;">${totalPrice}</div>
 <div id="formdiv" style="text-align: center">
@@ -62,7 +62,10 @@ body, html {
 </div>
 <br>
 <div style="border: 1px solid grey; border-radius: 10px; box-shadow: 1px 2px #888888;">
-<form action="Calculate"  style="margin-left: 20%; margin-right: 20%; text-align: left;"method="POST">
+<form action="SendInquiry"  style="margin-left: 20%; margin-right: 20%; text-align: left;"method="POST">
+
+<p style="text-align: left;">Check in: <span id="checkind" style="float: right;"><b>${startDate}</b></span></p>
+<p style="text-align: left;">Check out: <span id="checkoutd" style="float: right;"><b>${endDate}</b></span></p>
 <label>First Name: </label>
 <input type="text" class="w3-input" name="fname" id="fname" required><br>
 
@@ -72,64 +75,37 @@ body, html {
 <label>Phone Number: </label>
 <input type="text" class="w3-input" name="phone" id="phone" required><br>
 
-
 <label>Enter Email: </label>
 <input type="email" class="w3-input" name="email" id="email" required><br>
 
 <label>Number of People (Max 8): </label>
 <input type="text" class="w3-input" name="ppl" id="ppl" required><br>
 
-<label>Enter Promo Code: (Optional) </label>
-<input type="text" class="w3-input" name="promo" id="promo"><br>
+<label>What would you like to know? </label>
+<input type="text" size="100" class="w3-input" name="message" id="message"><br>
   
-  <input type="hidden" name="hiddenStartDate" id="hiddenStartDate"/>
-  <input type="hidden" name="hiddenEndDate" id="hiddenEndDate"/>
-  <input type="hidden" name="hiddenPrice" id="hiddenPrice"/>
+<input type="hidden" name="hiddenStartDate" id="hiddenStartDate"/>
+<input type="hidden" name="hiddenEndDate" id="hiddenEndDate"/>
   
-
-  
-  <input type="submit" value="Request Stay" class="w3-button w3-round w3-center w3-blue-grey" style="margin-left: 40%; margin-bottom: 10px;">
+<input type="submit" value="Submit" class="w3-button w3-round w3-center w3-blue-grey" style="margin-left: 40%; margin-bottom: 10px;">
 </form>
 <br>
 </div>
 <br>
-<form action="CancelTrip" name="cancelTrip" id="cancelTrip" method="POST">
-<input type="hidden" name="hiddenCancelStartDate" id="hiddenCancelStartDate"/>
-<input type="hidden" name="hiddenCancelEndDate" id="hiddenCancelEndDate"/>
-<input type="submit" value="Cancel Trip" class="w3-button w3-round w3-center w3-red">
-</form>
+
 </div>
 
 <br><br>
-<div style="display: none;">
-<p style="text-align: left;">Check in: <span id="checkind" style="float: right;"><b>${startDate}</b></span></p>
-<p style="text-align: left;">Check out: <span id="checkoutd" style="float: right;"><b>${endDate}</b></span></p>
-</div>
+
 </body>
 <script>
 //checkout timer
-function startTimer(duration, display) {
-    var timer = duration, minutes, seconds;
-    setInterval(function () {
-        minutes = parseInt(timer / 60, 10)
-        seconds = parseInt(timer % 60, 10);
-
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
-
-        display.textContent = minutes + ":" + seconds;
-
-        if (--timer < 0) {
-            timer = duration;
-        }
-    }, 1000);
-}
-
-window.onload = function () {
-    var fiveMinutes = 60 * 5,
-        display = document.querySelector('#time');
-    startTimer(fiveMinutes, display);
-};
+checkin = document.getElementById("checkind").innerHTML;
+	checkout = document.getElementById("checkoutd").innerHTML;
+	trimmedCheckin = checkin.slice(3,31);
+	trimmedCheckout = checkout.slice(3,31);
+	document.getElementById("checkind").innerHTML = "<b>" + trimmedCheckin + "</b>";
+	document.getElementById("checkoutd").innerHTML = "<b>" + trimmedCheckout + "</b>";
 
 //set timer for session timeout, redirect to servlet that deletes startdate and enddate from temp dates
 var checkin = document.getElementById("checkind").innerHTML;
@@ -137,9 +113,8 @@ var checkout = document.getElementById("checkoutd").innerHTML;
 
 document.getElementById("hiddenStartDate").value=checkin.slice(3,31);
 document.getElementById("hiddenEndDate").value=checkout.slice(3,31);
-document.getElementById("hiddenCancelStartDate").value=checkin.slice(3,31);
-document.getElementById("hiddenCancelEndDate").value=checkout.slice(3,31);
-document.getElementById("hiddenPrice").value = price;
+
+
 
 setTimeout(function(){document.getElementById("cancelTrip").submit();},300000);
 window.onbeforeunload = cancel;

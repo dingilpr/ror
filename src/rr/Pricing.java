@@ -139,6 +139,7 @@ public class Pricing extends HttpServlet {
 				String email = drs.getString("email");
 				String confirmationId = drs.getString("confirmationId");
 				DateFormat ddf = new SimpleDateFormat("yyyy-MM-dd");
+				int depositPaid = drs.getInt("depositPaid");
 				String stringStart = ddf.format(startDate);
 				String stringEnd = ddf.format(endDate);
 				dates.add(stringStart);
@@ -148,6 +149,7 @@ public class Pricing extends HttpServlet {
 				dates.add(phone);
 				dates.add(email);
 				dates.add(confirmationId);
+				dates.add(depositPaid);
 			}
 			
 			
