@@ -54,6 +54,7 @@ public class PaymentCodeRedirect extends HttpServlet {
 		String pNumber = null;
 		String email = null;
 		String promo = null;
+		int inq = 0;
 		int priceWithoutPromo = 0;
 		int priceWithPromo = 0;
 		int deposit = 0;
@@ -94,6 +95,7 @@ public class PaymentCodeRedirect extends HttpServlet {
 				deposit = Integer.parseInt(rs.getString("deposit"));
 				paid = rs.getInt("paid");
 				dPaid = rs.getInt("depositPaid");
+				inq = rs.getInt("inquiry");
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -111,6 +113,7 @@ public class PaymentCodeRedirect extends HttpServlet {
 			request.setAttribute("price", priceWithPromo);
 			request.setAttribute("promo", promo);
 			request.setAttribute("code", id);
+			request.setAttribute("inquiry", inq);
 			request.getRequestDispatcher("payment.jsp").forward(request, response);
 	    }
 	    else if(paid == 1 && dPaid == 0) {

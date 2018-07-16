@@ -61,7 +61,7 @@ public class SendInquiry extends HttpServlet {
 		String people = request.getParameter("ppl");
 		String message = request.getParameter("message");
 
-		SimpleDateFormat formatter4 = new SimpleDateFormat("E MMM dd yyyy");
+		SimpleDateFormat formatter4 = new SimpleDateFormat("E MMM dd HH:mm:ssz yyyy");
 
 		// reformat dates sent from JSP
 		Date startDate = null;
@@ -155,8 +155,8 @@ public class SendInquiry extends HttpServlet {
 		PreparedStatement psd;
 		try {
 			psd = con.prepareStatement(
-					"insert into booking_req(startDate, endDate, firstName, lastName, email, phone, confirmationId, promo, priceWithoutPromo, priceWithPromo, deposit, people)"
-							+ "values (?,?,?,?,?,?,?,?,?,?,?,?)");
+					"insert into booking_req(startDate, endDate, firstName, lastName, email, phone, confirmationId, promo, priceWithoutPromo, priceWithPromo, deposit, people, inquiry)"
+							+ "values (?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			java.sql.Date startDatesql = new java.sql.Date(startDate.getTime());
 			java.sql.Date endDatesql = new java.sql.Date(endDate.getTime());
 			psd.setDate(1, startDatesql);
@@ -171,12 +171,22 @@ public class SendInquiry extends HttpServlet {
 			psd.setString(10, Integer.toString(totalPrice));
 			psd.setInt(11, totalPrice / 2);
 			psd.setString(12, people);
+			psd.setInt(13, 1);
 			psd.execute();
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		Mailer mailer = new Mailer();
+		
+		String newline = "<br/>";
+		
+		mailer.sendMail("smtp.gmail.com", "587", "info@sartopartners.com", "info@sartopartners.com", "Sarto Partners", "info@sartopartners.com", "Inquiry Recieved",
+				firstName + " " + lastName + " at " + email + " asks: " + message + newline + "Send an offer via the inquiry tab or reply via email.");
+		
+		response.sendRedirect("/Index");
 
 	}
 }

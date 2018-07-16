@@ -122,7 +122,7 @@ public class Index extends HttpServlet {
 				
 				request.setAttribute("list", list);
 				request.setAttribute("dates", dates);
-				request.getRequestDispatcher("index.jsp").forward(request, response);
+				request.getRequestDispatcher("indexTesting.jsp").forward(request, response);
 				
 				response.getWriter().append("Served at: ").append(request.getContextPath());
 		response.getWriter().append("Served at: ").append(request.getContextPath());

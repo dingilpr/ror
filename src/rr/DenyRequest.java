@@ -81,7 +81,7 @@ public class DenyRequest extends HttpServlet {
 		String firstName = null;
 		String lastName = null;
 		try {
-			isd = con.prepareStatement("delete from booking_req where startDate = ? and endDate = ?");
+			isd = con.prepareStatement("select * from booking_req where startDate = ? and endDate = ?");
 			java.sql.Date startDatesqlB = new java.sql.Date(startDate.getTime());
 			java.sql.Date endDatesqlB = new java.sql.Date(endDate.getTime());
 			isd.setDate(1, startDatesqlB);
@@ -132,10 +132,10 @@ public class DenyRequest extends HttpServlet {
 		Mailer mailer = new Mailer();
 		
 		String newline = "<br/>";
-		/**
+		
 		mailer.sendMail("smtp.gmail.com", "587", "info@sartopartners.com", "info@sartopartners.com", "Sarto Partners", "info@sartopartners.com", "Booking Request Denied",
 				"Your booking request has been denied with the following message: " + reason + newline + "You have been refunded.");
-		**/
+		
 		response.sendRedirect("/Pricing");
 		
 		

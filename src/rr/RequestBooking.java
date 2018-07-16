@@ -56,8 +56,8 @@ public class RequestBooking extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String startDateStr = request.getParameter("hiddenStartDateTwo");
-		String endDateStr = request.getParameter("hiddenEndDateTwo");
+		String startDateStr = request.getParameter("hiddenStartDate");
+		String endDateStr = request.getParameter("hiddenEndDate");
 		
 		SimpleDateFormat formatter4=new SimpleDateFormat("E MMM dd yyyy"); 
 		
@@ -121,7 +121,7 @@ public class RequestBooking extends HttpServlet {
 				Date tempEnd = tempDates.get(i+1);
 				java.util.Calendar addCal = java.util.Calendar.getInstance();
 				addCal.setTime(tempEnd);
-				addCal.add(java.util.Calendar.DATE, 1);  // number of days to add
+				//addCal.add(java.util.Calendar.DATE, 1);  // number of days to add
 				Date realEnd = addCal.getTime();  // dt is now the new date
 									
 				Calendar calendar = new GregorianCalendar();
@@ -142,7 +142,7 @@ public class RequestBooking extends HttpServlet {
 				calendar.setTime(startDate);
 				java.util.Calendar addCalT = java.util.Calendar.getInstance();
 				addCalT.setTime(endDate);
-				addCalT.add(java.util.Calendar.DATE, 1);  // number of days to add
+				//addCalT.add(java.util.Calendar.DATE, 1);  // number of days to add
 				Date realEnd = addCalT.getTime();  // dt is now the new date
 
 				while (calendar.getTime().before(realEnd))
@@ -195,7 +195,7 @@ public class RequestBooking extends HttpServlet {
 					Date tempEnd = currentReqs.get(i+1);
 					java.util.Calendar addCalFullC = java.util.Calendar.getInstance();
 					addCalFullC.setTime(tempEnd);
-					addCalFullC.add(java.util.Calendar.DATE, 1);  // number of days to add
+					//addCalFullC.add(java.util.Calendar.DATE, 1);  // number of days to add
 					Date realEnd = addCalFullC.getTime();  // dt is now the new date
 						
 						
@@ -217,7 +217,7 @@ public class RequestBooking extends HttpServlet {
 		   calendarReq.setTime(startDate);
 		   java.util.Calendar addCalTReq = java.util.Calendar.getInstance();
 		   addCalTReq.setTime(endDate);
-		   addCalTReq.add(java.util.Calendar.DATE, 1);  // number of days to add
+		   //addCalTReq.add(java.util.Calendar.DATE, 1);  // number of days to add
 		   Date realEndReq = addCalTReq.getTime();  // dt is now the new date
 
 	      while (calendarReq.getTime().before(realEndReq)) {
@@ -332,7 +332,7 @@ public class RequestBooking extends HttpServlet {
 		  calendar.setTime(startDate);
 		  java.util.Calendar addCalTh = java.util.Calendar.getInstance();
 		  addCalTh.setTime(endDate);
-		  addCalTh.add(java.util.Calendar.DATE, 1);  // number of days to add
+		 // addCalTh.add(java.util.Calendar.DATE, 1);  // number of days to add
 		  Date realEnd = addCalTh.getTime();  // dt is now the new date
 		  int dayCounter = 0;
 

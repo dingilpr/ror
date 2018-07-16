@@ -84,8 +84,19 @@ public class Process extends HttpServlet {
 			promo = request.getParameter("hiddenPromo");
 			promot = true;
 		}
+		String inqCheck = request.getParameter("hiddenInqCheck");
+		int inqInt = 0;
+		if(inqCheck != null && inqCheck != "") {
+		  inqInt = Integer.parseInt(inqCheck);
+		}
+		SimpleDateFormat formatter4;
 		
-		SimpleDateFormat formatter4=new SimpleDateFormat("EEE MMM dd yyyy");
+		if(inqInt == 1) {
+			formatter4 = new SimpleDateFormat("yyyy-mm-dd");
+		}
+		else {
+			formatter4=new SimpleDateFormat("EEE MMM dd yyyy");
+		}
 		
 		//reformat dates sent from JSP
 		Date startDate = null;
@@ -125,7 +136,7 @@ public class Process extends HttpServlet {
 			
 		}
 		int price = 0;
-		if(dep == false) {
+		if(dep == false && inqInt != 1) {
 			//get price from DB
 			PreparedStatement ps;
 			try {
@@ -156,6 +167,23 @@ public class Process extends HttpServlet {
 						
 			price *= 100;
 		}
+		
+		if(dep == false && inqInt == 1) {
+			//get price from DB
+			PreparedStatement ps;
+			try {
+				ps = con.prepareStatement("select * from dates where confirmationId = ?");
+				ps.setString(1, id);
+				ResultSet rs = ps.executeQuery();
+				while(rs.next()) {
+					price = Integer.parseInt(rs.getString("priceWithPromo"));
+				}			
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+						
+			price *= 100;
+		}
     
 		// Set your secret key: remember to change this to your live secret key in production
 		// See your keys here: https://dashboard.stripe.com/account/apikeys
@@ -168,7 +196,7 @@ public class Process extends HttpServlet {
 		
 		boolean chargeWorked = true;
 		
-		if(dep == false) {
+		if(dep == false && inqInt != 1) {
 			// Charge the user's card:
 			Map<String, Object> params = new HashMap<String, Object>();
 			params.put("amount", price);
@@ -216,6 +244,49 @@ public class Process extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}
+		
+		if(dep == false && inqInt == 1) {
+			// Charge the user's card:
+						Map<String, Object> params = new HashMap<String, Object>();
+						params.put("amount", price);
+						params.put("currency", "usd");
+						params.put("description", "Example charge");
+						params.put("source", token);
+						
+						try {
+							//fixed?
+							Charge charge = Charge.create(params);
+							String StripeCode = charge.getId();
+							//insert stripe code into DB
+							PreparedStatement ss = con.prepareStatement("UPDATE dates SET sCode = ? WHERE confirmationId = ?");
+							ss.setString(1, StripeCode);
+							ss.setString(2, id);
+							ss.execute();
+							
+							LocalDate localDate = startDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+							int startYear  = localDate.getYear();
+							int startMonth = localDate.getMonthValue();
+							int startDay   = localDate.getDayOfMonth();
+							
+							LocalDate localEnd = endDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+							int endYear  = localEnd.getYear();
+							int endMonth = localEnd.getMonthValue();
+							int endDay   = localEnd.getDayOfMonth();
+							
+							String newline = "<br/>";
+							Mailer mailerThree = new Mailer();
+							
+							
+						} catch (AuthenticationException | InvalidRequestException | APIConnectionException | CardException
+								| APIException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+							chargeWorked = false;
+						} catch (SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 		}
 		
 		else if(dep == true) {

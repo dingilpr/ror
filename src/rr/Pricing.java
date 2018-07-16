@@ -238,7 +238,7 @@ PreparedStatement rps;
 		
 		PreparedStatement brps;
 		try {
-			brps = con.prepareStatement("select * from booking_req");
+			brps = con.prepareStatement("select * from booking_req where inquiry = 0");
 			ResultSet brrs = brps.executeQuery();
 			while(brrs.next()) {
 				String email = brrs.getString("email");
@@ -265,13 +265,13 @@ PreparedStatement rps;
 		//get inquiries
 		PreparedStatement inps;
 		try {
-			inps = con.prepareStatement("select * from inquiries");
+			inps = con.prepareStatement("select * from booking_req where inquiry = 1");
 			ResultSet inrs = inps.executeQuery();
 			while(inrs.next()) {
 				String email = inrs.getString("email");
 				Date startDate = inrs.getDate("startDate");
 				Date endDate = inrs.getDate("endDate");
-				String message = inrs.getString("message");
+				String price = inrs.getString("priceWithPromo");
 				
 				DateFormat ddf = new SimpleDateFormat("yyyy-MM-dd");
 				String stringStart = ddf.format(startDate);
@@ -280,7 +280,7 @@ PreparedStatement rps;
 				inquiries.add(email);
 				inquiries.add(stringStart);
 				inquiries.add(stringEnd);
-				inquiries.add(message);
+				inquiries.add(price);
 			}
 			
 			

@@ -100,16 +100,16 @@ body, html {
 </body>
 <script>
 //checkout timer
-checkin = document.getElementById("checkind").innerHTML;
-	checkout = document.getElementById("checkoutd").innerHTML;
-	trimmedCheckin = checkin.slice(3,31);
-	trimmedCheckout = checkout.slice(3,31);
-	document.getElementById("checkind").innerHTML = "<b>" + trimmedCheckin + "</b>";
-	document.getElementById("checkoutd").innerHTML = "<b>" + trimmedCheckout + "</b>";
-
 //set timer for session timeout, redirect to servlet that deletes startdate and enddate from temp dates
 var checkin = document.getElementById("checkind").innerHTML;
 var checkout = document.getElementById("checkoutd").innerHTML;
+
+trimmedCheckin = checkin.slice(3,31);
+trimmedCheckout = checkout.slice(3,31);
+document.getElementById("checkind").innerHTML = "<b>" + trimmedCheckin + "</b>";
+document.getElementById("checkoutd").innerHTML = "<b>" + trimmedCheckout + "</b>";
+
+
 
 document.getElementById("hiddenStartDate").value=checkin.slice(3,31);
 document.getElementById("hiddenEndDate").value=checkout.slice(3,31);

@@ -279,6 +279,11 @@ th {
 		<input type="hidden" name="confirmationIdUndo" id="confirmationIdUndo">
 		<input type="hidden" name="emailUndo" id="emailUndo">
 	</form>
+	
+	<form name="refundRD" id="refundRD" action="RefundDeposit" method="post">
+		<input type="hidden" name="confirmationRD" id="confirmationRD">
+		<input type="hidden" name="emailRD" id="emailRD">
+	</form>
 
 	<form name="unhold" id="unhold" action="UndoHold" method="post">
 		<input type="hidden" name="startUnhold" id="startUnhold"> <input
@@ -296,6 +301,12 @@ th {
 			type="hidden" name="endDeny" id="endDeny"> <input
 			type="hidden" name="reasonDeny" id="reasonDeny">
 
+	</form>
+	
+	<form name="inqR" id="inqR" action="InquiryResponse" method="post">
+		<input type="hidden" name="startInq" id="startInq"> <input
+			type="hidden" name="endInq" id="endInq"> <input
+			type="hidden" name="responseInq" id="responseInq">
 	</form>
 
 	<form name="updatePrices" id="updatePrices" action="UpdatePrices"
@@ -482,6 +493,12 @@ th {
 			document.getElementById("email").value = email;
 			document.getElementById("cancelFulfill").submit();
 		}
+		
+		function releaseDeposit(email, confId) {
+			document.getElementById("confirmationRD").value = confId;
+			document.getElementById("emailRD").value = email;
+			document.getElementById("refundRD").submit();
+		}
 
 		function undoData(email, confId) {
 			document.getElementById("confirmationIdUndo").value = confId;
@@ -509,6 +526,16 @@ th {
 					.getElementById("reason").value;
 
 			document.getElementById("deny").submit();
+		}
+		
+
+		function acceptIn(start, end) {
+			document.getElementById("startInq").value = start;
+			document.getElementById("endInq").value = end;
+			document.getElementById("responseInq").value = document
+					.getElementById("response").value;
+
+			document.getElementById("inqR").submit();
 		}
 
 		//get pricelist sent from server
@@ -669,10 +696,39 @@ th {
 		document.getElementById("bookingReqs").innerHTML = reqTable;
 
 		for (var q = 0; q < inqsFromServer.length; q += 4) {
-			inqTable += ("<tr>" + "<td>" + inqsFromServer[q] + "</td>" + "<td>"
-					+ inqsFromServer[q + 1] + "</td>" + "<td>"
-					+ inqsFromServer[q + 2] + "</td>" + "<td>"
-					+ inqsFromServer[q + 3] + "</td>" + "</tr>");
+			inqTable += ("<tr>" + "<td>"
+					+ inqsFromServer[i]
+					+ "</td>"
+					+ "<td>"
+					+ inqsFromServer[i + 1]
+					+ "</td>"
+					+ "<td>"
+					+ inqsFromServer[i + 2]
+					+ "</td>"
+					+ "<td>$"
+					+ inqsFromServer[i + 3]
+					+ "</td>"
+					+ "<td>"
+					
+
+					//
+
+					+ "<button id=\"changePTwo\" class=\"w3-button w3-round-large w3-blue\" "
+					+ "onclick=\"changeP(\'"
+					+ inqsFromServer[i + 1]
+					+ "\',\'"
+					+ inqsFromServer[i + 2]
+					+ "\')\" value=\"Change Price\">Change Price</button>"
+
+					//
+					+ "<button id=\"acceptIn\" class=\"w3-button w3-round-large w3-green\" "
+					+ "onclick=\"acceptIn(\'"
+					+ inqsFromServer[i + 1]
+					+ "\',\'"
+					+ inqsFromServer[i + 2]
+					+ "\')\" value=\"Offer\">Reply with Offer</button>"
+					+ "<br><textarea rows=\"4\" cols=\"50\" id=\"response\">Response...</textarea>"
+					+ "</td>" + "</tr>");
 		}
 
 		inqTable += "</table>";
@@ -896,11 +952,25 @@ th {
 						+ datesFromServer[i + 5]
 						+ "</td>"
 						+ "<td>"
-						+ datesFromServer[i + 6]
-						+ "<button id=\"cancelB\" class=\"w3-button w3-right w3-round-large w3-blue\" "
-						+ "onclick=\"insertData(\'" + datesFromServer[i + 5]
-						+ "\',\'" + datesFromServer[i + 6]
-						+ "\')\" value=\"Cancel\">Cancel</button>" + "</td>" + "</tr>");
+						+ datesFromServer[i + 6]);
+				
+						if(!dp){
+							myTable += ("<button id=\"cancelB\" class=\"w3-button w3-right w3-round-large w3-blue\" "
+							+ "onclick=\"insertData(\'" + datesFromServer[i + 5]
+							+ "\',\'" + datesFromServer[i + 6]
+							+ "\')\" value=\"Cancel\">Cancel</button>" + "</td>" + "</tr>");
+						}
+						else if(dp){
+							myTable += ("<button id=\"releaseD\" class=\"w3-button w3-right w3-round-large w3-green\" "
+									+ "onclick=\"releaseDeposit(\'" + datesFromServer[i + 5]
+									+ "\',\'" + datesFromServer[i + 6]
+									+ "\')\" value=\"Refund Deposit\">Refund Deposit</button>" + "</td>" +
+									
+									"<button id=\"cancelB\" class=\"w3-button w3-right w3-round-large w3-blue\" "
+									+ "onclick=\"insertData(\'" + datesFromServer[i + 5]
+									+ "\',\'" + datesFromServer[i + 6]
+									+ "\')\" value=\"Cancel\">Cancel</button>" + "</td>" + "</tr>");
+						}
 			}
 			if (canceled == true) {
 				myTable += ("<tr style=\"color: red;\">" + "<td>"
