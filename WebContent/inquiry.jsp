@@ -63,7 +63,7 @@ body, html {
 <br>
 <div style="border: 1px solid grey; border-radius: 10px; box-shadow: 1px 2px #888888;">
 <form action="SendInquiry"  style="margin-left: 20%; margin-right: 20%; text-align: left;"method="POST">
-
+<br>
 <p style="text-align: left;">Check in: <span id="checkind" style="float: right;"><b>${startDate}</b></span></p>
 <p style="text-align: left;">Check out: <span id="checkoutd" style="float: right;"><b>${endDate}</b></span></p>
 <label>First Name: </label>
@@ -104,10 +104,10 @@ body, html {
 var checkin = document.getElementById("checkind").innerHTML;
 var checkout = document.getElementById("checkoutd").innerHTML;
 
-trimmedCheckin = checkin.slice(3,31);
-trimmedCheckout = checkout.slice(3,31);
-document.getElementById("checkind").innerHTML = "<b>" + trimmedCheckin + "</b>";
-document.getElementById("checkoutd").innerHTML = "<b>" + trimmedCheckout + "</b>";
+trimmedCheckin = checkin.slice(0,13) + checkin.slice(26,35);
+trimmedCheckout = checkout.slice(0,13) + checkout.slice(26,35);
+document.getElementById("checkind").innerHTML = trimmedCheckin;
+document.getElementById("checkoutd").innerHTML = trimmedCheckout;
 
 
 

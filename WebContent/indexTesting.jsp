@@ -1272,7 +1272,15 @@ The ranch is also home to alpacas and goats who offer playful energy and are hap
 		
 		<div class="w3-container w3-center w3-third">
 		 
-			<p id="estimatedprice" style="text-align: center"><i class="fa fa-tag" style="float: left;"></i>Estimated price: -</p><br>
+			<form name="Inquire" action="InquireRedirect" id="inqForm" method="post"
+			style="padding: 25px;">
+			<input type="hidden" name="hiddenStartDateThree"
+				id="hiddenStartDateThree" /> <input type="hidden"
+				name="hiddenEndDateThree" id="hiddenEndDateThree" /> <input
+				type="button" class="w3-button w3-blue w3-round"
+				style="margin-bottom: 10px;" onclick="insertDatesThree()"
+				value="Inquire about these dates" /> 
+		</form>
 		
 		</div>
 		 
@@ -1285,7 +1293,7 @@ The ranch is also home to alpacas and goats who offer playful energy and are hap
 			</form>
 		</div>
 </div>
- -->
+ 
   
 
 
@@ -1310,15 +1318,6 @@ The ranch is also home to alpacas and goats who offer playful energy and are hap
 			
 		</table>
 		 -->
-		  
-   
-  <div class="w3-row w3-padding-32 w3-section">
-    <div class="w3-col m12 w3-container ani">
-        
-      <div id="googleMap" class="w3-round-large w3-greyscale" style="width:100%;height:400px;"></div>
-    </div>
-  </div>
-  
 </div>
 
 <!-- Footer -->
@@ -1339,6 +1338,8 @@ window.onload = function() {
         window.location.reload();
     }
 }
+
+
 
 function showBB(){
 	document.getElementById("BB").style.height = "500px";
@@ -1769,6 +1770,12 @@ function toggleFunction() {
 		document.getElementById("hiddenEndDate").value = endDate;
 	}
 	
+	function insertDatesThree() {
+		document.getElementById("hiddenStartDateThree").value = startDate;
+		document.getElementById("hiddenEndDateThree").value = endDate;
+		document.getElementById("inqForm").submit();
+	}
+	
 	function sendToServ() {
 		document.getElementById("hiddenArrayField").value=getDateArray(startDate, endDate);
 		console.log(document.getElementById("hiddenArrayField"));
@@ -1778,9 +1785,10 @@ function toggleFunction() {
 		myCalendar.clearSensitiveRange();
 	}
 	
+	
 	function addTrip() {
 		dimBeforeToday();
-		var dateArr = getDateArray(startDate, endDate);
+		var dateArr = getDateArray(startDate, (endDate.getDate() + 1));
 		for(var i = 0; i < dateArr.length; i++){
 			myCalendar.setInsensitiveDays(dateArr[i]);
 			myNextCalendar.setInsensitiveDays(dateArr[i]);

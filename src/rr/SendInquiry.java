@@ -186,7 +186,7 @@ public class SendInquiry extends HttpServlet {
 		mailer.sendMail("smtp.gmail.com", "587", "info@sartopartners.com", "info@sartopartners.com", "Sarto Partners", "info@sartopartners.com", "Inquiry Recieved",
 				firstName + " " + lastName + " at " + email + " asks: " + message + newline + "Send an offer via the inquiry tab or reply via email.");
 		
-		response.sendRedirect("/Index");
+		response.sendRedirect("inquirySent.jsp");
 
 	}
 }
